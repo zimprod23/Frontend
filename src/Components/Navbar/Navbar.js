@@ -15,7 +15,6 @@ padding : 1rem 2rem;
 z-index : 100;
 position : fixed;
 width : 100%;
-background : red;
 `;
 
 
@@ -31,8 +30,9 @@ text-decoration : none;
 
 const Logo = styled(Link)`
 ${NavLink}
- color : #888;
- font : italic
+ color : #fff;
+ font : italic;
+ font-size:18px;
 `;
 
 const MenuBars = styled(FaBars)`
@@ -78,11 +78,11 @@ color : #fff;
 }
 `;
 
-function Navbar() {
+function Navbar(props) {
     return (
         <Nav>
            <Logo to={'/'}>Protex</Logo>
-           <MenuBars />
+           <MenuBars onClick={props.toogle}/>
            <NavMenu>
                {MenuData.map((item,index) => (
                   
@@ -92,7 +92,7 @@ function Navbar() {
             ))}
            </NavMenu>
            <NavBtn>
-               <Button to={'/Contact'} primary={true}>Contact us</Button>
+               <Button to={'/Login'} primary={true}>Login</Button>
            </NavBtn>
         </Nav>
     )
