@@ -6,6 +6,7 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import LandingPage from './Components/LandingPage/LandingPage'
 import Footer from "./Components/Footer/Footer";
 import LoginPage from "./Components/LoginPage/Login";
+import AdminApp from "./Components/AdminComponent/AdminApp";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/Login" component={LoginPage} />
+          <Route  path="/Login" component={LoginPage} />
+          <Route  path="/Admin" component={AdminApp} />
         </Switch>
       </Router>
       <Footer />

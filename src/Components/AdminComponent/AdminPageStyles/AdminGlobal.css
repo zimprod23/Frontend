@@ -1,0 +1,10 @@
+.Welcome-page{
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.Welcome-page div{
+    padding: 10px;
+}
