@@ -81,7 +81,7 @@ color : #fff;
 function Navbar(props) {
     return (
         <Nav>
-           <Logo to={'/'}>Protex</Logo>
+           <Logo to={'/'}>Projecy</Logo>
            <MenuBars onClick={props.toogle}/>
            <NavMenu>
                {MenuData.map((item,index) => (

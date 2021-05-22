@@ -4,7 +4,91 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  position: relative;
 }
 .Welcome-page div{
     padding: 10px;
+}
+
+.Welcome-page img{
+ position: absolute;
+ top:0;
+ left:0;
+ width:100%;
+ height:100vh;
+ object-fit: cover
+}
+
+.menu{
+  transition: 0.3s ease-in-out;
+}
+
+.Project-wrapper{
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content: center;
+  padding: 25px;
+  height: 100vh;
+}
+.Project-wrapper_1{
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content: center;
+  padding: 25px;
+  height: 35vh;
+}
+/* .Project-wrapper>div::after{
+  content: "";
+  clear: both;
+  display: block;
+} */
+.Project-wrapper>div{
+  padding: 10px;
+  overflow: hidden;
+}
+.Des-Wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.Phase-Wrapper{
+  float: right;
+}
+/**
+Employee Styles
+**/
+.EmployeCRUD{
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  height: 100vh;
+}
+.EmployeCRUD>div:first-child{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px;
+
+}
+.EmployeCRUD>div:nth-child(2){
+  /* display: flex;
+  flex-direction: row; */
+  /* justify-content: center;
+  align-items: center; */
+  padding: 15px;
+
+  justify-content: space-between;
+}
+
+.EmployeCRUD>div:nth-child(3){
+  /* display: flex;
+  flex-direction: row; */
+  /* justify-content: center;
+  align-items: center; */
+  padding: 15px;
+
 }
