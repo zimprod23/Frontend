@@ -2,7 +2,7 @@ import { PlusOutlined, SettingOutlined } from '@ant-design/icons'
 import { Button, Col, Collapse, Row } from 'antd'
 import Search from 'antd/lib/input/Search'
 import React, {useState} from 'react'
-import EmployeCard from '../Utils/EmployeCard';
+//import EmployeCard from '../Utils/EmployeCard';
 import ProjectCard from '../Utils/ProjectCard';
 
 const {Panel} = Collapse;
@@ -42,7 +42,7 @@ const text = "Blah blah blah"
     );
 }
 
-function EmployesCRUD() {
+function ProjectCRUD() {
     return (
         <div className={"EmployeCRUD"}>
             <div>
@@ -62,10 +62,10 @@ function EmployesCRUD() {
                
             </div>
             <div>
-                <EmployeCard />
+                <ProjectCard />
             </div>
         </div>
     )
 }
  
-export default EmployesCRUD
+export default ProjectCRUD

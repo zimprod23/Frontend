@@ -7,6 +7,8 @@ import NavBar from "./Navbar/NavBar";
 import MakeAProj from "./StartupPage/MakeAProj";
 import Projects from "./ProjectsPage/Projects";
 import EmployesCRUD from "./EmployesCrud/EmployesCRUD";
+import AddEmployee from "./EmployesCrud/AddEmployee";
+import ProjectCRUD from "./ProjectsCrud/ProjectCrud";
 
 
 function AdminApp() {
@@ -17,9 +19,10 @@ function AdminApp() {
             {/* <Router> */}
               <NavBar />
                 <Switch>
-                   <Route  exact path="Projects" component={Projects} />
-                   <Route   path="Home" component={MakeAProj}/>
-                   <Route   path="/" component={EmployesCRUD} />   
+                   <Route  path="/" component={Projects} />
+                   <Route exact  path="/Projects" component={ProjectCRUD} />  
+                   <Route exact  path="/Employees" component={EmployesCRUD} />
+                   <Route exact  path="/Employees/Add_Emp" component={AddEmployee} />   
                 </Switch>
             {/* </Router> */}
         </div>
