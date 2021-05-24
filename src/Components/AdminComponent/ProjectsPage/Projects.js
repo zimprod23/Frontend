@@ -16,11 +16,11 @@ function Projects() {
              </div>
         <div className="Project-wrapper">
             <div>
-            <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 
                 {x.map((item,index) => {
                     return (
-                      <Col >
+                      <Col>
                         <ProjectCard key={index}/>
                       </Col>
                     )

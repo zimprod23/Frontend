@@ -9,21 +9,24 @@ import Projects from "./ProjectsPage/Projects";
 import EmployesCRUD from "./EmployesCrud/EmployesCRUD";
 import AddEmployee from "./EmployesCrud/AddEmployee";
 import ProjectCRUD from "./ProjectsCrud/ProjectCrud";
+import AddProject from "./ProjectsCrud/AddProject";
+import ProjectDetail from "./ProjectsCrud/ProjectDetails/ProjectDetail";
 
 
-function AdminApp() {
+function AdminApp(props) {
 
 
     return (
         <div>
             {/* <Router> */}
               <NavBar />
-                <Switch>
-                   <Route  path="/" component={Projects} />
-                   <Route exact  path="/Projects" component={ProjectCRUD} />  
-                   <Route exact  path="/Employees" component={EmployesCRUD} />
-                   <Route exact  path="/Employees/Add_Emp" component={AddEmployee} />   
-                </Switch>
+                   <Route exact path="/admin" component={Projects} />
+                   <Route exact path="/admin/projects" component={ProjectCRUD} />  
+                   <Route exact path="/admin/employees" component={EmployesCRUD} />
+                   <Route exact path="/admin/employees/add_Emp" component={AddEmployee} />
+                   <Route exact path="/admin/projects/add_Project" component={AddProject} />  
+                   <Route exact path="/admin/projects/:project_ID" component={ProjectDetail} />  
+              
             {/* </Router> */}
         </div>
     )

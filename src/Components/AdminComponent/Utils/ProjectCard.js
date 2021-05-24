@@ -49,7 +49,7 @@ function ProjectCard() {
           actions={[
             <EditOutlined key="edit" />,
             <DeleteOutlined key="ellipsis" />,
-            (<Link to="/Admin"><ArrowRightOutlined /></Link>)
+            (<Link to="/admin/projects/CHu_papi_munyanÑuo"><ArrowRightOutlined /></Link>)
           ]}
           hoverable
         >

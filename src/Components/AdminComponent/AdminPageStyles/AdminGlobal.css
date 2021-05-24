@@ -120,3 +120,14 @@ Add formular
 #Form{
   padding: 10px;
 }
+
+/**
+Adding a proj
+*/
+.Add-Proj{
+  padding:5vh;
+}
+.Steps-Container{
+  padding: 15px;
+  margin-left:15px;
+}

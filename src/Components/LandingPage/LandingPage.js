@@ -8,16 +8,15 @@ import Hero from '../Styles/Hero';
 import { SliderData } from "../../data/SliderData";
 import GlobalStyle from '../Styles/GlobalStyle';
 
-function LandingPage(props) {
-
-const [isOpen, setisOpen] = useState(false);
+function LandingComp(){
+  const [isOpen, setisOpen] = useState(false);
   const toogle = () => {
     setisOpen(!isOpen);
   }
 
-    return (
-        <Route>
-            <GlobalStyle />
+  return(
+      <>
+         <GlobalStyle />
             <Navbar toogle={toogle}/>
             <DropDownMenu isopen={isOpen} toogle={toogle}/>
             <Hero Slides={SliderData}/>
@@ -26,7 +25,14 @@ const [isOpen, setisOpen] = useState(false);
                  <Infos info={item} key = {index}/> 
             ))}     
         </div>
-        </Route>
+      </>
+  );
+}
+
+function LandingPage(props) {
+
+    return (
+        <Route exact path="/" component={LandingComp}/>
     );
 }
 

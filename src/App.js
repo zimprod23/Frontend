@@ -18,9 +18,10 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route  path="/Login" component={LoginPage} />
-          <Route  path="/Admin" component={AdminApp} />
+          <Route  exact path="/" component={LandingPage} />
+          <Route  path="/home" component={LandingPage} />
+          <Route  path="/admin" component={AdminApp} />
+          <Route  path="/login" component={LoginPage} />
         </Switch>
       </Router>
       <Footer />

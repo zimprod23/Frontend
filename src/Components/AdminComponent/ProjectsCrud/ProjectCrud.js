@@ -44,6 +44,7 @@ const text = "Blah blah blah"
 
 function ProjectCRUD() {
     return (
+      <>
         <div className={"EmployeCRUD"}>
             <div>
                 <Button type="primary" icon={<PlusOutlined />} size={"large"} >
@@ -51,20 +52,19 @@ function ProjectCRUD() {
                 </Button>
             </div>
             <div>
-                <Row>
+                <Row justify="space-between"  gutter={{ xs: 24, sm: 24, md: 12, lg: 12 }}>
                     <Col span={12}>
                        <Search placeholder="input search text"  size={"large"} onSearch={() => alert("YAbhsa")} enterButton /></Col>
                     <Col span={12}>
                        <Filter />
                     </Col>
                 </Row>
-               
-               
             </div>
             <div>
                 <ProjectCard />
             </div>
         </div>
+        </>
     )
 }
  
