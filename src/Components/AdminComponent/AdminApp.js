@@ -11,6 +11,7 @@ import AddEmployee from "./EmployesCrud/AddEmployee";
 import ProjectCRUD from "./ProjectsCrud/ProjectCrud";
 import AddProject from "./ProjectsCrud/AddProject";
 import ProjectDetail from "./ProjectsCrud/ProjectDetails/ProjectDetail";
+import TaskDetails from "./ProjectsCrud/TaskDetails/TaskDetails";
 
 
 function AdminApp(props) {
@@ -26,6 +27,7 @@ function AdminApp(props) {
                    <Route exact path="/admin/employees/add_Emp" component={AddEmployee} />
                    <Route exact path="/admin/projects/add_Project" component={AddProject} />  
                    <Route exact path="/admin/projects/:project_ID" component={ProjectDetail} />  
+                   <Route exact path="/admin/projects/:project_ID/:task_ID" component={TaskDetails} />  
               
             {/* </Router> */}
         </div>

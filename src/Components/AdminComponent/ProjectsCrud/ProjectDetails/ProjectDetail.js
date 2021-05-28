@@ -8,12 +8,14 @@ import styled from 'styled-components';
 
 const StepsContainer = styled.div`
     display: flex;
-    flex-direction: row;
     padding: 25px;
-    height: 20vh;
+    flex-wrap: wrap;
     width: 90vw;
     margin: 20px;
     background-color: #fdcb6e;
+    align-items: center;
+    over-flow: hidden;
+    
 `;
 
 
@@ -148,25 +150,32 @@ function ProjectDetail(props) {
                          <div id="Backlog_Items">
                              <Title level={3}>#Backlog Items</Title>
                               <StepsContainer>
-                                  <TaskCard />
+                                  <TaskCard proj={proj} step={'backlog'}/>
+                                  <TaskCard proj={proj} step={'backlog'}/>
+                                  <TaskCard proj={proj} step={'backlog'}/>
+                                  <TaskCard proj={proj} step={'backlog'}/>
+                                  <TaskCard proj={proj} step={'backlog'}/>
+                                  <TaskCard proj={proj} step={'backlog'}/>
                               </StepsContainer>
                          </div>
                          <div id="In_Progress">
                          <Title level={3}>#In Progress</Title>
                               <StepsContainer>
-                                  <TaskCard />
+                                  <TaskCard proj={proj} step={'inprogress'}/>
+                                  <TaskCard proj={proj} step={'inprogress'}/>
+                                  <TaskCard proj={proj} step={'inprogress'}/>
                               </StepsContainer>
                          </div>
                          <div id="Done">
                          <Title level={3}>#Done</Title>
-                              <StepsContainer>
-                                  <TaskCard />
+                              <StepsContainer >
+                                  <TaskCard proj={proj} step={'done'}/>
                               </StepsContainer>
                          </div>
                          <div id="Cancelled">
                          <Title level={3}>#Cancelled</Title>
                               <StepsContainer>
-                                  <TaskCard />
+                                  <TaskCard proj={proj} step={'cancelled'}/>
                               </StepsContainer>
                          </div>
                     </Row> 
