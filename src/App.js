@@ -7,6 +7,7 @@ import LandingPage from './Components/LandingPage/LandingPage'
 import Footer from "./Components/Footer/Footer";
 import LoginPage from "./Components/LoginPage/Login";
 import AdminApp from "./Components/AdminComponent/AdminApp";
+import Emp from "./Components/EmployeeComponent/Emp";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route  path="/home" component={LandingPage} />
           <Route  path="/admin" component={AdminApp} />
           <Route  path="/login" component={LoginPage} />
+          <Route  path="/Emp" component={Emp} />
           {/* <Route  path="/employee" component={EmployeApp} /> */}
         </Switch>
       </Router>

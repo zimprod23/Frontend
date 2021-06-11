@@ -1,12 +1,19 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Col, Row } from 'antd'
-import React from 'react'
-import MakeAProj from '../StartupPage/MakeAProj'
+import React,{useEffect} from 'react'
 import ProjectCard from '../Utils/ProjectCard'
+import { useDispatch,useSelector } from 'react-redux';
+import { getTopHeadlineProjects } from '../../../actions/projectAction'
 
 let x = [1,2,3]
 
-function Projects() {
+function Projects(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTopHeadlineProjects());
+    console.log("Test")
+  }, [])
+  const proj = useSelector(state => state.project);
     return (
         <>
              <div className="Project-wrapper_1">
@@ -18,10 +25,11 @@ function Projects() {
             <div>
             <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 
-                {x.map((item,index) => {
+                {proj.headlineProjs && proj.headlineProjs.map((item,index) => {
                     return (
                       <Col>
-                        <ProjectCard key={index}/>
+                        {console.log(item)}
+                        <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading}/>
                       </Col>
                     )
                 })}

@@ -15,7 +15,6 @@ const StepsContainer = styled.div`
     background-color: #fdcb6e;
     align-items: center;
     over-flow: hidden;
-    
 `;
 
 

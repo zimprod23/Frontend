@@ -61,7 +61,7 @@ function ProjectCRUD() {
                 </Row>
             </div>
             <div>
-                <ProjectCard />
+                {/* <ProjectCard /> */}
             </div>
         </div>
         </>

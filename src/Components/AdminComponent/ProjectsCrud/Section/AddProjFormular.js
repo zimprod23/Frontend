@@ -1,278 +1,137 @@
 import React, { useState } from 'react';
-import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
-const { Option } = Select;
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+import {
+  Form,
+  Input,
+  Button,
+  Radio,
+  Select,
+  Cascader,
+  DatePicker,
+  InputNumber,
+  TreeSelect,
+  Switch,
+  Row,Col
+} from 'antd';
 
- function AddProjFormular() {
+function AddProjectFormular() {
+  const [componentSize, setComponentSize] = useState('large');
   const [form] = Form.useForm();
-
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+  const onFormLayoutChange = ({ size }) => {
+    setComponentSize(size);
   };
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+      <Select style={{ width: 70 }} defaultActiveFirstOption>
+        <Select.Option value="86">DH</Select.Option>
       </Select>
     </Form.Item>
   );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
   return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      initialValues={{
-        residence: ['zhejiang', 'hangzhou', 'xihu'],
-        prefix: '86',
-      }}
-      scrollToFirstError
-    >
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
+    <Row justify={"center"}>
+         <Col span={24}>
+              
+         <Form
+         onFinish={() => alert("HShs")}
+         form={form}
+        labelCol={{
+          span: 4,
+        }}
+        wrapperCol={{
+          span: 14,
+        }}
+        layout="horizontal"
+        initialValues={{
+          size: componentSize,
+        }}
+        onValuesChange={onFormLayoutChange}
+        size={componentSize}
+        scrollToFirstError
       >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
+        <Form.Item label="Project Title" name="Project Title" value={"52"}
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Please input The project Title!',
           },
         ]}
-        hasFeedback
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="nickname"
-        label="Nickname"
-        tooltip="What do you want others to call you?"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your nickname!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="residence"
-        label="Habitual Residence"
-        rules={[
-          {
-            type: 'array',
-            required: true,
-            message: 'Please select your habitual residence!',
-          },
-        ]}
-      >
-        <Cascader options={residences} />
-      </Form.Item>
-
-      <Form.Item
-        name="phone"
-        label="Phone Number"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your phone number!',
-          },
-        ]}
-      >
-        <Input
-          addonBefore={prefixSelector}
-          style={{
-            width: '100%',
-          }}
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="website"
-        label="Website"
-        rules={[
-          {
-            required: true,
-            message: 'Please input website!',
-          },
-        ]}
-      >
-        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
+        >
           <Input />
-        </AutoComplete>
-      </Form.Item>
-
-      <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-        <Row gutter={8}>
-          <Col span={12}>
-            <Form.Item
-              name="captcha"
-              noStyle
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input the captcha you got!',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Button>Get captcha</Button>
-          </Col>
-        </Row>
-      </Form.Item>
-
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
+        </Form.Item>
+        <Form.Item label="Type" name="type" 
+         rules={[
           {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+            required: true,
+            message: 'Please input The project type!',
           },
         ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
+        >
+          <Select>
+            <Select.Option value="demo">Demo</Select.Option>
+            <Select.Option value="demo1">Demo</Select.Option>
+            <Select.Option value="demo2">Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Secteur" name="secteur" 
+         rules={[
+          {
+            required: true,
+            message: 'Please input The project field!',
+          },
+        ]}
+        >
+          <Select>
+            <Select.Option value="demo4">Demo</Select.Option>
+            <Select.Option value="demo5">Demo</Select.Option>
+            <Select.Option value="demo6">Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Device" name="device"
+         rules={[
+          {
+            required: true,
+            message: 'Please input The project Device!',
+          },
+        ]}
+        >
+          <Select>
+            <Select.Option value="demo7">Demo</Select.Option>
+            <Select.Option value="demo8">Demo</Select.Option>
+            <Select.Option value="demo9">Demo</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item name={"description"} label="Description" 
+         rules={[
+          {
+            required: true,
+            message: 'Please input The project Description!',
+          },
+        ]}
+        >
+        <Input.TextArea />
       </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
-  )
-    }
+        <Form.Item label="Date Limite" name="date_limite" 
+         rules={[
+          {
+            required: true,
+            message: 'Please input The project limite date!',
+          },
+        ]}
+        >
+          <DatePicker />
+        </Form.Item>
+        <Form.Item label="Bugjet">
+          <Input addonBefore={prefixSelector}/>
+        </Form.Item>
+        <Form.Item label="Button">
+          <Button type={'primary'} htmlType="submit">Create Project</Button>
+        </Form.Item>
+      </Form>
+               
+         </Col>
+    </Row>
+  );
+};
 
-
-export default AddProjFormular
+export default AddProjectFormular

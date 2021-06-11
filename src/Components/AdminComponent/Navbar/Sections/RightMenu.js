@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, Badge } from "antd";
+import { Link } from "react-router-dom";
 // import { UserOutlined } from "@ant-design/icons";
 // import { useSelector, useDispatch } from "react-redux";
 // import { logout } from "../../../actions/authAction";
@@ -49,8 +50,10 @@ function RightMenu(props) {
             </a> 
           </Badge> */}
         </Menu.Item>
-        <Menu.Item  key="user">
-             BI
+        <Menu.Item  key="BI">
+          <Link to={`/admin/bi`}>
+              BI
+          </Link>
           </Menu.Item >
           <Menu.Item  key="Proj">
              Project
