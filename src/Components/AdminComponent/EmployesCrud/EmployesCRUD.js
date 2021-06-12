@@ -4,6 +4,7 @@ import Search from 'antd/lib/input/Search'
 import React, {useState} from 'react'
 import EmployeCard from '../Utils/EmployeCard';
 import ProjectCard from '../Utils/ProjectCard';
+import NewEmpProvider from '../Utils/NewEmpProvider';
 
 const {Panel} = Collapse;
 
@@ -65,6 +66,7 @@ function EmployesCRUD() {
                 <EmployeCard />
             </div>
         </div>
+     
     )
 }
  

@@ -118,7 +118,14 @@ Add formular
   padding: 20px;
 }
 #Form{
-  padding: 10px;
+  padding: 30px;
+  /* display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; */
+  justify-content: center;
+  margin-top: 20px;
+  /* background-color: khaki; */
 }
 
 /**

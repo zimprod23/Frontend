@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "./AdminPageStyles/AdminGlobal.css"
 import { Route, Switch, BrowserRouter as Router,useRouteMatch } from "react-router-dom";
 import NavBar from "./Navbar/NavBar";
-import MakeAProj from "./StartupPage/MakeAProj";
+import NewEmpProvider from './Utils/NewEmpProvider';
 import Projects from "./ProjectsPage/Projects";
 import EmployesCRUD from "./EmployesCrud/EmployesCRUD";
 import AddEmployee from "./EmployesCrud/AddEmployee";
@@ -24,12 +24,14 @@ function AdminApp(props) {
               <NavBar />
                    <Route exact path="/admin" component={Projects} />
                    <Route exact path="/admin/projects" component={ProjectCRUD} />  
-                   <Route exact path="/admin/employees" component={EmployesCRUD} />
-                   <Route exact path="/admin/employees/add_Emp" component={AddEmployee} />
                    <Route exact path="/admin/project/add_Project" component={AddProject} />  
                    <Route exact path="/admin/projects/:project_ID" component={ProjectDetail} />  
                    <Route exact path="/admin/projects/:project_ID/:task_ID" component={TaskDetails} />  
-                   <Route exact path="/admin/bi" component={Bi} />               
+                   <Route exact path="/admin/bi" component={Bi} />     
+                   <Route exact path="/admin/employees" component={EmployesCRUD} />
+                   <NewEmpProvider>
+                   <Route exact path="/admin/employees/add_Emp" component={AddEmployee} />
+                   </NewEmpProvider>          
             {/* </Router> */}
         </div>
     )

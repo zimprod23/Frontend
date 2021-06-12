@@ -7,15 +7,18 @@ export default function UploadPicture() {
     {
       uid: '-1',
       name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+      status: '',
+      url: '',
     },
   ]);
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
-
+ const UploadFile = (file) => {
+   alert("Heyyy")
+   console.log(file)
+ }
   const onPreview = async file => {
     let src = file.url;
     if (!src) {
@@ -35,13 +38,13 @@ export default function UploadPicture() {
     <ImgCrop rotate>
       <Upload
         maxCount={1}
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        action={UploadFile}
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}
         onPreview={onPreview}
       >
-        {fileList.length < 5 && '+ Upload'}
+        {fileList.length > 1 ? '+ Upload':'Change'}
       </Upload>
     </ImgCrop>
   );
