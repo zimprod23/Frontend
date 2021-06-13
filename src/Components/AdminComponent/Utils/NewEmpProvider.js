@@ -13,6 +13,7 @@ function NewEmpProvider(props) {
         resume:null,
         type:null
     })
+   
     return (
         <EmpCtxt.Provider
         value={{

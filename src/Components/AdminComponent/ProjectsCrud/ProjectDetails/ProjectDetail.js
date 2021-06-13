@@ -1,10 +1,12 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import queryString from "query-string";
 import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor } from 'antd';
 import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
 import { Typography } from 'antd'
 import TaskCard from '../Section/TaskCard';
 import styled from 'styled-components';
+import { getProjectById } from '../../../../actions/projectAction'
+import { useDispatch, useSelector } from 'react-redux';
 
 const StepsContainer = styled.div`
     display: flex;
@@ -12,7 +14,7 @@ const StepsContainer = styled.div`
     flex-wrap: wrap;
     width: 90vw;
     margin: 20px;
-    background-color: #fdcb6e;
+    background-color: #74b9ff;
     align-items: center;
     over-flow: hidden;
 `;
@@ -33,7 +35,17 @@ function RenderAnchorLabels(){
     );
 }
 
-function RenderAvaGroup(){
+function EmptyTask(){
+    return(
+        <div>
+             <Title level={3} type="danger">
+                  There in no active task in this section...
+             </Title>
+        </div>
+    )
+}
+
+function RenderAvaGroup({proj}){
     return(
         <>
         <Space size={30} align="center" direction="horizontal">
@@ -41,28 +53,28 @@ function RenderAvaGroup(){
         <div>
         <Tooltip placement="top" title="conception">
         <Avatar style={{backgroundColor : "#55efc4" }} size="large">
-            {14}
+            {proj && proj.count_Done_tasks}
         </Avatar>
         </Tooltip>
         </div>
         <div>    
         <Tooltip placement="top" title="Codage">
         <Avatar style={{backgroundColor : "#fdcb6e" }} size="large">
-            {19}
+            {proj && proj.count_Inprogress_tasks}
         </Avatar>
         </Tooltip>
         </div>
         <div>
         <Tooltip placement="top" title="test">
         <Avatar style={{backgroundColor : "#74b9ff" }} size="large">
-            {6}
+            {proj && proj.count_Canceled_tasks}
         </Avatar>
         </Tooltip>
         </div>
         <div>
         <Tooltip placement="top" title="test">
         <Avatar style={{backgroundColor : "#74b9ff" }} size="large">
-            {6}
+            {proj && proj.count_affected_tasks}
         </Avatar>
         </Tooltip>
         </div>
@@ -92,34 +104,54 @@ function RenderBreadCumbs({proj}){
 }
 
 function ProjectDetail(props) {
-    const query = queryString.parse(props.location.search);
+    const dispatch = useDispatch();
+    const project = useSelector(state => state.project)
+    const progress = 12//project.spProj && ((project.spProj.count_Done_tasks / project.spProj.count_all_tasks)*100)
+    //const query = queryString.parse(props.location.search);
     const proj = props.match.params.project_ID;
+   
+    useEffect(() => {
+        dispatch(getProjectById(proj))
+    }, [])
+
     return (
         <div className="Add-Proj">
             <div>
-            <RenderBreadCumbs proj={proj}/>
+            <RenderBreadCumbs proj={project.spProj && project.spProj.title}/>
             </div>
             <div style={{padding:"8vh",display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
-                <Row justify="center">
+                <Row >
                     <Col span={4}>
                         <div>
                             <RenderAnchorLabels />
                         </div>
                     </Col>
-                    <Col span={14}>
+                    <Col span={14} style={{padding:"10px",width:"60vw"}}>
                         <div>
-                            <Title>{proj}</Title>
+                            <Title>{project.spProj && project.spProj.title}</Title>
                             <div className="Text-Desc" style={{marginTop:"3vh"}}>
-                                <Text>
-                                    {`
-                                       jfiewjfewf ewfniewhfiew fewfewhfewf ewhf90ewhfehwfew
-                                       fewoifhewifheiwohfew fewifhewiofe wfewoifhewiofhioewf
-                                       fewofewfhewsoajfepwf ewfopwejfepw  jewiofnew qjpofew
-                                    `}
+                                <Text italic>
+                             { project.spProj && project.spProj.desc }
                                 </Text>
+                                <br />
+                                <Title level={5}>
+                                &#9733; budjet : { project.spProj && project.spProj.budget }
+                                </Title>
+                                <br />
+                                <Title level={5}>
+                                &#9733; device : { project.spProj && project.spProj.Device }
+                                </Title>
+                                <br />
+                                <Title level={5}>
+                                &#9733; secteur :  { project.spProj && project.spProj.secteur }
+                                </Title>
+                                <br />
+                                <Title level={5}>
+                                &#9733; start date : { project.spProj && project.spProj.start_date } || limit date : { project.spProj && project.spProj.date_limit }
+                                </Title>
                             </div>
                             <div style={{padding:"5vh",}}>
-                                 <RenderAvaGroup />
+                                  <RenderAvaGroup proj={project.spProj && project.spProj}/> 
                             </div>
                         </div>
                     </Col>
@@ -135,7 +167,7 @@ function ProjectDetail(props) {
                             </Col>
                             <Col span={24}>
                                 <div>
-                                   <Progress type="circle" percent={75} width={80}/>
+                                   <Progress type="circle" percent={progress} width={80}/>
                                </div>
                             </Col>
                             </Space>
@@ -146,35 +178,60 @@ function ProjectDetail(props) {
             </div>
             <div className="Steps-Container">
                     <Row justify="center">
-                         <div id="Backlog_Items">
+                    <div id="Backlog_Items">
                              <Title level={3}>#Backlog Items</Title>
                               <StepsContainer>
-                                  <TaskCard proj={proj} step={'backlog'}/>
-                                  <TaskCard proj={proj} step={'backlog'}/>
-                                  <TaskCard proj={proj} step={'backlog'}/>
-                                  <TaskCard proj={proj} step={'backlog'}/>
-                                  <TaskCard proj={proj} step={'backlog'}/>
-                                  <TaskCard proj={proj} step={'backlog'}/>
+                                  {
+                                       project.spProj && project.spProj.backlogItems.length > 0 ? project.spProj.backlogItems.map((item,index) => {
+                                           return (
+                                           <>
+                                              <TaskCard proj={proj} step={'backlog'} key={index} info={item}/>
+                                           </>
+                                           )
+                                       }):<EmptyTask />
+                                  }
                               </StepsContainer>
                          </div>
                          <div id="In_Progress">
                          <Title level={3}>#In Progress</Title>
                               <StepsContainer>
-                                  <TaskCard proj={proj} step={'inprogress'}/>
-                                  <TaskCard proj={proj} step={'inprogress'}/>
-                                  <TaskCard proj={proj} step={'inprogress'}/>
+                              {
+                                       project.spProj && project.spProj.inProgressItems.length > 0 ? project.spProj.inProgressItems.map((item,index) => {
+                                           return (
+                                           <>
+                                              <TaskCard proj={proj} step={'inprogress'} key={index} info={item}/>
+                                           </>
+                                           )
+                                       }):<EmptyTask />
+                                  }
                               </StepsContainer>
                          </div>
                          <div id="Done">
                          <Title level={3}>#Done</Title>
                               <StepsContainer >
-                                  <TaskCard proj={proj} step={'done'}/>
+                              {
+                                       project.spProj && project.spProj.doneItems.length > 0 ? project.spProj.doneItems.map((item,index) => {
+                                           return (
+                                           <>
+                                              <TaskCard proj={proj} step={'done'} key={index} info={item}/>
+                                           </>
+                                           )
+                                       }):<EmptyTask />
+                                  }
                               </StepsContainer>
                          </div>
                          <div id="Cancelled">
                          <Title level={3}>#Cancelled</Title>
                               <StepsContainer>
-                                  <TaskCard proj={proj} step={'cancelled'}/>
+                              {
+                                       project.spProj && project.spProj.canceldItems.length > 0 ? project.spProj.canceldItems.map((item,index) => {
+                                           return (
+                                           <>
+                                              <TaskCard proj={proj} step={'canceled'} key={index} info={item}/>
+                                           </>
+                                           )
+                                       }):<EmptyTask />
+                                  }
                               </StepsContainer>
                          </div>
                     </Row> 

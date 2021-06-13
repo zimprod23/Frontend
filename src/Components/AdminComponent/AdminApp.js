@@ -24,7 +24,7 @@ function AdminApp(props) {
               <NavBar />
                    <Route exact path="/admin" component={Projects} />
                    <Route exact path="/admin/projects" component={ProjectCRUD} />  
-                   <Route exact path="/admin/project/add_Project" component={AddProject} />  
+                   <Route exact path="/admin/projects/add_Project" component={AddProject} />  
                    <Route exact path="/admin/projects/:project_ID" component={ProjectDetail} />  
                    <Route exact path="/admin/projects/:project_ID/:task_ID" component={TaskDetails} />  
                    <Route exact path="/admin/bi" component={Bi} />     

@@ -6,6 +6,9 @@ import {
   FETCH_SEARCHED_PROJ_LOADING,
   FETCH_ALL_PROJ_LOADING,
   FETCH_ALL_PROJ_SUCCSESS,
+  FETCH_SEARCHED_PROJ_FAILED_BYID,
+  FETCH_SEARCHED_PROJ_LOADING_BYID,
+  FETCH_SEARCHED_PROJ_SUCCESS_BYID
 } from '../actions/types';
 
 const initialState = {
@@ -21,6 +24,7 @@ export default function(state = initialState,action){
       case L3_PROJECTS_LOADING: 
       case FETCH_ALL_PROJ_LOADING:
       case FETCH_ALL_PROJ_LOADING:
+      case FETCH_SEARCHED_PROJ_LOADING_BYID:
           return{
               ...state,
               isLoaded: false,
@@ -47,6 +51,13 @@ export default function(state = initialState,action){
               isLoading: false,
               allProjs: action.payload
             }
+    case FETCH_SEARCHED_PROJ_SUCCESS_BYID:
+      return{
+        ...state,
+        isLoaded: true,
+        isLoading: false,
+        spProj: action.payload
+      }
         default: 
            return state
     }

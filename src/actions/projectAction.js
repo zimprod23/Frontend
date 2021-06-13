@@ -6,7 +6,10 @@ import {
   FETCH_SEARCHED_PROJ_LOADING,
   FETCH_ALL_PROJ_SUCCSESS,
   FETCH_ALL_PROJ_LOADING,
-  FETCH_ALL_PROJ_FAILED
+  FETCH_ALL_PROJ_FAILED,
+  FETCH_SEARCHED_PROJ_FAILED_BYID,
+  FETCH_SEARCHED_PROJ_LOADING_BYID,
+  FETCH_SEARCHED_PROJ_SUCCESS_BYID
 } from './types';
 import axios from 'axios';
 
@@ -44,7 +47,7 @@ export const getSearchedProjects = (searchVerb) => async(dispatch) => {
    dispatch({
        type : FETCH_SEARCHED_PROJ_LOADING
    })
-   axios.get(`http://127.0.0.1:8000/project/?search=${searchVerb}`).then(res => {
+  await axios.get(`http://127.0.0.1:8000/project/?search=${searchVerb}`).then(res => {
        dispatch({
            type: FETCH_SEARCHED_PROJ_SUCCESS,
            payload: res.data
@@ -52,4 +55,19 @@ export const getSearchedProjects = (searchVerb) => async(dispatch) => {
    }).catch(err => {
        alert(err)
    })
+}
+
+export const getProjectById = (id) => async(dispatch) => {
+  dispatch({
+      type: FETCH_SEARCHED_PROJ_LOADING_BYID
+  })
+  
+   await axios.get(`http://127.0.0.1:8000/project/${id}`).then(res => 
+           dispatch({
+              type: FETCH_SEARCHED_PROJ_SUCCESS_BYID,
+              payload: res.data
+           })
+        ).catch(err => {
+        alert("Something went wrong")
+    })
 }

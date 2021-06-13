@@ -23,7 +23,7 @@ function App() {
           <Route  path="/home" component={LandingPage} />
           <Route  path="/admin" component={AdminApp} />
           <Route  path="/login" component={LoginPage} />
-          <Route  path="/Emp" component={Emp} />
+          <Route  path="/emp" component={Emp} />
           {/* <Route  path="/employee" component={EmployeApp} /> */}
         </Switch>
       </Router>

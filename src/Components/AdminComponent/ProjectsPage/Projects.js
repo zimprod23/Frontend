@@ -3,7 +3,8 @@ import { Button, Col, Row } from 'antd'
 import React,{useEffect} from 'react'
 import ProjectCard from '../Utils/ProjectCard'
 import { useDispatch,useSelector } from 'react-redux';
-import { getTopHeadlineProjects } from '../../../actions/projectAction'
+import { getTopHeadlineProjects } from '../../../actions/projectAction';
+import RenderSkeleton from '../Utils/RenderSkeleton';
 
 let x = [1,2,3]
 
@@ -25,14 +26,14 @@ function Projects(props) {
             <div>
             <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 
-                {proj.headlineProjs && proj.headlineProjs.map((item,index) => {
+                {proj.headlineProjs && proj.headlineProjs.length > 0?proj.headlineProjs.map((item,index) => {
                     return (
                       <Col>
                         {console.log(item)}
                         <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading}/>
                       </Col>
                     )
-                })}
+                }):<RenderSkeleton />}
           </Row>
             </div>
 
