@@ -10,7 +10,7 @@ const { Text } = Typography
 const TasksContainer = styled.div`
   padding: 18px;
   margin:10px;
-  background-color: red;
+  
   max-width: 90vw
 `;
 
@@ -20,7 +20,8 @@ padding : 20px;
 margin  : 7px;
 display : flex;
 justify-content: space-between;
-border: 1px solid
+border: 1.8px solid;
+border-color: #ecf0f1
 `;
 
 function PendingTask(props){
@@ -51,7 +52,7 @@ function EmpDahboard() {
               alignItems:"center"
           }}
         >
-              <Row justify="center" style={{backgroundColor: 'blue',padding:"25px"}}>
+              <Row justify="center" style={{/*backgroundColor: 'blue',*/padding:"25px"}}>
                   <Col span={24}>
                       <TasksContainer>
                           <Divider>In Progress</Divider>

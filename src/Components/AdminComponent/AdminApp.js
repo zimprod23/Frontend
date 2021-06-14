@@ -13,6 +13,7 @@ import AddProject from "./ProjectsCrud/AddProject";
 import ProjectDetail from "./ProjectsCrud/ProjectDetails/ProjectDetail";
 import TaskDetails from "./ProjectsCrud/TaskDetails/TaskDetails";
 import Bi from "./BI/Bi";
+import EmpProphile from "./EmployesCrud/EmpProphile";
 
 
 function AdminApp(props) {
@@ -29,8 +30,9 @@ function AdminApp(props) {
                    <Route exact path="/admin/projects/:project_ID/:task_ID" component={TaskDetails} />  
                    <Route exact path="/admin/bi" component={Bi} />     
                    <Route exact path="/admin/employees" component={EmployesCRUD} />
+                   <Route exact path="/admin/employees/:emp_ID" component={EmpProphile} />
                    <NewEmpProvider>
-                   <Route exact path="/admin/employees/add_Emp" component={AddEmployee} />
+                   <Route exact path="/admin/employee/add_Emp" component={AddEmployee} />
                    </NewEmpProvider>          
             {/* </Router> */}
         </div>

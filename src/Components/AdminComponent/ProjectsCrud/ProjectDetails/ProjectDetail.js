@@ -91,7 +91,7 @@ function RenderBreadCumbs({proj}){
             <Breadcrumb.Item href="/admin">
             <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/admin/employees">
+            <Breadcrumb.Item href="/admin/projects">
             <ProjectOutlined />
             <span>Projects</span>
             </Breadcrumb.Item>

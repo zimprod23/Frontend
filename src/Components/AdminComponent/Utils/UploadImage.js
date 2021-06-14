@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState,useCallback,useEffect } from 'react';
 import { Upload } from 'antd';
+import { CheckOutlined } from '@ant-design/icons'
 import ImgCrop from 'antd-img-crop';
+import { app } from '../../../base'
 
 export default function UploadPicture() {
   const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: '',
-      url: '',
-    },
+   
   ]);
+  const [imagPath, setimagPath] = useState("");
 
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
- const UploadFile = (file) => {
-   alert("Heyyy")
-   console.log(file)
- }
+
+ const UploadFile = async (acceptedFile) => {
+     console.log(acceptedFile)
+     const storageRef = app.storage().ref();
+    const fileRef = storageRef.child(acceptedFile.name);
+    await fileRef.put(acceptedFile);
+    setFileList([{url: await fileRef.getDownloadURL(),name:"Image.png",uid:"-2"}]);
+    //from the direct link
+    console.log(await fileRef.getDownloadURL());
+    //from the state
+      setimagPath(await fileRef.getDownloadURL());
+      console.log(imagPath)
+   
+  };
+
+useEffect(() => {
+  console.log(imagPath)
+}, [imagPath])
+
   const onPreview = async file => {
     let src = file.url;
     if (!src) {
@@ -35,7 +48,9 @@ export default function UploadPicture() {
   };
 
   return (
-    <ImgCrop rotate>
+    <div>
+      {imagPath.length > 0 ? <CheckOutlined color="green"/>:""}
+      <ImgCrop rotate>
       <Upload
         maxCount={1}
         action={UploadFile}
@@ -47,5 +62,6 @@ export default function UploadPicture() {
         {fileList.length > 1 ? '+ Upload':'Change'}
       </Upload>
     </ImgCrop>
+    </div>
   );
 };

@@ -18,7 +18,7 @@ function MenuHeader() {
        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
        
         <Menu.Item key="Prophile"  icon={<AppstoreOutlined />}>
-          Navigation Two
+         <Link to={`/emp`}>Prophile</Link>
         </Menu.Item>
         <Menu.Item key="Dashboard" icon={<MailOutlined />} >
           <Link to={`/emp/dashboard`}>Dashboard</Link>
