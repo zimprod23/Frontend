@@ -4,6 +4,7 @@ import { HomeOutlined,UserOutlined,ArrowRightOutlined} from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CardWrapper from '../Utils/CardWrapper';
+import BadgesWrapper from '../Utils/BadgesWrapper';
 
 
 const RightSideContainer = styled.div`
@@ -13,7 +14,7 @@ display : flex;
 flex-wrap: wrap;
 justify-content: center;
 align-items: center;
-background-color:red
+// background-color:red
 `
 
 
@@ -24,11 +25,10 @@ display : flex;
 flex-wrap: wrap;
 justify-content: center;
 align-items: center;
-background-color: yellow
+//background-color: yellow
 `
 const BlockSection = styled.div`
-padding: 10px;
-margin: 5px;
+
 display : block;
 `;
 
@@ -103,8 +103,8 @@ function EmpProphile(props) {
                     padding: "10px",
                     margin:"10px",
                 }}>
-                   <Row justify="center" gutter={{xs: 8, sm: 16, md: 24, lg: 32 }} style={{backgroundColor:"blue"}}>
-                       <Col flex={2}>
+                   <Row justify="center" gutter={{xs: 8, sm: 16, md: 24, lg: 32 }} style={{backgroundColor:"#dff9fb"}}>
+                       <Col flex={3}>
                                <LeftSideContainer>
                                    <BlockSection>
                                        <div style={{
@@ -127,7 +127,10 @@ function EmpProphile(props) {
                                        }}>
                                        <Button type="primary">Download cv</Button>
                                        </div>
-                                   </BlockSection>                
+                                       <div>
+                                         <BadgesWrapper />
+                                       </div>  
+                                   </BlockSection>              
                                </LeftSideContainer>
                        </Col>
                        <Col flex={4}>
@@ -135,7 +138,7 @@ function EmpProphile(props) {
                                     <div style={{
                                         padding : "10px"
                                     }}>
-                                    <CardWrapper  title={"Asigned"} taskData={4}>
+                                    <CardWrapper  title={"In progress"} taskData={1} stateIndex={true}>
                                         <div style={{
                                             display:"flex",
                                             flexWrap:"wrap",
@@ -154,11 +157,9 @@ function EmpProphile(props) {
                                         </div>
                                     </CardWrapper>
                                      <br/>
-                                    <CardWrapper title={"Asigned"} taskData={2}/>
-                                     <br/>
-                                    <CardWrapper title={"Done"} taskData={8}/>
+                                    <CardWrapper title={"Done"} taskData={8} stateIndex={false}/>
                                     <br />
-                                    <CardWrapper title="Canceled" taskData={5}/>
+                                    <CardWrapper title="Canceled" taskData={5} stateIndex={false}/>
                                     </div>
                                     
                                </RightSideContainer>

@@ -57,10 +57,10 @@ function EmpDahboard() {
                       <TasksContainer>
                           <Divider>In Progress</Divider>
                       <Steps current={current} onChange={onChange} responsive status="process">
+                      <Step title="0%" description="This is a description." />
                         <Step title="25%" description="This is a description." />
                         <Step title="50%" description="This is a description." />
                         <Step title="75%" description="This is a description." />
-                        <Step title="100%" description="This is a description." />
                         <Step title="Done" description="This is a description."  icon={<SaveOutlined />}/>
                         </Steps>
                       </TasksContainer>
@@ -68,7 +68,9 @@ function EmpDahboard() {
                   <Col span={24}>
                       <TasksContainer>
                           <Divider>To do</Divider>
-                         <ProjectCardWrapper>
+                          <ProjectCardWrapper title={"Done"} taskData={8} stateIndex={false}/>
+                          <ProjectCardWrapper title={"Done"} taskData={3} stateIndex={false}/>
+                         {/* <ProjectCardWrapper>
                              <PendingTask title={"Hello"}/>
                              <PendingTask title={"Hello"}/>
                          </ProjectCardWrapper>
@@ -79,7 +81,7 @@ function EmpDahboard() {
                          <PendingTask title={"Hello"}/>
                          <PendingTask title={"Hello"}/>
                          <PendingTask title={"Hello"}/>
-                         </ProjectCardWrapper>
+                         </ProjectCardWrapper> */}
                       </TasksContainer>
                   </Col>
                   <Col span={24}></Col>
