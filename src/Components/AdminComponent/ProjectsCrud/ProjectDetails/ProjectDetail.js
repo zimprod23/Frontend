@@ -1,5 +1,4 @@
 import React,{useEffect} from 'react';
-import queryString from "query-string";
 import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor } from 'antd';
 import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
 import { Typography } from 'antd'
@@ -39,7 +38,7 @@ function EmptyTask(){
     return(
         <div>
              <Title level={3} type="danger">
-                  There in no active task in this section...
+                  There are in no active tasks in this section...
              </Title>
         </div>
     )

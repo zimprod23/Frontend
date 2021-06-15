@@ -1,8 +1,9 @@
-import React from 'react';
-import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor } from 'antd';
+import React,{useState} from 'react';
+import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor,Dropdown,Menu } from 'antd';
 import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
 import { Typography } from 'antd'
 import styled from 'styled-components';
+import AssignedTaskOwner from './AssignTaskOwner';
 
 const SectionOne = styled.div``;
 
@@ -26,6 +27,36 @@ flex-wrap: wrap;
 background: #eee;
 
 `;
+
+
+
+function DropMenu(props){
+    
+    const menu = (
+        <div >
+           <Menu style={{
+             padding:"15px",
+            margin:"15px",
+            textAlign:"center",
+            backgroundColor:"#7efff5"
+        }}>
+             <Menu.Item>
+                     <Title level={5}>Owner setting</Title>
+                </Menu.Item>
+                <Menu.Item>
+                    <AssignedTaskOwner />
+                </Menu.Item>
+            </Menu>
+        </div>
+    );
+    return(
+        <>
+           <Dropdown overlay={menu} placement="bottomCenter" arrow>
+             {props.children}
+            </Dropdown>
+        </>
+    )
+}
 
 function RenderBreadCumbs({proj,task}){
    
@@ -72,8 +103,10 @@ function TaskDetails(props) {
                      </Col>
                      <Col span={8}>
                          <div style={{display: `flex`,justifyContent:"flex-end",alignItems:"flex-end"}}>
-                           <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} size={100} />
-                         </div>
+                             <DropMenu >
+                             <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} size={100} />
+                             </DropMenu>
+                        </div>
                      </Col>
                  </Row>
             </SectionOne>

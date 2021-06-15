@@ -9,7 +9,7 @@ const TaskContainer = styled(Link)``;
 
 function RenderTaskCard(props){
     return(
-        <TaskContainer to={`/admin/projects/${props.info.id_st}/${`MunyanÑo`}`}>
+        <TaskContainer to={`/admin/projects/${props.proj}/${props.info.id_st}`}>
            <Card style={{ width: 350, margin: 18 }} loading={false}>
           <Meta
             avatar={

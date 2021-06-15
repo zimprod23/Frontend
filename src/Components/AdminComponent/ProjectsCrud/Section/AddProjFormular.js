@@ -44,6 +44,7 @@ function AddProjectFormular() {
         layout="horizontal"
         initialValues={{
           size: componentSize,
+          prefix:"DH"
         }}
         onValuesChange={onFormLayoutChange}
         size={componentSize}

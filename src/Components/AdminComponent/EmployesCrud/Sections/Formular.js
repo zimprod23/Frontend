@@ -48,7 +48,9 @@ export default function RegistrationForm() {
       email:values.email,
       cin:values.CIN,
       phone:values.prefix+values.phone,
-      type:values.type
+      type:values.type,
+      pass1:values.password,
+      pass2:values.confirm
     })
    
   };
@@ -111,6 +113,44 @@ export default function RegistrationForm() {
       >
         <Input />
       </Form.Item>
+
+      <Form.Item
+        name="password"
+        label="Password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+        hasFeedback
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="confirm"
+        label="Confirm Password"
+        dependencies={['password']}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please confirm your password!',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+            },
+          }),
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
       <Form.Item
         name="email"
         label="E-mail"
@@ -186,7 +226,7 @@ export default function RegistrationForm() {
           <DatePicker />
         </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" block>
           Save
         </Button>
       </Form.Item>

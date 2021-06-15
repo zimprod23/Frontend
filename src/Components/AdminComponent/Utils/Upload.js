@@ -1,9 +1,9 @@
 import { DisconnectOutlined, PaperClipOutlined,CheckOutlined } from '@ant-design/icons'
-import React ,{useCallback,useState } from 'react'
+import React ,{useCallback,useState,useEffect } from 'react'
 import {useDropzone} from 'react-dropzone'
 import { app } from "../../../base";
 
-function UploadPic() {
+function UploadPic(props) {
   const [File, setFile] = useState("");
   const onDrop = useCallback(
     async (acceptedFile) => {
@@ -18,6 +18,10 @@ function UploadPic() {
     [File]
   );
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
+  useEffect(() => {
+     props.onCvChange(File)
+  }, [File])
 
   return (
     <div {...getRootProps()}>

@@ -4,7 +4,7 @@ import { CheckOutlined } from '@ant-design/icons'
 import ImgCrop from 'antd-img-crop';
 import { app } from '../../../base'
 
-export default function UploadPicture() {
+export default function UploadPicture(props) {
   const [fileList, setFileList] = useState([
    
   ]);
@@ -29,7 +29,8 @@ export default function UploadPicture() {
   };
 
 useEffect(() => {
-  console.log(imagPath)
+  console.log(imagPath);
+  props.onImgChange(imagPath)
 }, [imagPath])
 
   const onPreview = async file => {
