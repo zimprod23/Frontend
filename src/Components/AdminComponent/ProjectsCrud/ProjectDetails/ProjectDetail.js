@@ -1,12 +1,14 @@
 import React,{useEffect} from 'react';
-import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor } from 'antd';
-import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
+import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor, message,Modal } from 'antd';
+import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
 import { Typography } from 'antd'
 import TaskCard from '../Section/TaskCard';
 import styled from 'styled-components';
 import { getProjectById } from '../../../../actions/projectAction'
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
+const {confirm} = Modal
 const StepsContainer = styled.div`
     display: flex;
     padding: 25px;
@@ -102,6 +104,8 @@ function RenderBreadCumbs({proj}){
     );
 }
 
+
+
 function ProjectDetail(props) {
     const dispatch = useDispatch();
     const project = useSelector(state => state.project)
@@ -112,6 +116,28 @@ function ProjectDetail(props) {
     useEffect(() => {
         dispatch(getProjectById(proj))
     }, [])
+
+    const onDeletePressed = () => {
+        axios.delete(`http://127.0.0.1:8000/project/${proj}/delete-project`).then(res => {
+            window.location.replace('/admin')
+         }).catch(err => {
+            message.error("Oooops couldn't delete this project")
+        })
+    }
+
+    function showConfirm() {
+        confirm({
+          title: 'Are you sure you Want to delete this project?',
+          icon: <ExclamationCircleOutlined />,
+          content: 'By deleting this project you will remove all the data related to it',
+          onOk() {
+            onDeletePressed()
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      }
 
     return (
         <div className="Add-Proj">
@@ -129,9 +155,13 @@ function ProjectDetail(props) {
                         <div>
                             <Title>{project.spProj && project.spProj.title}</Title>
                             <div className="Text-Desc" style={{marginTop:"3vh"}}>
-                                <Text italic>
-                             { project.spProj && project.spProj.desc }
-                                </Text>
+                                <div style={{
+                                    margin:"5px"
+                                }}>
+                                   <Text italic>
+                                    { project.spProj && project.spProj.desc }
+                                  </Text>
+                                </div>
                                 <br />
                                 <Title level={5}>
                                 &#9733; budjet : { project.spProj && project.spProj.budget }
@@ -181,7 +211,7 @@ function ProjectDetail(props) {
                              <Title level={3}>#Backlog Items</Title>
                               <StepsContainer>
                                   {
-                                       project.spProj && project.spProj.backlogItems.length > 0 ? project.spProj.backlogItems.map((item,index) => {
+                                       project.spProj && project.spProj.backlogItems && project.spProj.backlogItems.length > 0 ? project.spProj.backlogItems.map((item,index) => {
                                            return (
                                            <>
                                               <TaskCard proj={proj} step={'backlog'} key={index} info={item}/>
@@ -195,7 +225,7 @@ function ProjectDetail(props) {
                          <Title level={3}>#In Progress</Title>
                               <StepsContainer>
                               {
-                                       project.spProj && project.spProj.inProgressItems.length > 0 ? project.spProj.inProgressItems.map((item,index) => {
+                                       project.spProj && project.spProj.inProgressItems && project.spProj.inProgressItems.length > 0 ? project.spProj.inProgressItems.map((item,index) => {
                                            return (
                                            <>
                                               <TaskCard proj={proj} step={'inprogress'} key={index} info={item}/>
@@ -209,7 +239,7 @@ function ProjectDetail(props) {
                          <Title level={3}>#Done</Title>
                               <StepsContainer >
                               {
-                                       project.spProj && project.spProj.doneItems.length > 0 ? project.spProj.doneItems.map((item,index) => {
+                                       project.spProj && project.spProj.doneItems && project.spProj.doneItems.length > 0 ? project.spProj.doneItems.map((item,index) => {
                                            return (
                                            <>
                                               <TaskCard proj={proj} step={'done'} key={index} info={item}/>
@@ -223,7 +253,7 @@ function ProjectDetail(props) {
                          <Title level={3}>#Cancelled</Title>
                               <StepsContainer>
                               {
-                                       project.spProj && project.spProj.canceldItems.length > 0 ? project.spProj.canceldItems.map((item,index) => {
+                                       project.spProj && project.spProj.canceldItems && project.spProj.canceldItems.length > 0 ? project.spProj.canceldItems.map((item,index) => {
                                            return (
                                            <>
                                               <TaskCard proj={proj} step={'canceled'} key={index} info={item}/>
@@ -233,8 +263,15 @@ function ProjectDetail(props) {
                                   }
                               </StepsContainer>
                          </div>
+                         <div id="Ops" style={{
+                             width:"90vw"
+                         }}>
+                             <Button style={{backgroundColor:"tomato",margin:"10px",float:"right",color:"white"}} onClick={showConfirm}>Delete this project</Button>
+                             <Button style={{margin:"10px",float:"right",backgroundColor:"#fff200",color:"white"}}>Archieve this project</Button>
+                        </div>
                     </Row> 
                 </div>
+                
         </div>
     )
 }

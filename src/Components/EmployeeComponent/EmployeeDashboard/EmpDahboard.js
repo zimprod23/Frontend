@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styled from 'styled-components'
 import { Row,Col,Steps,Divider,Typography,Button } from 'antd'
-import { TeamOutlined,SaveOutlined } from '@ant-design/icons'
+import { CloseCircleOutlined,SaveOutlined } from '@ant-design/icons'
 import ProjectCardWrapper from './ProjectCardWrapper'
+import DCreport from './DCreport'
+import DCreportModal from './DCreportModal'
 
 const {Step} = Steps
 const { Text } = Typography
@@ -37,10 +39,31 @@ function PendingTask(props){
 
 
 function EmpDahboard() {
+
     const [current, setcurrent] = useState(0)
+    const [visible, setvisible] = useState(false)
+
+    const OntaskCancel = () => {
+        alert("Done")
+    }
+    const OnTaskDone = () => {
+         setvisible(true)
+         //alert(visible)
+    }
+    useEffect(() => {
+        console.log(visible)
+    }, [visible])
+
     const onChange = current => {
         console.log('onChange:', current);
         setcurrent(current);
+        if(current == 4){
+           OnTaskDone()
+        }else if(current == 5){
+            OntaskCancel()
+        }else{
+            alert(current)
+        }
       };
     return (
         <div 
@@ -57,11 +80,12 @@ function EmpDahboard() {
                       <TasksContainer>
                           <Divider>In Progress</Divider>
                       <Steps current={current} onChange={onChange} responsive status="process">
-                      <Step title="0%" description="This is a description." />
+                        <Step title="0%" description="This is a description." />
                         <Step title="25%" description="This is a description." />
                         <Step title="50%" description="This is a description." />
                         <Step title="75%" description="This is a description." />
                         <Step title="Done" description="This is a description."  icon={<SaveOutlined />}/>
+                        <Step title="Cancel" description="Abort Task" icon={<CloseCircleOutlined />} status="error"/>
                         </Steps>
                       </TasksContainer>
                   </Col>
@@ -69,23 +93,13 @@ function EmpDahboard() {
                       <TasksContainer>
                           <Divider>To do</Divider>
                           <ProjectCardWrapper title={"Done"} taskData={8} stateIndex={false}/>
-                          <ProjectCardWrapper title={"Done"} taskData={3} stateIndex={false}/>
-                         {/* <ProjectCardWrapper>
-                             <PendingTask title={"Hello"}/>
-                             <PendingTask title={"Hello"}/>
-                         </ProjectCardWrapper>
-                         <ProjectCardWrapper>
-                         <PendingTask title={"Hello"}/>
-                         </ProjectCardWrapper>
-                         <ProjectCardWrapper>
-                         <PendingTask title={"Hello"}/>
-                         <PendingTask title={"Hello"}/>
-                         <PendingTask title={"Hello"}/>
-                         </ProjectCardWrapper> */}
                       </TasksContainer>
                   </Col>
                   <Col span={24}></Col>
               </Row>
+              <div id="Modals">
+                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)} status={null}/>
+              </div>
         </div>
     )
 }

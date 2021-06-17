@@ -1,4 +1,4 @@
-import { DisconnectOutlined, PaperClipOutlined,CheckOutlined } from '@ant-design/icons'
+import { DisconnectOutlined, InboxOutlined,CheckOutlined, } from '@ant-design/icons'
 import React ,{useCallback,useState,useEffect } from 'react'
 import {useDropzone} from 'react-dropzone'
 import { app } from "../../../base";
@@ -27,7 +27,7 @@ function UploadPic(props) {
     <div {...getRootProps()}>
       {File.length > 0 ? <CheckOutlined color="green"/>:""}
       <input {...getInputProps()} />
-      {isDragActive ? (
+      {/* {isDragActive ? (
                     <div  style={{
                       padding : "35px",backgroundColor :"#eee",
                       display: "flex",alignContent:"center",
@@ -39,7 +39,20 @@ function UploadPic(props) {
                     <div  style={{padding : "35px",backgroundColor :"#eee",display: "flex",alignContent:"center",justifyContent:"center"}}>
                     <DisconnectOutlined size="large"/>
                    </div>
-                  )}
+                  )} */}
+                    <div  style={{
+                      padding : "10px",backgroundColor :"#eee",
+                     opacity:"0.5",
+                     border:isDragActive?"2px dashed #0abde3":""
+                      }}>
+                    <p className="ant-upload-drag-icon" style={{
+                      fontSize:"45px",
+                      color:"#0abde3",
+                    }}>
+                      <InboxOutlined />
+                    </p>
+                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                    </div>
     </div>
   )
 }

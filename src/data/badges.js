@@ -1,0 +1,32 @@
+export const badges = [
+    {
+        id:1,
+        name:"coucou",
+        image:"zzzz"
+    },
+    {
+        id:1,
+        name:"coucou",
+        image:"zzzz"
+    },
+    {
+        id:1,
+        name:"coucou",
+        image:"zzzz"
+    },
+    {
+        id:1,
+        name:"coucou",
+        image:"zzzz"
+    },
+    {
+        id:1,
+        name:"coucou",
+        image:"zzzz"
+    },
+    {
+        id:1,
+        name:"coucou",
+        image:"zzzz"
+    },
+]

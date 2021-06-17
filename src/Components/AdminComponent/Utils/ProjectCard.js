@@ -58,7 +58,7 @@ function ProjectCard({projectInfos,loadingState}) {
             <Meta
               avatar={
                 <Avatar /*src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"*/>
-                  {projectInfos.admin.first_name[0]}
+                  {projectInfos.admin.username}
                   </Avatar>
               }
               title={projectInfos.title}

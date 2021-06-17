@@ -5,6 +5,7 @@ import UploadPic from '../Utils/Upload';
 import UploadPicture from '../Utils/UploadImage';
 import { HomeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons';
 import RightSideFormular from './RightSideFormular';
+import WaitForVerification from '../../Results/WaitForVerification';
 const { Step } = Steps;
 
 const {Title} = Typography;
@@ -36,10 +37,10 @@ const steps = [
     title: 'Second',
     content: <RightSideFormular />,
   },
-//   {
-//     title: 'Last',
-//     content: 'Last-content',
-//   },
+  {
+    title: 'Last',
+    content: <WaitForVerification status="success" title="Successfully Created A user Account" subTitle="Waiting for the Employee to activate the account"><Button type="primary">End</Button></WaitForVerification>,
+  },
 ];
 
 export default  function AddEmployee(){

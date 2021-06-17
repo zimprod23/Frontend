@@ -8,7 +8,11 @@ import {
   FETCH_ALL_PROJ_SUCCSESS,
   FETCH_SEARCHED_PROJ_FAILED_BYID,
   FETCH_SEARCHED_PROJ_LOADING_BYID,
-  FETCH_SEARCHED_PROJ_SUCCESS_BYID
+  FETCH_SEARCHED_PROJ_SUCCESS_BYID,
+  ADD_PROJ_SUCCESS,
+  ADD_PROJ_FAIL,
+  ADDING_PROJECT,
+
 } from '../actions/types';
 
 const initialState = {
@@ -16,7 +20,9 @@ const initialState = {
    isLoading: false,
    isLoaded: false,
    spProj:null,
-   allProjs:[]
+   allProjs:[],
+   proj_added:false,
+   proj_add_err:false
 };
 
 export default function(state = initialState,action){
@@ -57,6 +63,23 @@ export default function(state = initialState,action){
         isLoaded: true,
         isLoading: false,
         spProj: action.payload
+      }
+    case ADDING_PROJECT:
+      return{
+        ...state,
+        proj_added:false,
+        proj_add_err:false
+      }
+    case ADD_PROJ_SUCCESS:
+      return{
+           ...state,
+           proj_added:true,
+            proj_add_err:false
+      }
+    case ADD_PROJ_FAIL:
+      return{
+        proj_added:false,
+        proj_add_err:true
       }
         default: 
            return state
