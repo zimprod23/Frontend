@@ -85,7 +85,7 @@ function AddProjectFormular() {
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select style={{ width: 70 }} defaultActiveFirstOption>
-        <Select.Option value="86">DH</Select.Option>
+        <Select.Option value="86">$</Select.Option>
       </Select>
     </Form.Item>
   );
@@ -106,7 +106,7 @@ function AddProjectFormular() {
         layout="horizontal"
         initialValues={{
           size: componentSize,
-          prefix:"DH"
+          prefix:"$"
         }}
         onValuesChange={onFormLayoutChange}
         size={componentSize}

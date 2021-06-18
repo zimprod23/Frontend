@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 //import "antd/dist/antd.css";
 //import "antd/dist/antd.css";
 import "./AdminPageStyles/AdminGlobal.css"
@@ -14,10 +14,16 @@ import ProjectDetail from "./ProjectsCrud/ProjectDetails/ProjectDetail";
 import TaskDetails from "./ProjectsCrud/TaskDetails/TaskDetails";
 import Bi from "./BI/Bi";
 import EmpProphile from "./EmployesCrud/EmpProphile";
-
+import { useDispatch } from 'react-redux'
+import { checkAuthenticated,loadUser } from '../../actions/authAction'
 
 function AdminApp(props) {
 
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(checkAuthenticated());
+        dispatch(loadUser())
+    }, [])
 
     return (
         <div>

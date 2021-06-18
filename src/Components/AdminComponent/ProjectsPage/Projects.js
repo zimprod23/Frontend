@@ -29,7 +29,7 @@ function Projects(props) {
             <div>
             <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                 
-                {proj.headlineProjs && proj.headlineProjs.length > 0?proj.headlineProjs.map((item,index) => {
+                {proj.headlineProjs && proj.headlineProjs.length > 0 && typeof proj.headlineProjs !== 'string'?proj.headlineProjs.map((item,index) => {
                     return (
                       <Col>
                         {console.log(item)}

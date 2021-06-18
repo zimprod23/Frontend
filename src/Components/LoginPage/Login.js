@@ -1,15 +1,19 @@
 //import { login } from "../../actions/authAction";
 import React, { useState } from "react";
-import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import { MailOutlined, LockOutlined,UserOutlined } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import  { Redirect } from 'react-router-dom'
 import { Form, Input, Button, Checkbox, Typography } from "antd";
-//import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import { login } from "../../actions/authAction";
 
 const { Title } = Typography;
 
 function LoginPage(props) {
-  //const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth)
+
+  const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
@@ -23,44 +27,45 @@ function LoginPage(props) {
     ? localStorage.getItem("rememberMe")
     : "";
 
+    console.log(auth.isAuthenticated)
+
   return (
     <Formik
       initialValues={{
-        email: initialEmail,
+        username: "username",
         password: "",
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Email is invalid")
-          .required("Email is required"),
+        username: Yup.string()
+          .required("Username is required"),
         password: Yup.string()
           .min(4, "Password must be at least 6 characters")
           .required("Password is required"),
       })}
-    //   onSubmit={(values, { setSubmitting }) => {
-    //     setTimeout(() => {
-    //       let dataToSubmit = {
-    //         email: values.email,
-    //         password: values.password,
-    //       };
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          let dataToSubmit = {
+            username: values.username,
+            password: values.password,
+          };
 
-    //       dispatch(login(dataToSubmit))
-    //         .then((response) => {
-    //           if (rememberMe)
-    //             window.localStorage.setItem("rememberMe", values.email);
-    //           props.history.push("/");
-    //         })
-    //         .catch((err) => {
-    //           setFormErrorMessage(
-    //             "Check out your Account from catch block or Password again"
-    //           );
-    //           setTimeout(() => {
-    //             setFormErrorMessage("");
-    //           }, 3000);
-    //         });
-    //       setSubmitting(false);
-    //     }, 500);
-    //   }}
+          dispatch(login(dataToSubmit))
+            .then((response) => {
+              if (rememberMe)
+                window.localStorage.setItem("rememberMe", values.username);
+             // props.history.push("/");
+            })
+            .catch((err) => {
+              setFormErrorMessage(
+                "Check out your Account from catch block or Password again"
+              );
+              setTimeout(() => {
+                setFormErrorMessage("");
+              }, 3000);
+            });
+          setSubmitting(false);
+        }, 500);
+      }}
     >
       {(props) => {
         const {
@@ -77,24 +82,24 @@ function LoginPage(props) {
         return (
           <div className="app">
             <Title level={2}>Log In</Title>
-            <form /*onSubmit={handleSubmit}*/ style={{ width: "350px" }}>
+            <form onSubmit={handleSubmit} style={{ width: "350px" }}>
               <Form.Item required>
                 <Input
-                  id="email"
-                  placeholder="Enter your email"
-                  type="email"
+                  id="username"
+                  placeholder="Enter your username"
+                  type="text"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  prefix={<MailOutlined />}
+                  prefix={<UserOutlined />}
                   className={
-                    errors.email && touched.email
+                    errors.username && touched.username
                       ? "text-input error"
                       : "text-input"
                   }
                 />
-                {errors.email && touched.email && (
-                  <div className="input-feedback">{errors.email}</div>
+                {errors.username && touched.username && (
+                  <div className="input-feedback">{errors.username}</div>
                 )}
               </Form.Item>
 
