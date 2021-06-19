@@ -5,6 +5,8 @@ import { CloseCircleOutlined,SaveOutlined } from '@ant-design/icons'
 import ProjectCardWrapper from './ProjectCardWrapper'
 import DCreport from './DCreport'
 import DCreportModal from './DCreportModal'
+import { useDispatch } from 'react-redux'
+import { progressTask } from '../../../actions/taskAction'
 
 const {Step} = Steps
 const { Text } = Typography
@@ -42,13 +44,18 @@ function EmpDahboard() {
 
     const [current, setcurrent] = useState(0)
     const [visible, setvisible] = useState(false)
+    let taskId = 1;
+    const dispatch = useDispatch();
+    
+    const progressLevel = (lvl) =>{
+        return lvl * 25
+    }
 
     const OntaskCancel = () => {
         alert("Done")
     }
     const OnTaskDone = () => {
          setvisible(true)
-         //alert(visible)
     }
     useEffect(() => {
         console.log(visible)
@@ -62,7 +69,7 @@ function EmpDahboard() {
         }else if(current == 5){
             OntaskCancel()
         }else{
-            alert(current)
+            dispatch(progressTask(progressLevel(current),taskId))
         }
       };
     return (

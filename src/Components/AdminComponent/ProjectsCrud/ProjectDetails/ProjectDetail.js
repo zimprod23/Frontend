@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { getProjectById } from '../../../../actions/projectAction'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import AddtaskDrawer from '../TaskDetails/AddtaskDrawer'
 
 const {confirm} = Modal
 const StepsContainer = styled.div`
@@ -109,7 +110,8 @@ function RenderBreadCumbs({proj}){
 function ProjectDetail(props) {
     const dispatch = useDispatch();
     const project = useSelector(state => state.project)
-    const progress = 12//project.spProj && ((project.spProj.count_Done_tasks / project.spProj.count_all_tasks)*100)
+    const progress = project.spProj && project.spProj.count_Done_tasks ? ((project.spProj.count_Done_tasks * 100) / (project.spProj.count_all_tasks)):0
+    //project.spProj && ((project.spProj.count_Done_tasks / project.spProj.count_all_tasks)*100)
     //const query = queryString.parse(props.location.search);
     const proj = props.match.params.project_ID;
    
@@ -189,14 +191,17 @@ function ProjectDetail(props) {
                         <Space size={30} align="center" direction="vertical">
                             <Col span={24}>
                                 <div>
-                                <Button type="primary" icon={<PlusOutlined />} size={"large"} >
+                                {/* <Button type="primary" icon={<PlusOutlined />} size={"large"} >
                                     Add New Task
-                                </Button>
+                                </Button> */}
+                                <AddtaskDrawer proj={proj} backlogItems={
+                                    project.spProj && project.spProj.backlogItems && project.spProj.backlogItems.length > 0 ? project.spProj.backlogItems:[]
+                                }/>
                               </div>
                             </Col>
                             <Col span={24}>
                                 <div>
-                                   <Progress type="circle" percent={progress} width={80}/>
+                                   <Progress type="circle" percent={parseInt(progress)} width={80}/>
                                </div>
                             </Col>
                             </Space>

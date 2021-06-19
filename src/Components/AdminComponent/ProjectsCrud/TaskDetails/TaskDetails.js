@@ -1,12 +1,15 @@
 import React,{useState,useEffect} from 'react';
-import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor,Dropdown,Menu,Skeleton } from 'antd';
-import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined } from '@ant-design/icons';
+import { Breadcrumb, Col, Row, Tooltip,Avatar, Space,Modal, Button, Progress, Anchor,Dropdown,Menu,Skeleton,message } from 'antd';
+import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Typography } from 'antd'
 import {useDispatch,useSelector} from 'react-redux'
 import { getTaskById } from '../../../../actions/taskAction'
 import styled from 'styled-components';
 import AssignedTaskOwner from './AssignTaskOwner';
 import TaskCard from '../Section/TaskCard';
+import axios from 'axios';
+
+const { confirm } = Modal
 
 const SectionOne = styled.div``;
 
@@ -97,6 +100,30 @@ function TaskDetails(props) {
         dispatch(getTaskById(task))
     }, [task])
 
+    const onDeletePressed = () => {
+        axios.delete(`http://127.0.0.1:8000/task/${task}/delete-task`).then(res => {
+            window.location.replace('/admin')
+         }).catch(err => {
+            message.error("Oooops couldn't delete this project")
+        })
+    }
+
+    function showConfirm() {
+        confirm({
+          title: 'Are you sure you Want to delete this Task?',
+          icon: <ExclamationCircleOutlined />,
+          content: 'After pressing ok you cant undo it',
+          onOk() {
+            onDeletePressed()
+          },
+          onCancel() {
+            console.log('Cancel');
+          },
+        });
+      }
+
+
+
     return (
         <div className="Add-Proj">
             <div>
@@ -155,12 +182,18 @@ function TaskDetails(props) {
             <br />
             <Title level={3}>Rapport</Title>
             <SectionFour>
-                <div style={{maxWidth: "70vw",padding:"10px",margin:"10px",border:"1px orange",backgroundColor :"#eee"}}>
+                <div style={{maxWidth: "70vw",padding:"10px",margin:"10px"}}>
                     <Text>
                        {/* {tsk.task.rapports[0]} */}
                     </Text>
                 </div>
             </SectionFour>
+            <div style={{
+                padding:"10px",
+                margin:"10px"
+            }}>
+                 <Button style={{backgroundColor:"tomato",margin:"10px",float:"right",color:"white"}} onClick={showConfirm}>Delete this task</Button>
+            </div>
             </div>
             ):
             <div id="Skeleton">
