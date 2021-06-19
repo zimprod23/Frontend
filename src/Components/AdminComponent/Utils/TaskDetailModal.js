@@ -19,7 +19,7 @@ export default function TaskDetail(props){
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Open Modal
+        Show Description
       </Button>
       <Modal title="Task Description" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         Here goes the description

@@ -8,6 +8,7 @@ import Footer from "./Components/Footer/Footer";
 import LoginPage from "./Components/LoginPage/Login";
 import AdminApp from "./Components/AdminComponent/AdminApp";
 import Emp from "./Components/EmployeeComponent/Emp";
+import NotFoundPage from "./Components/Results/NotFoundPage";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
           <Route  path="/admin" component={AdminApp} />
           <Route  path="/login" component={LoginPage} />
           <Route  path="/emp" component={Emp} />
-          {/* <Route  path="/employee" component={EmployeApp} /> */}
+          <Route  path="**" component={NotFoundPage} />
         </Switch>
       </Router>
       <Footer />

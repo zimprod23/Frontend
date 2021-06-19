@@ -5,6 +5,7 @@ import ProjectCard from '../Utils/ProjectCard'
 import { useDispatch,useSelector } from 'react-redux';
 import { getTopHeadlineProjects } from '../../../actions/projectAction';
 import RenderSkeleton from '../Utils/RenderSkeleton';
+import { Link } from 'react-router-dom'
 
 let x = [1,2,3]
 
@@ -18,9 +19,11 @@ function Projects(props) {
     return (
         <>
              <div className="Project-wrapper_1">
-             <Button type="primary" shape="round" icon={<PlusOutlined />} size={"large"} >
+               <Link to={`admin/project/add_Project`}>
+               <Button type="primary" shape="round" icon={<PlusOutlined />} size={"large"} >
                         Create New Project
                 </Button>
+               </Link>
              </div>
         <div className="Project-wrapper">
             <div>
