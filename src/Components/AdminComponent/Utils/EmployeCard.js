@@ -6,20 +6,27 @@ import { Link } from 'react-router-dom'
 const { Meta } = Card
 const { Text,Title } = Typography
 
-function Description(){
+function Description(props){
     return(
-        <>
+        <div style={{
+          padding:"10px",
+          textAlign:"center"
+        }}>
         <div className="XP">
                <Avatar style={{backgroundColor : "#55efc4" }} size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}>
-                    {14}
+                    {props.emp.XP}
                 </Avatar>
         </div>
-        <Text>"This mother fucker siahufiehfuierhguirenckdiovrehirw grwnignriwg rwgnrgui"</Text>
-    </>
+        <Text mark>&#9734;{props.emp.account.email}</Text>
+        <br/>
+        <Text mark>&#9734;{props.emp.account.first_name} {props.emp.account.last_name}</Text>
+        <br />
+        <Text mark>&#9734;{props.emp.account.phone}</Text>
+    </div>
     );
 }
 
-const Badges = () => {
+const Badges = (props) => {
     return (
     <div>
              <div>
@@ -44,26 +51,25 @@ const Badges = () => {
         </div>
 );
 }
-function EmployeCard() {
+function EmployeCard(props) {
     return (
         <div>
                <Card
-          style={{ width: 300, marginTop: 16 }}
+          style={{ width: 350, marginTop: 16 }}
           actions={[
-            <EditOutlined key="edit" />,
-            <EyeOutlined key="eye" />,
-            <Badges key="badges"/>,
+           <Link to={`/admin/employees/${props.emp.account.username}`}><EyeOutlined key="eye" /></Link> ,
+            // <Badges key="badges"/>,
           ]}
         >
           <Skeleton loading={false} avatar active>
             <Meta
               avatar={
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <Avatar src={props.emp.image && props.emp.image.length > 10?props.emp.image:"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"} size="large"/>
               }
-              title="Card title"
-              description={<Description />}
+              title={props.emp.account.username}
             />
           </Skeleton>
+        <Description emp={props.emp}/>
         </Card>
         </div>
     )

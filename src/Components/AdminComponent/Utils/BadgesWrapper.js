@@ -9,7 +9,7 @@ const gridStyle = {
 function BadgesWrapper(props) {
     return (
         <div>
-            <Card title="Badges" style={{maxWidth:"20vw"}}>
+            <Card title="Badges" /*style={{width:"30vw"}}*/>
     <Card.Grid style={gridStyle}>Content</Card.Grid>
     <Card.Grid hoverable={false} style={gridStyle}>
       Content

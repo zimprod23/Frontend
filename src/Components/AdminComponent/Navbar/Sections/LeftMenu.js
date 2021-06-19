@@ -6,17 +6,19 @@ const server = "https://cefolim-web-app.herokuapp.com/uploads/";
 function LeftMenu(props) {
   return (
     <Menu mode={props.mode}>
-      <Menu.Item key="home">
+      {/* <Menu.Item key="home">
         <a href="/">
           <span>Home</span>
         </a>
-      </Menu.Item>
-      <Menu.Item key="github">
-        <a href="/">
-          <a href="https://github.com/zimprod23/CefolimWebsite.git">
-            <span>GitHub</span>
+      </Menu.Item> */}
+      <Menu.Item key="github" style={{
+ 
+   
+        paddingTop:"15px"
+      }}>
+          <a href="https://github.com/zimprod23/Frontend.git">
+            GitHub
           </a>
-        </a>
       </Menu.Item>
       <Menu.Item key="me">
         {/* <a href={`${server}CV.pdf`} download>

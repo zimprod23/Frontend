@@ -9,6 +9,7 @@ import LoginPage from "./Components/LoginPage/Login";
 import AdminApp from "./Components/AdminComponent/AdminApp";
 import Emp from "./Components/EmployeeComponent/Emp";
 import NotFoundPage from "./Components/Results/NotFoundPage";
+import Auth from './Components/hoc/hocAuth'
 
 
 function App() {
@@ -22,9 +23,9 @@ function App() {
         <Switch>
           <Route  exact path="/" component={LandingPage} />
           <Route  path="/home" component={LandingPage} />
-          <Route  path="/admin" component={AdminApp} />
-          <Route  path="/login" component={LoginPage} />
-          <Route  path="/emp" component={Emp} />
+          <Route  path="/admin" component={Auth(AdminApp,true)} />
+          <Route  path="/login" component={Auth(LoginPage,true)} />
+          <Route  path="/emp" component={Auth(Emp,true)} />
           <Route  path="**" component={NotFoundPage} />
         </Switch>
       </Router>

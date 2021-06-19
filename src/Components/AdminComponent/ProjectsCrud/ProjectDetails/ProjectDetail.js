@@ -119,6 +119,8 @@ function ProjectDetail(props) {
         dispatch(getProjectById(proj))
     }, [])
 
+
+
     const onDeletePressed = () => {
         axios.delete(`http://127.0.0.1:8000/project/${proj}/delete-project`).then(res => {
             window.location.replace('/admin')
@@ -146,14 +148,14 @@ function ProjectDetail(props) {
             <div>
             <RenderBreadCumbs proj={project.spProj && project.spProj.title}/>
             </div>
-            <div style={{padding:"8vh",display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
-                <Row >
-                    <Col span={4}>
+            <div style={{padding:"3vh",display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
+                <Row justify="space-around" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{width:"95vw"}}>
+                    <Col >
                         <div>
                             <RenderAnchorLabels />
                         </div>
                     </Col>
-                    <Col span={14} style={{padding:"10px",width:"60vw"}}>
+                    <Col style={{padding:"10px",width:"60vw"}}>
                         <div>
                             <Title>{project.spProj && project.spProj.title}</Title>
                             <div className="Text-Desc" style={{marginTop:"3vh"}}>
@@ -186,7 +188,7 @@ function ProjectDetail(props) {
                             </div>
                         </div>
                     </Col>
-                    <Col span={6}>
+                    <Col >
                         <Row justify="end">
                         <Space size={30} align="center" direction="vertical">
                             <Col span={24}>

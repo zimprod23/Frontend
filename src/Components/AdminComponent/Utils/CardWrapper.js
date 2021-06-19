@@ -42,20 +42,21 @@ function InProgressTask(props) {
 function PendingTask(props){
     return(
         <div>
-            <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col flex={16} style={{
+            <Row justify="space-between" /*style={{padding:"10px"}}*/ wrap gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <Col /*flex={16}*/ style={{
                     padding : "5px"
                 }}>
                 <Text>{props.title}</Text>
                 </Col>
                 <br />
-                <Col flex={8}>
+                <Col /*flex={8}*/>
                 <div style={{
-                    float:"right"
+                    float:"right",
+                    textAlign:"center"
                 }}>
-                        <Button type="primary"> Start </Button>
+                        <Button type="primary" size="small" style={{margin: "1px"}}> Start </Button>
                          &nbsp;
-                        <TaskDetail />
+                        <TaskDetail style={{margin: "1px"}} />
                 </div>
                 </Col>
                 </Row>
@@ -71,7 +72,7 @@ function CardWrapper(props) {
         margin:"00px"
       };
     return (
-        <div style={{maxWidth:"60vw"}}>
+        <div style={{maxWidth:"65vw"}}>
             <p>{props.children?props.children:<></>}</p>
              <Card title={props.title} style={{padding:"10px"}} >
                  {

@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
-import { Breadcrumb,Row,Col,Image,Badge,Button,Avatar } from 'antd'
+import { Breadcrumb,Row,Col,Image,Badge,Button,Avatar,Skeleton,Typography } from 'antd'
 import { HomeOutlined,UserOutlined,ArrowRightOutlined} from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom'
+import { load_emp_by_username } from '../../../actions/empAction'
 import styled from 'styled-components';
 import CardWrapper from '../Utils/CardWrapper';
 import BadgesWrapper from '../Utils/BadgesWrapper';
 
+const {Text} = Typography
 
 const RightSideContainer = styled.div`
 padding: 10px;
@@ -64,11 +67,12 @@ function RenderDetails(props){
             padding:"10px",
             margin:"7px"
         }}>
-            <p>Mynxbiefbiuewbgioewbifoew</p>
-            <p>Mynxbiefbiuewbgioewbifoew</p>
-            <p>Mynxbiefbiuewbgioewbifoew</p>
-            <p>Mynxbiefbiuewbgioewbifoew</p>
-            <p>Mynxbiefbiuewbgioewbifoew</p>
+            <Text type="success">{props.emp.domaine}</Text>
+            <p>{props.emp.account.first_name}&nbsp;&nbsp;{props.emp.account.last_name}</p>
+            <p>{props.emp.account.email}</p>
+            <p>{props.emp.account.CIN}</p>
+            <p>{props.emp.account.phone}</p>
+            <p>salaire : {props.emp.sal}$</p>
         </div>
     )
 }
@@ -76,14 +80,14 @@ function RenderDetails(props){
 function EmpProphile(props) {
 
     const dispatch = useDispatch();
-    const project = useSelector(state => state.project)
-    const proj = props.match.params.emp_ID;
+    const emp = useSelector(state => state.emp)
+    const employee = props.match.params.emp_ID;
    
     useEffect(() => {
-        //dispatch(getProjectById(proj))
+        dispatch(load_emp_by_username(employee))
     }, [])
 
-
+ if(emp.employee){
     return (
         <div style={{
             padding: "10px",
@@ -103,8 +107,8 @@ function EmpProphile(props) {
                     padding: "10px",
                     margin:"10px",
                 }}>
-                   <Row justify="center" gutter={{xs: 8, sm: 16, md: 24, lg: 32 }} style={{backgroundColor:"#dff9fb"}}>
-                       <Col flex={3}>
+                   <Row justify="center" /*gutter={{xs: 8, sm: 16, md: 24, lg: 32 }} */style={{backgroundColor:"#dff9fb"}}>
+                       <Col lg={9} md={9} sm={24} xs={24}>
                                <LeftSideContainer>
                                    <BlockSection>
                                        <div style={{
@@ -112,28 +116,30 @@ function EmpProphile(props) {
                                            margin:"10px",
                                            textAlign:"center"
                                        }}>
-                                       <Badge count={99}>
+                                       <Badge count={emp.employee.XP} overflowCount={1000000}>
                                     <Image
                                         width={150}
-                                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                        src={emp.employee.image && emp.employee.image.length > 10?emp.employee.image:"https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"}
                                         />
                                     </Badge>  
                                        </div>
-                                       <RenderDetails />
+                                       <RenderDetails emp={emp.employee}/>
                                        <div style={{
                                            padding : "10px",
                                            margin:"10px",
                                            textAlign:"center"
                                        }}>
-                                       <Button type="primary">Download cv</Button>
+                                        <a href={emp.employee.CV && emp.employee.CV.length>10?emp.employee.CV:'https://firebasestorage.googleapis.com/v0/b/projecy-storage.appspot.com/o/used_code.txt?alt=media&token=c258adb4-bd58-4a53-b178-9205a598bcff'} download>
+                                           <Button type="primary">Download cv</Button>
+                                        </a>
                                        </div>
-                                       <div>
+                                       <div >
                                          <BadgesWrapper />
                                        </div>  
                                    </BlockSection>              
                                </LeftSideContainer>
                        </Col>
-                       <Col flex={4}>
+                       <Col lg={15} md={15} sm={24} xs={24}>
                                <RightSideContainer>
                                     <div style={{
                                         padding : "10px"
@@ -168,6 +174,18 @@ function EmpProphile(props) {
               </div>
         </div>
     )
+ }else if(emp.load_err){
+       return <Redirect to={'/admin/employees'} />
+ }else{
+     return(
+         <>
+         <Skeleton active />
+         <Skeleton active />
+         <Skeleton active />
+         </>
+     )
+ }
+    
 }
 
 export default EmpProphile

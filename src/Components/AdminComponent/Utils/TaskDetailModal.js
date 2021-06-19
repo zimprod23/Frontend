@@ -18,7 +18,7 @@ export default function TaskDetail(props){
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" onClick={showModal} size="small">
         Show Description
       </Button>
       <Modal title="Task Description" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

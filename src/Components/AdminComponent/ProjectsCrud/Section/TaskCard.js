@@ -10,13 +10,13 @@ const TaskContainer = styled(Link)``;
 function RenderTaskCard(props){
     return(
         <TaskContainer to={`/admin/projects/${props.proj}/${props.info.id_st}`}>
-           <Card style={{ width: 350, margin: 18 }} loading={false}>
+           <Card style={{ minWidth: 300, margin: 18 }} loading={false}>
           <Meta
             avatar={
               <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             }
             title={props.info.title}
-            description={<Progress percent={50} status="active"/>}
+            description={<Progress percent={props.info.progress} status="active"/>}
           />
         </Card>
         </TaskContainer>

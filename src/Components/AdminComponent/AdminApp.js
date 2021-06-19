@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 //import "antd/dist/antd.css";
 //import "antd/dist/antd.css";
 import "./AdminPageStyles/AdminGlobal.css"
-import { Route, Switch, BrowserRouter as Router,useRouteMatch } from "react-router-dom";
+import { Redirect, Route, Switch, BrowserRouter as Router,useRouteMatch } from "react-router-dom";
 import NavBar from "./Navbar/NavBar";
 import NewEmpProvider from './Utils/NewEmpProvider';
 import Projects from "./ProjectsPage/Projects";
@@ -14,17 +14,18 @@ import ProjectDetail from "./ProjectsCrud/ProjectDetails/ProjectDetail";
 import TaskDetails from "./ProjectsCrud/TaskDetails/TaskDetails";
 import Bi from "./BI/Bi";
 import EmpProphile from "./EmployesCrud/EmpProphile";
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { checkAuthenticated,loadUser } from '../../actions/authAction'
 
 function AdminApp(props) {
-
+     const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(checkAuthenticated());
-        dispatch(loadUser())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(checkAuthenticated());
+    //     dispatch(loadUser())
+    // }, [])
 
+   if(auth && auth.user && !auth.user.is_admin){
     return (
         <div>
             {/* <Router> */}
@@ -43,6 +44,10 @@ function AdminApp(props) {
             {/* </Router> */}
         </div>
     )
+   }else{
+       return <Redirect to={'/emp'}/>
+   }
+   
 }
 
 export default AdminApp

@@ -10,6 +10,18 @@ import {
  LOGOUT
 } from './types'
 
+// export const verify_tk = () => async(dispatch) => {
+//     const config = {
+//         headers: {
+//           "Content-type": "application/json",
+//           "Authorization": `JWT ${localStorage.getItem('access')}`,
+//           "Accept": "application/json"
+//         },
+//       };
+//   try{
+//     await axios.get('http://127.0.0.1:8000/auth/users/me/',config)
+//   }
+// }
 
 export const checkAuthenticated = () => async(dispatch) => {
    if(localStorage.getItem('access')){
@@ -80,7 +92,7 @@ export const loadUser = () => async(dispatch) => {
                    type : LOAD_USER_SUCCESS,
                    payload:res.data
                })
-               alert(res.data)
+            //   alert(res.data)
           })
           .catch(err => {
                dispatch({

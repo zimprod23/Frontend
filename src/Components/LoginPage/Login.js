@@ -1,5 +1,5 @@
 //import { login } from "../../actions/authAction";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { MailOutlined, LockOutlined,UserOutlined } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -26,8 +26,13 @@ function LoginPage(props) {
   const initialEmail = localStorage.getItem("rememberMe")
     ? localStorage.getItem("rememberMe")
     : "";
-
-    console.log(auth.isAuthenticated)
+useEffect(() => {
+  console.log(auth.isAthenticated)
+  console.log(props.user)
+}, [auth])
+if(auth && auth.isAthenticated){
+  return <Redirect to={'/admin'}/>
+}
 
   return (
     <Formik

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import LeftMenu from "./Sections/LeftMenu";
 import RightMenu from "./Sections/RightMenu";
 import { Drawer, Button, Affix } from "antd";
-import { AlibabaOutlined } from "@ant-design/icons";
+import { AlignRightOutlined} from "@ant-design/icons";
 import "./Sections/Navbar.css";
+import {Link} from 'react-router-dom'
 
 
 function NavBar() {
@@ -24,14 +25,16 @@ function NavBar() {
         style={{ /*position:"fixed",*/ zIndex: 5, width: "100%" }}
       >
         <div className="menu__logo">
-          <a href="/"> Projecy </a>
+          <Link to="/"> Projecy </Link>
         </div>
         <div id="blocker"></div>
         <div className="menu__container">
           <div className="menu_left">
             <LeftMenu mode="horizontal" />
           </div>
-          <div className="menu_rigth">
+          <div className="menu_rigth" style={{
+            padding:"2px"
+          }}>
             <RightMenu mode="horizontal" />
           </div>
           <Button
@@ -39,10 +42,10 @@ function NavBar() {
             type="primary"
             onClick={showDrawer}
           >
-            <AlibabaOutlined />
+           <AlignRightOutlined />
           </Button>
           <Drawer
-            title="Basic Drawer"
+            title="Menu"
             placement="right"
             className="menu_drawer"
             closable={false}

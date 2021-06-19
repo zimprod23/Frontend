@@ -2,16 +2,16 @@ import React from "react";
 import { Menu, Badge } from "antd";
 import { Link } from "react-router-dom";
 // import { UserOutlined } from "@ant-design/icons";
-// import { useSelector, useDispatch } from "react-redux";
-// import { logout } from "../../../actions/authAction";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from '../../../../actions/authAction'
 
 function RightMenu(props) {
-  // const user = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  // const logoutHandler = () => {
-  //   dispatch(logout());
-  // };
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   // if (user && !user.isAuth) {
   //   //alert(user.user.email);
@@ -50,21 +50,27 @@ function RightMenu(props) {
             </a> 
           </Badge> */}
         </Menu.Item>
+        
         <Menu.Item  key="BI">
           <Link to={`/admin/bi`}>
               BI
           </Link>
           </Menu.Item >
           <Menu.Item  key="Proj">
-             Project
+            <Link to={'/admin/projects'}>
+                Project
+            </Link>
           </Menu.Item>
           <Menu.Item  key="Emp">
-             Employes
+            <Link to={'/admin/employees'}> 
+                  Employes
+            </Link>
           </Menu.Item>
         
         <Menu.Item key="logout">
-          {/* <a onClick={logoutHandler}>Logout</a> */}
+          <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>
+      
       </Menu>
     );
   // }
