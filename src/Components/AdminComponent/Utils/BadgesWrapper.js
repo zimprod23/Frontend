@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card } from 'antd';
+import {badges} from '../../../data/badges'
 
 const gridStyle = {
   width: '50%',
@@ -7,19 +8,20 @@ const gridStyle = {
 };
 
 function BadgesWrapper(props) {
+  console.log(badges)
     return (
         <div>
             <Card title="Badges" /*style={{width:"30vw"}}*/>
-    <Card.Grid style={gridStyle}>Content</Card.Grid>
-    <Card.Grid hoverable={false} style={gridStyle}>
-      Content
-    </Card.Grid>
-    <Card.Grid style={gridStyle}>Content</Card.Grid>
-    <Card.Grid style={gridStyle}>Content</Card.Grid>
-    <Card.Grid style={gridStyle}>Content</Card.Grid>
-    <Card.Grid style={gridStyle}>Content</Card.Grid>
-    <Card.Grid style={gridStyle}>Content</Card.Grid>
-  </Card>
+                  {badges.map((e,i) => {
+                    return(
+                          <Card.Grid style={gridStyle}>
+                            <div>
+                            <img alt={e.name} src={e.image}/> 
+                            </div>
+                          </Card.Grid>
+                    )
+                  })}
+            </Card>
         </div>
     )
 }

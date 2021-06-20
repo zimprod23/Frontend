@@ -15,6 +15,7 @@ import ResetPasswordConfirm from "./Components/ResetPassword/ResetPasswordConfir
 import ActivateAccount from "./Components/AdminComponent/EmployesCrud/ActivateAccount";
 
 
+
 function App() {
   const [isOpen, setisOpen] = useState(false)
   const toogle = () => {
@@ -25,7 +26,6 @@ function App() {
       <Router>
         <Switch>
           <Route  exact path="/" component={LandingPage} />
-          <Route  path="/home" component={LandingPage} />
           <Route  path="/admin" component={Auth(AdminApp,true)} />
           <Route  path="/login" component={Auth(LoginPage,true)} />
           <Route  path="/emp" component={Auth(Emp,true)} />
