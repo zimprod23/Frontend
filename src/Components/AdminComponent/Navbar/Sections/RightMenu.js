@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Badge } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import { UserOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from '../../../../actions/authAction'
@@ -11,6 +11,7 @@ function RightMenu(props) {
 
   const logoutHandler = () => {
     dispatch(logout());
+     window.location.replace('/')
   };
 
   // if (user && !user.isAuth) {

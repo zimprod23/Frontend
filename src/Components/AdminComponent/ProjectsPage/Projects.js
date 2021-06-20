@@ -19,7 +19,7 @@ function Projects(props) {
     return (
         <>
              <div className="Project-wrapper_1">
-               <Link to={`admin/project/add_Project`}>
+               <Link to={`/admin/project/add_Project`}>
                <Button type="primary" shape="round" icon={<PlusOutlined />} size={"large"} >
                         Create New Project
                 </Button>

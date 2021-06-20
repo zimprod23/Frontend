@@ -3,6 +3,7 @@ import { Route,Redirect } from 'react-router'
 import EmpDahboard from './EmployeeDashboard/EmpDahboard'
 import Prophile from './EmpProphile/Prophile'
 import MenuHeader from './Menu/Menu'
+import { Skeleton } from 'antd'
 import { useSelector,useDispatch } from 'react-redux'
 import {loadUser,checkAuthenticated} from '../../actions/authAction'
 
@@ -16,7 +17,7 @@ const dispatch = useDispatch()
     
     const auth = useSelector(state => state.auth)
     
-    if(auth && auth.isAthenticated && auth.isAthenticated == true){
+    if(auth && auth.isAthenticated){
         return (
             <div>
                 <MenuHeader />
@@ -25,7 +26,10 @@ const dispatch = useDispatch()
             </div>
         )
     }else{
-        return <Redirect to={'/'} />
+        if(auth && !auth.isAthenticated)
+            return <Redirect to={'/'} />
+        else 
+            return <Skeleton active/>
     }
 }
 

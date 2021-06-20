@@ -35,27 +35,44 @@ const tailFormItemLayout = {
   },
 };
 
-export default function RegistrationForm() {
+export default function RegistrationForm(props) {
   const [form] = Form.useForm();
   const { NewEmp } = useContext(EmpCtxt);
   const [formData, setformData] = NewEmp;
  
+  function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+  
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+  
+    return [year, month, day].join('-');
+  }
+
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    //console.log('Received values of form: ', values);
     setformData({...formData,
-      fname:values.fname,
-      lname:values.lname,
+      first_name:values.fname,
+      last_name:values.lname,
       email:values.email,
-      cin:values.CIN,
+      CIN:values.CIN,
       phone:values.prefix+values.phone,
-      type:values.type,
-      pass1:values.password,
-      pass2:values.confirm
+      //type:values.type,
+      password:values.password,
+      re_password:values.confirm,
+      birthdate:formatDate(values.Birthday),
+      username:values.username,
+      admin:1
     })
-   
+    props.onSave(true)
   };
   useEffect(() => {
-  console.log(formData)
+  //console.log(formData)
   }, [formData])
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -93,7 +110,7 @@ export default function RegistrationForm() {
           {
             required: true,
             message: 'Please input your nickname!',
-            whitespace: true,
+
           },
         ]}
       >
@@ -107,11 +124,40 @@ export default function RegistrationForm() {
           {
             required: true,
             message: 'Please input your last name!',
-            whitespace: true,
+
           },
         ]}
       >
         <Input />
+      </Form.Item>
+       
+      <Form.Item
+        name="username"
+        label="Username"
+        tooltip="username  ?"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="CIN"
+        label="CIN"
+        tooltip="CIN  ?"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your CIN!',
+           // pattern:'^(?=.*[0-9]){4,9}$'
+          },
+        ]}
+      >
+        <Input/>
       </Form.Item>
 
       <Form.Item
@@ -120,7 +166,8 @@ export default function RegistrationForm() {
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Please input your password! (min 10 digits and contain characters Aa)',
+            pattern:'^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{10,32}$'
           },
         ]}
         hasFeedback
@@ -187,7 +234,7 @@ export default function RegistrationForm() {
         />
       </Form.Item>
         
-      <Form.Item label="Type" name="type" 
+      {/* <Form.Item label="Type" name="type" 
          rules={[
           {
             required: true,
@@ -214,7 +261,7 @@ export default function RegistrationForm() {
         ]}
       >
         <Input />
-      </Form.Item>
+      </Form.Item> */}
         <Form.Item label="Birthday" name="Birthday" 
          rules={[
           {

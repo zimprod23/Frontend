@@ -3,16 +3,16 @@ import React, { useState,useEffect } from "react";
 import { MailOutlined, LockOutlined,UserOutlined } from "@ant-design/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import  { Redirect,Link } from 'react-router-dom'
+import  { Redirect } from 'react-router-dom'
 import { Form, Input, Button, Checkbox, Typography } from "antd";
 import { useDispatch,useSelector } from "react-redux";
-import { login } from "../../actions/authAction";
+import { reset_password } from "../../actions/authAction";
 
 const { Title } = Typography;
 
-function LoginPage(props) {
+function ResetPasswordPage(props) {
   const auth = useSelector(state => state.auth)
-
+  const [requestSent, setRequestSent] = useState(false)
   const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
 
@@ -26,48 +26,50 @@ function LoginPage(props) {
   const initialEmail = localStorage.getItem("rememberMe")
     ? localStorage.getItem("rememberMe")
     : "";
-useEffect(() => {
-  console.log(auth.isAthenticated)
-  console.log(props.user)
-}, [auth])
-if(auth && auth.isAthenticated){
-  return <Redirect to={'/admin'}/>
+// useEffect(() => {
+//   console.log(auth.isAthenticated)
+//   console.log(props.user)
+// }, [auth])
+if(requestSent){
+  return <Redirect to={'/'}/>
 }
 
   return (
     <Formik
       initialValues={{
-        username: "username",
-        password: "",
+        email: "",
+    //    password: "",
       }}
       validationSchema={Yup.object().shape({
-        username: Yup.string()
-          .required("Username is required"),
-        password: Yup.string()
-          .min(4, "Password must be at least 6 characters")
-          .required("Password is required"),
+        email: Yup.string()
+          .email("Email is invalid")
+          .required("email is required"),
+        // password: Yup.string()
+        //   .min(4, "Password must be at least 6 characters")
+        //   .required("Password is required"),
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          let dataToSubmit = {
-            username: values.username,
-            password: values.password,
-          };
+        //   let dataToSubmit = {
+        //     email: values.email,
+        //     password: values.password,
+        //   };
 
-          dispatch(login(dataToSubmit))
-            .then((response) => {
-              if (rememberMe)
-                window.localStorage.setItem("rememberMe", values.username);
-             // props.history.push("/");
-            })
-            .catch((err) => {
-              setFormErrorMessage(
-                "Check out your Account from catch block or Password again"
-              );
-              setTimeout(() => {
-                setFormErrorMessage("");
-              }, 3000);
-            });
+          dispatch(reset_password(values.email))
+          setRequestSent(true)
+            // .then((response) => {
+            //  // if (rememberMe)
+            //     //window.localStorage.setItem("rememberMe", values.email);
+            //  // props.history.push("/");
+            // })
+            // .catch((err) => {
+            //   setFormErrorMessage(
+            //     "Check out your Account from catch block or Password again"
+            //   );
+            //   setTimeout(() => {
+            //     setFormErrorMessage("");
+            //   }, 3000);
+           // });
           setSubmitting(false);
         }, 500);
       }}
@@ -86,29 +88,29 @@ if(auth && auth.isAthenticated){
         } = props;
         return (
           <div className="app">
-            <Title level={2}>Log In</Title>
+            <Title level={2}>Reset My Password</Title>
             <form onSubmit={handleSubmit} style={{ width: "350px" }}>
               <Form.Item required>
                 <Input
-                  id="username"
-                  placeholder="Enter your username"
+                  id="email"
+                  placeholder="Enter your email"
                   type="text"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  prefix={<UserOutlined />}
+                  prefix={<MailOutlined />}
                   className={
-                    errors.username && touched.username
+                    errors.email && touched.email
                       ? "text-input error"
                       : "text-input"
                   }
                 />
-                {errors.username && touched.username && (
+                {errors.email && touched.email && (
                   <div className="input-feedback">{errors.username}</div>
                 )}
               </Form.Item>
 
-              <Form.Item required>
+              {/* <Form.Item required>
                 <Input
                   id="password"
                   prefix={<LockOutlined />}
@@ -126,7 +128,7 @@ if(auth && auth.isAthenticated){
                 {errors.password && touched.password && (
                   <div className="input-feedback">{errors.password}</div>
                 )}
-              </Form.Item>
+              </Form.Item> */}
 
               {formErrorMessage && (
                 <label>
@@ -145,20 +147,20 @@ if(auth && auth.isAthenticated){
               )}
 
               <Form.Item>
-                <Checkbox
+                {/* <Checkbox
                   id="rememberMe"
                   onChange={handleRememberMe}
                   checked={rememberMe}
                 >
                   Remember me
                 </Checkbox>
-                <Link
-                 to="/reset_password"
+                <a
                   className="login-form-forgot"
+                  href="/reset_user"
                   style={{ float: "right" }}
                 >
                   forgot password
-                </Link>
+                </a> */}
                 <div>
                   <Button
                     type="primary"
@@ -168,7 +170,7 @@ if(auth && auth.isAthenticated){
                     disabled={isSubmitting}
                     onSubmit={handleSubmit}
                   >
-                    Log in
+                    Reset My password
                   </Button>
                 </div>
                 {/* Or <a href="/register">register now!</a> */}
@@ -181,4 +183,4 @@ if(auth && auth.isAthenticated){
   );
 }
 
-export default LoginPage;
+export default ResetPasswordPage;

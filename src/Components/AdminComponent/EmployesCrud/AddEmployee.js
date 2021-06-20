@@ -1,11 +1,13 @@
-import React from 'react'
+import React,{useState,useContext} from 'react'
 import Formular from './Sections/Formular';
 import { Col, Typography,Breadcrumb, Row,Input,Form,Button,Steps, message } from "antd";
-import UploadPic from '../Utils/Upload';
-import UploadPicture from '../Utils/UploadImage';
 import { HomeOutlined, PlusOutlined, UserOutlined } from '@ant-design/icons';
 import RightSideFormular from './RightSideFormular';
-import WaitForVerification from '../../Results/WaitForVerification';
+import SaveDataToServer from './SaveDataToServer';
+import {Link} from 'react-router-dom'
+
+
+
 const { Step } = Steps;
 
 const {Title} = Typography;
@@ -16,10 +18,12 @@ function RenderBreadCumbs(){
             <Breadcrumb.Item href="/Admin">
             <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/Admin/Employees">
+            <Link to={'/Admin/Employees'}>
+            <Breadcrumb.Item >
             <UserOutlined />
             <span>Employees</span>
             </Breadcrumb.Item>
+            </Link>
             <Breadcrumb.Item>
             <PlusOutlined />
             <span>Add Employee</span>
@@ -28,22 +32,31 @@ function RenderBreadCumbs(){
     );
 }
 
-const steps = [
-  {
-    title: 'First',
-    content: <Formular />,
-  },
-  {
-    title: 'Second',
-    content: <RightSideFormular />,
-  },
-  {
-    title: 'Last',
-    content: <WaitForVerification status="success" title="Successfully Created A user Account" subTitle="Waiting for the Employee to activate the account"><Button type="primary">End</Button></WaitForVerification>,
-  },
-];
 
 export default  function AddEmployee(){
+
+  const [validStates, setvalidStates] = useState({
+    step1:false,
+    step2:false
+  })
+  
+
+  const steps = [
+    {
+      title: 'First',
+      content: <Formular onSave={(val)=>setvalidStates({...validStates,step1:val})}/>,
+    },
+   {
+      title: 'Second',
+      content: <RightSideFormular onSave={(val)=>setvalidStates({...validStates,step2:val})}/>,
+    },
+    {
+      title: 'Last',
+      content:<SaveDataToServer />,
+    },
+  ];
+  
+
   const [current, setCurrent] = React.useState(0);
 
   const next = () => {
@@ -80,7 +93,11 @@ export default  function AddEmployee(){
         </Row>
       <div className="steps-action">
         {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
+          <Button type="primary" onClick={() => next()}
+           disabled={
+             current==0 && validStates.step1?false:current==1 && validStates.step2?false:true
+           }
+          >
             Next
           </Button>
         )}
@@ -89,11 +106,11 @@ export default  function AddEmployee(){
             Done
           </Button>
         )}
-        {current > 0 && (
+        {/* {current > 0 && (
           <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
             Previous
           </Button>
-        )}
+        )} */}
       </div>
     </div>
   );

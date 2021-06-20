@@ -56,12 +56,12 @@ function OrganizeVars(fetchedD2){
   }
 
 
-export const getSearchedProjects = (searchVerb,choice=null) => async(dispatch) => {
+export const getSearchedProjects = (searchVerb,archieve,choice=null) => async(dispatch) => {
    dispatch({
        type : FETCH_SEARCHED_PROJ_LOADING
    })
 
-  await axios.get(`http://127.0.0.1:8000/project/?${choice && choice.link!=''?choice.link:``}search=${searchVerb}`).then(res => {
+  await axios.get(`http://127.0.0.1:8000/project/?${choice && choice.link!=''?choice.link:``}search=${searchVerb}&archive=${archieve?`True`:`False`}`).then(res => {
    //   console.log(res.data)
        dispatch({
            type: FETCH_SEARCHED_PROJ_SUCCESS,

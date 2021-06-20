@@ -10,6 +10,9 @@ import AdminApp from "./Components/AdminComponent/AdminApp";
 import Emp from "./Components/EmployeeComponent/Emp";
 import NotFoundPage from "./Components/Results/NotFoundPage";
 import Auth from './Components/hoc/hocAuth'
+import ResetPasswordPage from "./Components/ResetPassword/ResetPassword";
+import ResetPasswordConfirm from "./Components/ResetPassword/ResetPasswordConfirm";
+import ActivateAccount from "./Components/AdminComponent/EmployesCrud/ActivateAccount";
 
 
 function App() {
@@ -26,6 +29,9 @@ function App() {
           <Route  path="/admin" component={Auth(AdminApp,true)} />
           <Route  path="/login" component={Auth(LoginPage,true)} />
           <Route  path="/emp" component={Auth(Emp,true)} />
+          <Route  path="/reset_password" component={ResetPasswordPage} />
+          <Route  path="/password/reset/confirm/:uid/:token" component={ResetPasswordConfirm}/>
+          <Route  path="/activate/:uid/:token" component={ActivateAccount} />
           <Route  path="**" component={NotFoundPage} />
         </Switch>
       </Router>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Breadcrumb,Row,Col,Image,Badge,Button,Avatar,Skeleton,Typography } from 'antd'
-import { HomeOutlined,UserOutlined,ArrowRightOutlined} from '@ant-design/icons'
+import { HomeOutlined,TeamOutlined ,ArrowRightOutlined} from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom'
 import { load_emp_by_username } from '../../../actions/empAction'
@@ -41,19 +41,21 @@ margin: 5px;
 background-color: orange
 `
 
-function RenderBreadCumbs(){
+function RenderBreadCumbs({emp}){
     return(
         <Breadcrumb>
             <Breadcrumb.Item href="/Admin">
             <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/Admin/Employees">
-            <UserOutlined />
-            <span>Employees</span>
+            <Link to={'/admin/employees'}>
+            <Breadcrumb.Item >
+            <TeamOutlined />
+            <span>employees</span>
             </Breadcrumb.Item>
+            </Link>
             <Breadcrumb.Item>
             <ArrowRightOutlined />
-            <span>Employee</span>
+            <span>{emp}</span>
             </Breadcrumb.Item>
       </Breadcrumb>
     );
@@ -101,7 +103,7 @@ function EmpProphile(props) {
                 }}
                 id="Breadcumbs"
               >
-                  <RenderBreadCumbs />
+                  <RenderBreadCumbs emp={employee}/>
               </div>
               <div id="mainSection"  style={{
                     padding: "10px",

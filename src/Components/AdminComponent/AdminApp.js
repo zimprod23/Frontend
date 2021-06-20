@@ -15,7 +15,9 @@ import TaskDetails from "./ProjectsCrud/TaskDetails/TaskDetails";
 import Bi from "./BI/Bi";
 import EmpProphile from "./EmployesCrud/EmpProphile";
 import { useDispatch,useSelector } from 'react-redux'
+import ActivateAccount from './EmployesCrud/ActivateAccount'
 import { checkAuthenticated,loadUser } from '../../actions/authAction'
+import { Skeleton } from 'antd'
 
 function AdminApp(props) {
      const auth = useSelector(state => state.auth)
@@ -45,7 +47,11 @@ function AdminApp(props) {
         </div>
     )
    }else{
+       if(auth && auth.user && auth.user.is_admin)
        return <Redirect to={'/emp'}/>
+       else{
+           return <Skeleton active/>
+       }
    }
    
 }

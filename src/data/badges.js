@@ -1,32 +1,52 @@
 export const badges = [
     {
         id:1,
-        name:"coucou",
+        name:"a1",
         image:"zzzz"
     },
     {
-        id:1,
-        name:"coucou",
+        id:2,
+        name:"a2",
         image:"zzzz"
     },
     {
-        id:1,
-        name:"coucou",
+        id:3,
+        name:"a3",
         image:"zzzz"
     },
     {
-        id:1,
-        name:"coucou",
+        id:4,
+        name:"a4",
         image:"zzzz"
     },
     {
-        id:1,
-        name:"coucou",
+        id:5,
+        name:"a5",
         image:"zzzz"
     },
     {
-        id:1,
-        name:"coucou",
+        id:6,
+        name:"a6",
+        image:"zzzz"
+    },
+    {
+        id:7,
+        name:"a7",
+        image:"zzzz"
+    },
+    {
+        id:8,
+        name:"a8",
+        image:"zzzz"
+    },
+    {
+        id:9,
+        name:"a9",
+        image:"zzzz"
+    },
+    {
+        id:10,
+        name:"a10",
         image:"zzzz"
     },
 ]

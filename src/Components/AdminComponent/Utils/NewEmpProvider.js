@@ -3,20 +3,23 @@ import React,{useState,createContext} from 'react'
 export const EmpCtxt = createContext()
 function NewEmpProvider(props) {
     const [formData, setformData] = useState({
-        fname:null,
-        lname:null,
+        first_name:null,
+        last_name:null,
         email:null,
         phone:null,
-        bday:null,
-        cin:null,
-        pass1:null,
-        pass2:null
+        username:null,
+        birthdate:null,
+        CIN:null,
+        password:null,
+        re_password:null,
+        admin:1
     })
    const [profileData, setprofileData] = useState({
-    image:null,
-    resume:null,
-    type:null,
-    xp:null
+    image:"",
+    CV:"",
+    domaine:null,
+    XP:null,
+    sal:null
    })
     return (
         <EmpCtxt.Provider

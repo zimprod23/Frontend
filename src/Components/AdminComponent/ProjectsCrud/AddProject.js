@@ -2,6 +2,7 @@ import { HomeOutlined, PlusOutlined,ProjectOutlined } from '@ant-design/icons';
 import { Breadcrumb, Col, Row } from 'antd';
 import React from 'react'
 import AddProjFormular from './Section/AddProjFormular';
+import {Link} from 'react-router-dom'
 
 
 
@@ -12,10 +13,12 @@ function RenderBreadCumbs(){
             <Breadcrumb.Item href="/admin">
             <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/admin/employees">
+            <Link to={'/admin/projects'}>
+            <Breadcrumb.Item >
             <ProjectOutlined />
             <span>Projects</span>
             </Breadcrumb.Item>
+            </Link>
             <Breadcrumb.Item>
             <PlusOutlined />
             <span>Add Project</span>

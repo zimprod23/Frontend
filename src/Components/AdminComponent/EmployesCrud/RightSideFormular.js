@@ -6,14 +6,15 @@ import { EmpCtxt } from '../Utils/NewEmpProvider'
 
 const {Title} = Typography;
 
-function RightSideFormular() {
+function RightSideFormular(props) {
 
     const {NewPro} = useContext(EmpCtxt)
     const [profileData, setprofileData] = NewPro 
     const [cv, setcv] = useState("");
     const [image, setimage] = useState("")
-    const [xp, setxp] = useState("")
-    const [domain, setdomain] = useState("")
+    const [xp, setxp] = useState(null)
+    const [sal, setsal] = useState(null)
+    const [domain, setdomain] = useState(null)
     useEffect(() => {
     //    console.log("Data from Right")
     //    console.log(cv);
@@ -21,12 +22,15 @@ function RightSideFormular() {
        setprofileData({
            ...profileData,
            image:image,
-           resume:cv,
-           xp:xp,
-           type:domain
+           CV:cv,
+           XP:xp,
+           domaine:domain
        })
     }, [cv,image])
 
+    const onSalChange = (e,v) => {
+        setsal(e.target.value)
+    }
     const onDomainChange = (e,v) =>{
         setdomain(v.value)
     }
@@ -36,14 +40,24 @@ function RightSideFormular() {
    useEffect(() => {
     setprofileData({
         ...profileData,
-        xp:xp,
-        type:domain
+        XP:xp,
+        domaine:domain,
+        sal:parseFloat(sal)
     })
-   }, [domain,xp])
+
+   }, [domain,xp,sal])
     useEffect(() => {
-       console.log(profileData)
+       //console.log(profileData)
     }, [profileData])
-console.log(profileData)
+
+    const savePro = (e) => {
+        if(xp && domain && sal){
+            props.onSave(true)
+       }else{
+           props.onSave(false)
+       }
+    }
+    
     return (
         <div className="Add-Formular">
             <Row justify="center">
@@ -93,8 +107,22 @@ console.log(profileData)
                                     >
                                         <Input value={xp} onChange={onXpChange}/>
                                     </Form.Item>
+                                    <Form.Item
+                                        name="sal"
+                                        label="sal"
+                                        tooltip="Salary"
+                                        rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input salary!',
+                                
+                                        },
+                                        ]}
+                                    >
+                                        <Input value={sal} onChange={onSalChange} addonBefore={'$'}/>
+                                    </Form.Item>
                               </Form>
-                              <Button onClick={() => alert("Data sent")} type="primary" block>Save Profile</Button>
+                              <Button onClick={savePro} type="primary" block>Save Profile</Button>
                          </Col>
                     </div>  
                     </Col>

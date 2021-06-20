@@ -8,6 +8,7 @@ import { getProjectById } from '../../../../actions/projectAction'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import AddtaskDrawer from '../TaskDetails/AddtaskDrawer'
+import { Link } from 'react-router-dom'
 
 const {confirm} = Modal
 const StepsContainer = styled.div`
@@ -93,10 +94,12 @@ function RenderBreadCumbs({proj}){
             <Breadcrumb.Item href="/admin">
             <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/admin/projects">
+            <Link to={'/admin/projects'}>
+            <Breadcrumb.Item >
             <ProjectOutlined />
             <span>Projects</span>
             </Breadcrumb.Item>
+            </Link>
             <Breadcrumb.Item>
             <ArrowRightOutlined />
             <span>{proj}</span>
@@ -126,6 +129,15 @@ function ProjectDetail(props) {
             window.location.replace('/admin')
          }).catch(err => {
             message.error("Oooops couldn't delete this project")
+        })
+    }
+
+    const onArcchievePressed = () => {
+        axios.put(`http://127.0.0.1:8000/project/${proj}/archive-project`).then(res => {
+            message.success("Project Archieved successfully")
+        })
+        .catch(err => {
+            message.error("Could not Archieve this project")
         })
     }
 
@@ -274,7 +286,7 @@ function ProjectDetail(props) {
                              width:"90vw"
                          }}>
                              <Button style={{backgroundColor:"tomato",margin:"10px",float:"right",color:"white"}} onClick={showConfirm}>Delete this project</Button>
-                             <Button style={{margin:"10px",float:"right",backgroundColor:"#fff200",color:"white"}}>Archieve this project</Button>
+                             <Button style={{margin:"10px",float:"right",backgroundColor:"#fff200",color:"white"}} onClick={onArcchievePressed}>Archieve this project</Button>
                         </div>
                     </Row> 
                 </div>

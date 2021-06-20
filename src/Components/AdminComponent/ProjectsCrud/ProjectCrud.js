@@ -7,6 +7,7 @@ import { getallProjects,getSearchedProjects } from '../../../actions/projectActi
 //import EmployeCard from '../Utils/EmployeCard';
 import ProjectCard from '../Utils/ProjectCard';
 import RenderSkeleton from '../Utils/RenderSkeleton'
+import {Link} from 'react-router-dom'
 
 const {Panel} = Collapse;
 const {Title} = Typography
@@ -115,6 +116,7 @@ const ChoicesAvailability = (
 useEffect(() => {
  const dd = {choices : existingChoices,data : OtherOps}
   props.IntegrateFirstFilter({link : OrganizeVars(dd)})
+  props.Archieve(existingChoices)
 }, [existingChoices,OtherOps])
 
     function callback(key) {
@@ -150,6 +152,7 @@ function ProjectCRUD(props) {
   const  proj= useSelector(state => state.project);
   const [fetchedD2, setfetchedD2] = useState(null);
   const [sverb, setsverb] = useState("");
+  const [archieve, setarchieve] = useState(false);
   const OnsearchChange = (e) => {
     setsverb(e.target.value);
   }
@@ -161,20 +164,22 @@ function ProjectCRUD(props) {
   }, [fetchedD2])
 
   useEffect(() => {
-    dispatch(getSearchedProjects(sverb,fetchedD2))
+    dispatch(getSearchedProjects(sverb,archieve,fetchedD2))
   }, [fetchedD2])
   
   useEffect(() => {
-    dispatch(getSearchedProjects(sverb,fetchedD2))
+    dispatch(getSearchedProjects(sverb,archieve,fetchedD2))
   }, [sverb,fetchedD2])
 
   return (
       <>
         <div className={"EmployeCRUD"}>
             <div>
-                <Button type="primary" icon={<PlusOutlined />} size={"large"} >
-                            Add New Project
-                </Button>
+              <Link to={'/admin/project/add_Project'}>
+                  <Button type="primary" icon={<PlusOutlined />} size={"large"} >
+                                Add New Project
+                    </Button>
+              </Link>
             </div>
             <div>
                 <Row justify={"space-around"} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
@@ -196,7 +201,7 @@ function ProjectCRUD(props) {
                           margin:"4px",
                           width:"42vw"
                         }}>
-                         <Filter IntegrateFirstFilter={(val) => setfetchedD2(val)} />
+                         <Filter IntegrateFirstFilter={(val) => setfetchedD2(val)} Archieve={(val) => setarchieve(val && val.includes("archieve")?true:false)}/>
                         </div>
                      </Col>
                 </Row>
