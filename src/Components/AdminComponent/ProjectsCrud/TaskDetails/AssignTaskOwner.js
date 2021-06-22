@@ -11,10 +11,11 @@ function AssignTaskOwner(props)  {
    const [loading, setloading] = useState(false)
    const [visible, setvisible] = useState(false)
    const [employee, setemployee] = useState(null)
+   const [tasrgetEmployee, settasrgetEmployee] = useState(null)
 
    useEffect(() => {
     if(auth.user)
-    axios.get(`http://127.0.0.1:8000/profile/${auth.user.id}/all`).then(res => {
+    axios.get(`http://127.0.0.1:8000/profile/${auth.user.id}/All`).then(res => {
        setemployee(res.data)
     }).catch(err => {
         message.err("Could not fetch employee try after creating the task")
@@ -28,11 +29,20 @@ function AssignTaskOwner(props)  {
     };
   
   const  handleOk = () => {
-      console.log(props.task)
-      // this.setState({ loading: true });
-      // setTimeout(() => {
-      //   this.setState({ loading: false, visible: false });
-      // }, 3000);
+      //console.log(props.task)
+      //alert(tasrgetEmployee)
+      axios.put(`http://127.0.0.1:8000/task/${props.task.id_st}/to-emp/${tasrgetEmployee}`).then(res => {
+        message.success("Task Affected to the employee")
+        setloading(true)
+        setTimeout(() => {
+          setloading(false)
+          setvisible(false)
+           window.location.reload()
+        }, 2000);
+    }).catch(err => {
+        message.error('could not affect task')
+    })
+   
     };
   
    const handleCancel = () => {
@@ -60,12 +70,12 @@ function AssignTaskOwner(props)  {
               </Button>,
             ]}
           >
-            <Select placeholder="Please select an owner" style={{width:"400px"}}>
+            <Select placeholder="Please select an owner" style={{width:"400px"}} onChange={(e) => settasrgetEmployee(e)}>
             {
                 employee && employee.length > 0 && employee.map((item,index) => {
                     return(
                         <>
-                            <Option value={item.id_p}>{item.account.username}</Option>
+                            <Option value={item.id_p}>{item.account.first_name},{item.account.last_name} ({item.account.username})</Option>
                         </>
                     )
                 })

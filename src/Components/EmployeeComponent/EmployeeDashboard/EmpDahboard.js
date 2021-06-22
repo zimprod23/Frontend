@@ -128,7 +128,7 @@ function EmpDahboard() {
                                 return(
                                     <>
                                     <Steps current={current} onChange={(e) => onChange(e,item.id_st)} responsive status="process">
-                                        <Step title="0%" description={item.desc} />
+                                        <Step title="0%" description={item.title} />
                                         <Step title="25%" />
                                         <Step title="50%"  />
                                         <Step title="75%"  />
@@ -154,7 +154,7 @@ function EmpDahboard() {
                   <Col span={24}></Col>
               </Row>
               <div id="Modals">
-                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)}  taskState={taskOps} />
+                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)}  taskState={taskOps} taskProg={progressLevel(current)}/>
               </div>
         </div>
     )

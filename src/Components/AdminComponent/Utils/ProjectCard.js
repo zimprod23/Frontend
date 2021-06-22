@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, ArrowRightOutlined, SettingOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, ArrowRightOutlined, SettingOutlined,InfoCircleFilled } from '@ant-design/icons'
 import { Avatar, Card, Skeleton,Progress,Typography,Space, Tooltip } from 'antd'
 import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom'
@@ -41,16 +41,18 @@ function Description({info}){
     );
 }
 
-function ProjectCard({projectInfos,loadingState}) {
+function ProjectCard({projectInfos,loadingState,isAccessible}) {
+  console.log('--------------')
+  console.log(isAccessible)
     return (
         <div>
             
              <Card
           style={{ width: 300, marginTop: 16 }}
           actions={[
-            <EditOutlined key="edit" />,
-            <DeleteOutlined key="ellipsis" />,
-            (<Link to={`/admin/projects/${projectInfos.id_pj}`}><ArrowRightOutlined /></Link>)
+            // <EditOutlined key="edit" />,
+            // <DeleteOutlined key="ellipsis" />,
+            (!isAccessible ? <Link to={`/admin/projects/${projectInfos.id_pj}`}><ArrowRightOutlined /></Link>:<InfoCircleFilled disabled/>)
           ]}
           hoverable
         >

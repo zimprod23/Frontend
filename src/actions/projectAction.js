@@ -47,13 +47,6 @@ export const getallProjects = () =>async(dispatch) => {
      })
 }
 
-function OrganizeVars(fetchedD2){
-    const type = `${fetchedD2.choices.includes("type") && fetchedD2.data.type?`type=${fetchedD2.data.type}&`:``}`
-    const secteur = `${fetchedD2.choices.includes("secteur") && fetchedD2.data.secteur?`secteur=${fetchedD2.data.secteur}&`:``}`
-    const Device = `${fetchedD2.choices.includes("Device") && fetchedD2.data.Device?`Device=${fetchedD2.data.Device}&`:``}`
-    const orderBy = `${fetchedD2.choices.includes("orderby")?`order-by=budget&`:``}`
-    return type+secteur+Device+orderBy;
-  }
 
 
 export const getSearchedProjects = (searchVerb,archieve,choice=null) => async(dispatch) => {

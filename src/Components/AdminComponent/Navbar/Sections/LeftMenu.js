@@ -16,7 +16,7 @@ function LeftMenu(props) {
    
         paddingTop:"15px"
       }}>
-          <a href="https://github.com/zimprod23/Frontend.git">
+          <a href="https://github.com/zimprod23/Frontend.git" target="_blank">
             GitHub
           </a>
       </Menu.Item>

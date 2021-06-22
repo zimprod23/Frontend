@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import { Breadcrumb, Col, Row, Tooltip,Avatar, Space,Modal, Button, Progress, Anchor,Dropdown,Menu,Skeleton,message } from 'antd';
-import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Breadcrumb, Col, Row, Tooltip,Avatar, Space,Modal, Button, Progress, Anchor,Dropdown,Menu,Skeleton,message,Card } from 'antd';
+import { HomeOutlined, ProjectOutlined,ArrowRightOutlined,SettingOutlined, ExclamationCircleOutlined ,CloseCircleOutlined,CheckCircleOutlined} from '@ant-design/icons';
 import { Typography } from 'antd'
+import {Link} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
 import { getTaskById } from '../../../../actions/taskAction'
 import styled from 'styled-components';
@@ -26,6 +27,7 @@ align-items: center;
 over-flow: hidden;
 `;
 const { Title,Text } = Typography
+const {Meta} = Card
 const SectionThree = styled.div``;
 const SectionFour = styled.div`
 display : flex;
@@ -36,22 +38,65 @@ background: #74b9ff;
 
 `;
 
-
+function ReportContainer(props) {
+    const rapport = (
+        <>
+        <Text>
+            {props.rp.State == 'D'?<CheckCircleOutlined style={{color:"#32ff7e"}}/>:<CloseCircleOutlined style={{color:"#ff6b6b"}}/>}
+            <br />
+            {props.rp.rapport}
+            <br />
+            <Text style={{color:"#48dbfb"}}>{props.rp.date_add}</Text>
+        </Text>
+        </>
+    )
+    return(
+      <Card
+            style={{  marginTop: 16 }}
+        >
+            <Skeleton loading={false} avatar active>
+            <Meta
+                avatar={
+                <Avatar src={props.rp.emp.image} />
+                }
+                title={props.rp.emp.account.username}
+                description={rapport}
+            />
+            </Skeleton>
+      </Card>
+    )
+}
 
 function DropMenu(props){
     
+    const onFreeEmployee = () => {
+         //alert(props.task.id_st)
+         axios.put(`http://127.0.0.1:8000/task/${props.task.id_st}/to-emp/0`).then(res => {
+             message.success("Task Owner removed")
+             setTimeout(() => {
+                window.location.reload()
+             }, 1500);
+         }).catch(err => {
+             message.error('could not remove task owner')
+         })
+    }
+
     const menu = (
         <div >
            <Menu style={{
              padding:"15px",
             margin:"15px",
             textAlign:"center",
+            backgroundColor:"#ecf0f1"
         }}>
              <Menu.Item>
-                     <Title level={5}>{props.task.emp?'Change Employee':'Affect task'}</Title>
+                     <Title level={5}>{props.task.emp != null?'Change or free Employee':'Affect task'}</Title>
                 </Menu.Item>
                 <Menu.Item>
                     <AssignedTaskOwner task={props.task}/>
+                </Menu.Item>
+                <Menu.Item>
+                {props.task.emp != null?<Button style={{color:"white",backgroundColor:"#ff4d4d"}} onClick={onFreeEmployee}>Free Employee</Button>:<></>}
                 </Menu.Item>
             </Menu>
         </div>
@@ -72,14 +117,18 @@ function RenderBreadCumbs({proj,task}){
             <Breadcrumb.Item href="/admin">
             <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/admin/projects">
+            <Link to={"/admin/projects"}>
+            <Breadcrumb.Item>
             <ProjectOutlined />
             <span>Projects</span>
             </Breadcrumb.Item>
-            <Breadcrumb.Item href={`/admin/projects/${proj}`}>
+            </Link>
+            <Link to={`/admin/projects/${proj}`}>
+            <Breadcrumb.Item>
             <ArrowRightOutlined />
             <span>{proj}</span>
             </Breadcrumb.Item>
+            </Link>
             <Breadcrumb.Item>
             <ArrowRightOutlined />
             <span>{task}</span>
@@ -135,7 +184,17 @@ function TaskDetails(props) {
             <SectionOne>
                 <br />
                 <br />
-                 <Title level={2}>{tsk && tsk.task.title}</Title>
+                 <Space>
+                     <Title level={2}>{tsk && tsk.task.title}</Title>
+                     {tsk && tsk.task.State == 'A'||tsk && tsk.task.State == 'C'?
+                     <>
+                         <DropMenu task={tsk && tsk.task}>
+                            <SettingOutlined/>
+                         </DropMenu>
+                     </>:
+                         <></>
+                     }
+                </Space>
                  <Row >
                      <Col span={16}>
                             <Text> 
@@ -144,9 +203,7 @@ function TaskDetails(props) {
                      </Col>
                      <Col span={8}>
                          <div style={{display: `flex`,justifyContent:"flex-end",alignItems:"flex-end"}}>
-                             <DropMenu task={tsk && tsk.task}>
-                             <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} size={100} />
-                             </DropMenu>
+                             <Progress type="circle" percent={tsk.task.progress} />
                         </div>
                      </Col>
                  </Row>
@@ -173,18 +230,26 @@ function TaskDetails(props) {
                    </div>
                    <div>
                        <Title level={4}>#Date Limite</Title>
+                       <p style={{fontSize:"22px",color:"#17c0eb"}}>{tsk.task && tsk.task.end_before?tsk.task.end_before:'-----'}</p>
                    </div>
                    <div>
-                       <Title level={4}>#Start After</Title>
+                       <Title level={4}>#Duration</Title>
+                       <p style={{fontSize:"22px",color:"#17c0eb"}}>{tsk.task && tsk.task.duration?tsk.task.duration:'-------'}</p>
                    </div>
             </SectionThree>
             <br />
             <Title level={3}>Rapport</Title>
             <SectionFour>
-                <div style={{maxWidth: "70vw",padding:"10px",margin:"10px"}}>
-                    <Text>
-                       {/* {tsk.task.rapports[0]} */}
-                    </Text>
+                <div style={{maxWidth: "80vw",padding:"10px",margin:"10px"}}>
+                     {
+                         tsk.task.rapports.map((item,index) => {
+                             return (
+                                 <>
+                             <ReportContainer rp={item}/>
+                             </>
+                             )
+                         })
+                     }
                 </div>
             </SectionFour>
             <div style={{

@@ -15,7 +15,7 @@ function DCreportModal(props) {
  
    const handleOk = () => {
     const data = {
-      progress : 100
+      progress : props.taskState.status == 'Done'?100:25
     }
     const body = {
       rapport : report,

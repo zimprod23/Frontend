@@ -72,10 +72,10 @@ function CardWrapper(props) {
         //textAlign: 'center',
         margin:"00px"
       };
-      useEffect(() => {
-        console.log('---------------')
-        console.log(props.data)
-      }, [props.data])
+    //   useEffect(() => {
+    //     console.log('---------------')
+    //     console.log(props.data)
+    //   }, [props.data])
    
     return (
         <div>

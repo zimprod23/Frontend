@@ -8,7 +8,7 @@ const gridStyle = {
 };
 
 function BadgesWrapper(props) {
-  console.log(badges)
+  //console.log(badges)
     return (
         <div>
             <Card title="Badges" /*style={{width:"30vw"}}*/>

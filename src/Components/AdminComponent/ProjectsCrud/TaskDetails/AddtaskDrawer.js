@@ -31,7 +31,7 @@ function DrawerForm(props) {
 
   useEffect(() => {
       if(auth.user)
-      axios.get(`http://127.0.0.1:8000/profile/${auth.user.id}/all`).then(res => {
+      axios.get(`http://127.0.0.1:8000/profile/${auth.user.id}/All`).then(res => {
          setemployee(res.data)
       }).catch(err => {
           message.err("Could not fetch employee try after creating the task")
@@ -168,7 +168,7 @@ function DrawerForm(props) {
                              employee && employee.length > 0 && employee.map((item,index) => {
                                  return(
                                      <>
-                                         <Option value={item.id_p}>{item.account.username}</Option>
+                                         <Option value={item.id_p}>{item.account.first_name},{item.account.last_name}({item.account.username})</Option>
                                      </>
                                  )
                              })

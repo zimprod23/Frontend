@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import { Breadcrumb, Col, Row, Tooltip,Avatar, Space, Button, Progress, Anchor, message,Modal } from 'antd';
-import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, PlusOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
+import { HomeOutlined, ProjectOutlined,ArrowRightOutlined, DeleteOutlined,FileZipOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
 import { Typography } from 'antd'
 import TaskCard from '../Section/TaskCard';
 import styled from 'styled-components';
@@ -41,7 +41,7 @@ function RenderAnchorLabels(){
 function EmptyTask(){
     return(
         <div>
-             <Title level={3} type="danger">
+             <Title level={3} type="secondary">
                   There are in no active tasks in this section...
              </Title>
         </div>
@@ -54,30 +54,44 @@ function RenderAvaGroup({proj}){
         <Space size={30} align="center" direction="horizontal">
         <Avatar.Group>
         <div>
-        <Tooltip placement="top" title="conception">
-        <Avatar style={{backgroundColor : "#55efc4" }} size="large">
+        <Tooltip placement="top" title="done tasks">
+        <Avatar style={{backgroundColor : "#00b894" }} size="large">
             {proj && proj.count_Done_tasks}
         </Avatar>
         </Tooltip>
         </div>
         <div>    
-        <Tooltip placement="top" title="Codage">
-        <Avatar style={{backgroundColor : "#fdcb6e" }} size="large">
+        <Tooltip placement="top" title="inprogress tasks">
+        <Avatar style={{backgroundColor : "#0984e3" }} size="large">
             {proj && proj.count_Inprogress_tasks}
         </Avatar>
         </Tooltip>
         </div>
         <div>
-        <Tooltip placement="top" title="test">
-        <Avatar style={{backgroundColor : "#74b9ff" }} size="large">
+        <Tooltip placement="top" title="cancelled tasks">
+        <Avatar style={{backgroundColor : "#ff7675" }} size="large">
             {proj && proj.count_Canceled_tasks}
         </Avatar>
         </Tooltip>
         </div>
         <div>
-        <Tooltip placement="top" title="test">
-        <Avatar style={{backgroundColor : "#74b9ff" }} size="large">
+        <Tooltip placement="top" title="affected tasks">
+        <Avatar style={{backgroundColor : "#9980FA" }} size="large">
             {proj && proj.count_affected_tasks}
+        </Avatar>
+        </Tooltip>
+        </div>
+        <div>
+        <Tooltip placement="top" title="all tasks">
+        <Avatar style={{backgroundColor : "#ED4C67" }} size="large">
+            {proj && proj.count_all_tasks}
+        </Avatar>
+        </Tooltip>
+        </div>
+        <div>
+        <Tooltip placement="top" title="created tasks">
+        <Avatar style={{backgroundColor : "#0652DD" }} size="large">
+            {proj && proj.count_created_tasks}
         </Avatar>
         </Tooltip>
         </div>
@@ -113,6 +127,7 @@ function RenderBreadCumbs({proj}){
 function ProjectDetail(props) {
     const dispatch = useDispatch();
     const project = useSelector(state => state.project)
+   // const auth = useSelector(state => state.auth)
     const progress = project.spProj && project.spProj.count_Done_tasks ? ((project.spProj.count_Done_tasks * 100) / (project.spProj.count_all_tasks)):0
     //project.spProj && ((project.spProj.count_Done_tasks / project.spProj.count_all_tasks)*100)
     //const query = queryString.parse(props.location.search);
@@ -205,12 +220,11 @@ function ProjectDetail(props) {
                         <Space size={30} align="center" direction="vertical">
                             <Col span={24}>
                                 <div>
-                                {/* <Button type="primary" icon={<PlusOutlined />} size={"large"} >
-                                    Add New Task
-                                </Button> */}
+                                {
                                 <AddtaskDrawer proj={proj} backlogItems={
                                     project.spProj && project.spProj.backlogItems && project.spProj.backlogItems.length > 0 ? project.spProj.backlogItems:[]
                                 }/>
+                               }
                               </div>
                             </Col>
                             <Col span={24}>
@@ -285,8 +299,8 @@ function ProjectDetail(props) {
                          <div id="Ops" style={{
                              width:"90vw"
                          }}>
-                             <Button style={{backgroundColor:"tomato",margin:"10px",float:"right",color:"white"}} onClick={showConfirm}>Delete this project</Button>
-                             <Button style={{margin:"10px",float:"right",backgroundColor:"#fff200",color:"white"}} onClick={onArcchievePressed}>Archieve this project</Button>
+                             <Button icon={<DeleteOutlined />} style={{backgroundColor:"#ff4757",margin:"10px",float:"right",color:"white"}} onClick={showConfirm}>Delete this project</Button>
+                             <Button icon={<FileZipOutlined />} style={{margin:"10px",float:"right",backgroundColor:"#fffa65",color:"white"}} onClick={onArcchievePressed}>Archieve this project</Button>
                         </div>
                     </Row> 
                 </div>

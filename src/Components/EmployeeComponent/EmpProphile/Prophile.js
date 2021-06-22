@@ -1,7 +1,11 @@
-import React,{ useState } from 'react';
-import { Row,Col,Image, Divider,Typography,Card,Button } from 'antd';
+import React,{ useState,useEffect } from 'react';
+import { Row,Col,Image, Divider,Typography,Card,Button, Badge } from 'antd';
 import styled from 'styled-components'
 import UpdateCV from '../../AdminComponent/Utils/Upload'
+import { useSelector,useDispatch } from 'react-redux';
+import { load_emp_by_username } from '../../../actions/empAction'
+
+
 
 
 const ProphileContainer = styled.div`
@@ -17,8 +21,13 @@ const ProphileContainer = styled.div`
 const { Text } = Typography
 
 const ImageContainer = styled.div`
-max-width: 200px;
-overflow: hidden;
+padding: 7px;
+margin: 5px;
+display : flex;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+//background-color: yellow
 `
 
 const SectionContainer = styled.div`
@@ -31,8 +40,32 @@ margin: 10px;
 //background-color : red;
 `
 
+function RenderDetails(props){
+  return(
+      <div style={{
+          display:"block",
+          textAlign:"center",
+      }}>
+          <Text type="success">{props.emp.domaine}</Text>
+          <p>{props.emp.account.first_name}&nbsp;&nbsp;{props.emp.account.last_name}</p>
+          <p>{props.emp.account.email}</p>
+          <p>{props.emp.account.CIN}</p>
+          <p>{props.emp.account.phone}</p>
+          <p>salaire : {props.emp.sal}$</p>
+      </div>
+  )
+}
+
 
 function Prophile() {
+  const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
+  const emp = useSelector(state => state.emp)
+  useEffect(() => {
+    if(auth.user){
+      dispatch(load_emp_by_username(auth.user.username))
+    }
+  }, [auth.user])
 
   const [cv, setcv] = useState("")
 
@@ -45,16 +78,26 @@ function Prophile() {
     return (
         <div>
             <ProphileContainer>
-               <Row justify="center" style={{backgroundColor:"#dff9fb",width:"90vw",padding:"20px"}}>
+               {auth.user && emp.employee &&
+                <Row justify="center" style={{backgroundColor:"#dff9fb",width:"90vw",padding:"10px"}}>
                    
                    <Col span={24}>
                        <SectionContainer>
                        <ImageContainer>
-                        <Image
+                             <div style={{
+                                           padding : "10px",
+                                           margin:"10px",
+                                           textAlign:"center",
+                                           maxWidth:"25vw"
+                                       }}>
+                         <Badge count={emp.employee.XP} overflowCount={1000000}>
+                         <Image
                                 width={"100%"}
                                 style={{objectFit:"contain"}}
-                                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                src={emp.employee.image && emp.employee.image.length > 10?emp.employee.image:"https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"}
                             />
+                         </Badge>
+                         </div>
                      </ImageContainer>
                        </SectionContainer>
                    
@@ -66,14 +109,7 @@ function Prophile() {
                        <SectionContainer>
                        <Divider>Informations</Divider>
                        <div style={{display:"block",padding:"10px"}}>
-                       <Text>dewfiewohfiewfewiofewifehwogw</Text>
-                        <br />
-                        <Text>dewfiewohfiewfewiofewifehwogw</Text>
-                        <br />
-                        <Text>dewfiewohfiewfewiofewifehwogw</Text>
-                        <br />
-                        <Text>dewfiewohfiewfewiofewifehwogw</Text>
-                        <br />
+                          <RenderDetails emp={emp.employee}/>
                        </div>
                        
                         </SectionContainer>
@@ -101,11 +137,14 @@ function Prophile() {
                          <br />
                          <Text>Download your resume</Text>
                          <br/>
+                         <a href={emp.employee.CV} download target="_blank">
                          <Button type="primary">Download</Button>
+                         </a>
                          </div>
                          </SectionContainer>
                     </Col>
                </Row>
+               }
             </ProphileContainer>
         </div>
     )

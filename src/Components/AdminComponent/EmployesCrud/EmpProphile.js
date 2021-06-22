@@ -86,7 +86,7 @@ function EmpProphile(props) {
     const splitPhase = (obj) => {
         var Dev=0,In=0,T=0,Do=0,Pr=0,M=0;
        obj.tasks.map((e,i) => {
-            if(e.phase == 'Dev')
+            if(e.phase == 'D')
                Dev++       
             else if(e.phase == 'In')
                In++
@@ -128,11 +128,16 @@ function EmpProphile(props) {
     useEffect(() => {
        if(emp.employee && emp.employee.tasks){
            //const {Inprogress,Done,Canceled} = splitData(emp.employee)
-           console.log(splitData(emp.employee))
+          // console.log(splitData(emp.employee))
            setCardData(splitData(emp.employee))
+           console.log(emp.employee)
            setempTasksPhases(splitPhase(emp.employee))
        }
     }, [emp])
+
+    useEffect(() => {
+        console.log(empTasksPhases)
+    }, [empTasksPhases])
 
  if(emp.employee){
     return (

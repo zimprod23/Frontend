@@ -150,6 +150,7 @@ function ProjectCRUD(props) {
   const dispatch = useDispatch();
   var fet = null
   const  proj= useSelector(state => state.project);
+  const auth = useSelector(state => state.auth)
   const [fetchedD2, setfetchedD2] = useState(null);
   const [sverb, setsverb] = useState("");
   const [archieve, setarchieve] = useState(false);
@@ -216,7 +217,7 @@ function ProjectCRUD(props) {
                        return(
                          <>
                              <Col>
-                                <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading}/>
+                               {auth.user && <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading} isAccessible={item.admin.id != auth.user.id}/>}
                              </Col> 
                            </>          
                         )
@@ -225,7 +226,7 @@ function ProjectCRUD(props) {
                     return (
                       <>
                           <Col>
-                               <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading}/>
+                              {auth.user && <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading} isAccessible={item.admin.id != auth.user.id}/>}
                             </Col> 
                       </>
                     )
