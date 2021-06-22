@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {Card,Typography,Button,Row,Col,Avatar,Progress} from 'antd'
 import styled  from 'styled-components';
 import TaskDetail from './TaskDetailModal';
@@ -22,15 +22,16 @@ function InProgressTask(props) {
                 <Col style={{
                     padding : "5px"
                 }}>
-                <Title level={5} >{props.title}</Title>
-                <Text>frgetmophgrwpogoerpgoeg</Text>
+                <Title level={5} >{props.task.title}</Title>
+                <br />
+                <TaskDetail style={{margin: "1px"}} desc={props.task} isCancelled={props.cn}/>
                 </Col>
                 <br />
                 <Col>
                 <div style={{
                     float:"right"
                 }}>
-                      <Progress type="circle" percent={30} width={80} />
+                      <Progress type="circle" percent={props.task.progress} width={80} />
                 </div>
                 </Col>
                 </Row>
@@ -46,7 +47,7 @@ function PendingTask(props){
                 <Col /*flex={16}*/ style={{
                     padding : "5px"
                 }}>
-                <Text>{props.title}</Text>
+                <Text>{props.task.title}</Text>
                 </Col>
                 <br />
                 <Col /*flex={8}*/>
@@ -54,9 +55,9 @@ function PendingTask(props){
                     float:"right",
                     textAlign:"center"
                 }}>
-                        <Button type="primary" size="small" style={{margin: "1px"}}> Start </Button>
+                        {/* <Button type="primary" size="small" style={{margin: "1px"}}> Start </Button> */}
                          &nbsp;
-                        <TaskDetail style={{margin: "1px"}} />
+                        <TaskDetail style={{margin: "1px"}} desc={props.task} isCancelled={props.cn}/>
                 </div>
                 </Col>
                 </Row>
@@ -71,18 +72,23 @@ function CardWrapper(props) {
         //textAlign: 'center',
         margin:"00px"
       };
+      useEffect(() => {
+        console.log('---------------')
+        console.log(props.data)
+      }, [props.data])
+   
     return (
-        <div style={{maxWidth:"65vw"}}>
+        <div>
             <p>{props.children?props.children:<></>}</p>
              <Card title={props.title} style={{padding:"10px"}} >
                  {
-                     Array.from(Array(props.taskData).keys()).map((item,index) => {
+                     props.data && props.data.length > 0? props.data.map((item,index) => {
                          return(
                              <>
-                                     <Card.Grid style={gridStyle} key={item} >{props.stateIndex? <InProgressTask title={"Current Task"}/>:<PendingTask title={"Heyy"}/>}</Card.Grid>
+                                <Card.Grid style={gridStyle} key={index} >{props.stateIndex? <InProgressTask task={item} cn={item.State == 'Ca'?true:false}/>:<PendingTask task={item} cn={item.State == 'Ca'?true:false}/>}</Card.Grid>
                              </>
                          )
-                     })
+                     }):<Title level={4}>No active task in this section ...</Title>
                  }
              </Card>
         </div>

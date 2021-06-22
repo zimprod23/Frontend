@@ -27,7 +27,7 @@ function AdminApp(props) {
     //     dispatch(loadUser())
     // }, [])
 
-   if(auth && auth.user && !auth.user.is_admin){
+   if(auth && auth.user && auth.user.is_admin){
     return (
         <div>
             {/* <Router> */}
@@ -47,7 +47,7 @@ function AdminApp(props) {
         </div>
     )
    }else{
-       if(auth && auth.user && auth.user.is_admin)
+       if(auth && auth.user && !auth.user.is_admin)
        return <Redirect to={'/emp'}/>
        else{
            return <Skeleton active/>

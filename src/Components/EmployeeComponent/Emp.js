@@ -17,7 +17,7 @@ const dispatch = useDispatch()
     
     const auth = useSelector(state => state.auth)
     
-    if(auth && auth.isAthenticated){
+    if(auth && auth.user && !auth.user.is_admin){
         return (
             <div>
                 <MenuHeader />
@@ -26,10 +26,11 @@ const dispatch = useDispatch()
             </div>
         )
     }else{
-        if(auth && !auth.isAthenticated)
-            return <Redirect to={'/'} />
-        else 
+        if(auth && auth.user && auth.user.is_admin)
+        return <Redirect to={'/admin'}/>
+        else{
             return <Skeleton active/>
+        }
     }
 }
 

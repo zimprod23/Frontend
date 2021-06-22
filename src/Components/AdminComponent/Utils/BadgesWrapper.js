@@ -16,7 +16,7 @@ function BadgesWrapper(props) {
                     return(
                           <Card.Grid style={gridStyle}>
                             <div>
-                            <img alt={e.name} src={e.image}/> 
+                            <img alt={e.name} src={e.image} width={'80vw'}/> 
                             </div>
                           </Card.Grid>
                     )

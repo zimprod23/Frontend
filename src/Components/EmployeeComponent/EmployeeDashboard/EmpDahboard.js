@@ -1,18 +1,19 @@
 import React, { useState,useEffect } from 'react'
 import styled from 'styled-components'
-import { Row,Col,Steps,Divider,Typography,Button } from 'antd'
+import { Row,Col,Steps,Divider,Typography,Button, message } from 'antd'
 import { CloseCircleOutlined,SaveOutlined } from '@ant-design/icons'
 import ProjectCardWrapper from './ProjectCardWrapper'
 import DCreport from './DCreport'
 import DCreportModal from './DCreportModal'
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { progressTask } from '../../../actions/taskAction'
+import axios from 'axios'
 
 const {Step} = Steps
-const { Text } = Typography
+const { Text,Title } = Typography
 
 const TasksContainer = styled.div`
-  padding: 18px;
+  padding: 15px;
   margin:10px;
   
   max-width: 90vw
@@ -44,6 +45,29 @@ function EmpDahboard() {
 
     const [current, setcurrent] = useState(0)
     const [visible, setvisible] = useState(false)
+    const [emptasksdata, setemptasksdata] = useState(null)
+    const auth = useSelector(state => state.auth)
+
+    const [taskOps, settaskOps] = useState({
+        taskId:null,
+        status:null,
+        emp:auth.user && auth.user.id
+    })
+
+    const splitData = (task) => {
+        const Inp = []
+        const A = []
+        task.map((item,index) => {
+            if(item.State == 'A')
+               A.push(item)
+            else if(item.State == 'Inp'){
+                Inp.push(item)
+            }
+        })
+
+        return {Inp,A}
+    }
+
     let taskId = 1;
     const dispatch = useDispatch();
     
@@ -51,25 +75,38 @@ function EmpDahboard() {
         return lvl * 25
     }
 
-    const OntaskCancel = () => {
-        alert("Done")
+    const onTaskEnded = () => {
+       setvisible(true)
     }
-    const OnTaskDone = () => {
-         setvisible(true)
-    }
-    useEffect(() => {
-        console.log(visible)
-    }, [visible])
+    // useEffect(() => {
+    //     //console.log(visible)
+    //     //alert(triggerTask)
+    // }, [triggerTask])
 
-    const onChange = current => {
+    useEffect(() => {
+        if(auth.user)
+        axios.get(`http://127.0.0.1:8000/profile/${auth.user.username}`).then(res => {
+             setemptasksdata(splitData(res.data.tasks))
+             console.log(res.data.tasks)
+        }).catch(err => {
+            message.error("Oooops something went wrong")
+        })
+        console.log(emptasksdata)
+    }, [auth])
+
+    const onChange = (current,id) => {
         console.log('onChange:', current);
         setcurrent(current);
-        if(current == 4){
-           OnTaskDone()
-        }else if(current == 5){
-            OntaskCancel()
+        if(current == 5){
+            settaskOps({...taskOps,taskId:id,status:'Done'})
+            onTaskEnded()
+          // OnTaskDone()
+        }else if(current == 6){
+            settaskOps({...taskOps,taskId:id,status:'Cancel'})
+            //OntaskCancel()
+            onTaskEnded()
         }else{
-            dispatch(progressTask(progressLevel(current),taskId))
+            dispatch(progressTask(progressLevel(current),id))
         }
       };
     return (
@@ -85,27 +122,39 @@ function EmpDahboard() {
               <Row justify="center" style={{/*backgroundColor: 'blue',*/padding:"25px"}}>
                   <Col span={24}>
                       <TasksContainer>
-                          <Divider>In Progress</Divider>
-                      <Steps current={current} onChange={onChange} responsive status="process">
-                        <Step title="0%" description="This is a description." />
-                        <Step title="25%" description="This is a description." />
-                        <Step title="50%" description="This is a description." />
-                        <Step title="75%" description="This is a description." />
-                        <Step title="Done" description="This is a description."  icon={<SaveOutlined />}/>
-                        <Step title="Cancel" description="Abort Task" icon={<CloseCircleOutlined />} status="error"/>
-                        </Steps>
+                      <Divider>In Progress</Divider>
+                         {
+                             emptasksdata && emptasksdata.Inp && emptasksdata.Inp.length > 0?emptasksdata.Inp.map((item,index) => {
+                                return(
+                                    <>
+                                    <Steps current={current} onChange={(e) => onChange(e,item.id_st)} responsive status="process">
+                                        <Step title="0%" description={item.desc} />
+                                        <Step title="25%" />
+                                        <Step title="50%"  />
+                                        <Step title="75%"  />
+                                        <Step title="100%"  />
+                                        <Step title="Done"   icon={<SaveOutlined />}/>
+                                        <Step title="Cancel" description="Abort Task" icon={<CloseCircleOutlined />} status="error"/>
+                                    </Steps>
+                                    </>
+                                )
+                             }):
+                             <Title level={4}>No Active task in Progress ...</Title>
+                         }
                       </TasksContainer>
                   </Col>
                   <Col span={24}>
                       <TasksContainer>
                           <Divider>To do</Divider>
-                          <ProjectCardWrapper title={"Done"} taskData={8} stateIndex={false}/>
+                          {
+                              emptasksdata && emptasksdata.A &&  <ProjectCardWrapper title={"To do"} data={emptasksdata.A} stateIndex={false}/>
+                          }
                       </TasksContainer>
                   </Col>
                   <Col span={24}></Col>
               </Row>
               <div id="Modals">
-                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)} status={null}/>
+                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)}  taskState={taskOps} />
               </div>
         </div>
     )

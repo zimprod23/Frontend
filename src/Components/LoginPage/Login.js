@@ -145,13 +145,13 @@ if(auth && auth.isAthenticated){
               )}
 
               <Form.Item>
-                <Checkbox
+                {/* <Checkbox
                   id="rememberMe"
                   onChange={handleRememberMe}
                   checked={rememberMe}
                 >
                   Remember me
-                </Checkbox>
+                </Checkbox> */}
                 <Link
                  to="/reset_password"
                   className="login-form-forgot"

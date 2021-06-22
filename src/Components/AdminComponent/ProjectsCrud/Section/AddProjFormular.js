@@ -40,6 +40,7 @@ function VerifyEnteries(object) {
 
 function AddProjectFormular() {
   const project = useSelector(state => state.project);
+  const auth = useSelector(state => state.auth)
   const dispatch = useDispatch();
   const [componentSize, setComponentSize] = useState('large');
   const [form] = Form.useForm();
@@ -52,7 +53,7 @@ function AddProjectFormular() {
         budget:null,
         start_date:null,
         date_limit:null,
-        admin : 1
+        admin : auth.user && auth.user.id
   })
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
@@ -69,7 +70,7 @@ function AddProjectFormular() {
         budget:values.budget,
         start_date:formatDate(values.date_start),
         date_limit:formatDate(values.date_limite),
-        admin:1
+        admin:auth.user && auth.user.id
      })
      console.log(VerifyEnteries(projdata))
      //dispatch(addProject(projdata));
@@ -80,7 +81,7 @@ function AddProjectFormular() {
     if(!VerifyEnteries(projdata)){
       dispatch(addProject(projdata));
     }
-  }, [projdata.title])
+  }, [projdata.title,auth.user])
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>

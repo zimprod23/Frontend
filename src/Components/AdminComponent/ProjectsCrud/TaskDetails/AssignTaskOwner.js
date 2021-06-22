@@ -1,60 +1,80 @@
-import React from 'react'
-import { Modal, Button,Input } from 'antd';
+import React,{useState,useEffect} from 'react'
+import { Modal, Button,Select,message } from 'antd';
+import {useSelector} from 'react-redux'
+import axios from 'axios';
 
-class AssignTaskOwner extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            loading: false,
-            visible: false,
-          };
-    }
+
+const {Option} = Select
+function AssignTaskOwner(props)  {
    
-    showModal = () => {
-      this.setState({
-        visible: true,
-      });
+   const auth = useSelector(state => state.auth)
+   const [loading, setloading] = useState(false)
+   const [visible, setvisible] = useState(false)
+   const [employee, setemployee] = useState(null)
+
+   useEffect(() => {
+    if(auth.user)
+    axios.get(`http://127.0.0.1:8000/profile/${auth.user.id}/all`).then(res => {
+       setemployee(res.data)
+    }).catch(err => {
+        message.err("Could not fetch employee try after creating the task")
+    })
+   // axios.get().then().catch()
+}, [auth.user])
+
+
+   const showModal = () => {
+      setvisible(true)
     };
   
-    handleOk = () => {
-      this.setState({ loading: true });
-      setTimeout(() => {
-        this.setState({ loading: false, visible: false });
-      }, 3000);
+  const  handleOk = () => {
+      console.log(props.task)
+      // this.setState({ loading: true });
+      // setTimeout(() => {
+      //   this.setState({ loading: false, visible: false });
+      // }, 3000);
     };
   
-    handleCancel = () => {
-      this.setState({ visible: false });
+   const handleCancel = () => {
+      setvisible(false)
     };
   
-    render() {
-      const { visible, loading } = this.state;
       return (
         <>
         <div >
-        <Button type="primary" onClick={this.showModal}>
+        <Button type="primary" onClick={showModal}>
             Assign the task
           </Button>
         </div>
           <Modal
             visible={visible}
-            title="Title"
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
+            title={props.task.emp?'Change employee':'affect task'}
+            onOk={handleOk}
+            onCancel={handleCancel}
             footer={[
-              <Button key="back" onClick={this.handleCancel}>
+              <Button key="back" onClick={handleCancel}>
                 Return
               </Button>,
-              <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
+              <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
                 Submit
               </Button>,
             ]}
           >
-           <Input placeholder="Enter the users mail" type="email" required/>
+            <Select placeholder="Please select an owner" style={{width:"400px"}}>
+            {
+                employee && employee.length > 0 && employee.map((item,index) => {
+                    return(
+                        <>
+                            <Option value={item.id_p}>{item.account.username}</Option>
+                        </>
+                    )
+                })
+            }
+            </Select>
           </Modal>
         </>
       );
-    }
+
   }
 
 

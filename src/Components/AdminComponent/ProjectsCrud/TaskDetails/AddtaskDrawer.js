@@ -1,7 +1,7 @@
 import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { useState,useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { addNewTask } from '../../../../actions/taskAction';
 import axios from 'axios';
 
@@ -23,19 +23,21 @@ function formatDate(date) {
   }
 
 function DrawerForm(props) {
+  const auth = useSelector(state => state.auth)
   const [visible, setvisible] = useState(false)
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [employee, setemployee] = useState(null)
 
   useEffect(() => {
-      axios.get('http://127.0.0.1:8000/profile/1/all').then(res => {
+      if(auth.user)
+      axios.get(`http://127.0.0.1:8000/profile/${auth.user.id}/all`).then(res => {
          setemployee(res.data)
       }).catch(err => {
           message.err("Could not fetch employee try after creating the task")
       })
      // axios.get().then().catch()
-  }, [])
+  }, [auth.user])
 
   const showDrawer = () => {
     setvisible(true)
@@ -54,10 +56,11 @@ function DrawerForm(props) {
         nv: values.nv,
         start_before:formatDate(values.start_before)?formatDate(values.start_before):null ,
         end_before: formatDate(values.end_before)?formatDate(values.end_before):null,
-        strat_after_tasks: values.strat_after_tasks,
+        strat_after_tasks: values.strat_after_tasks?values.strat_after_tasks:[],
         emp: values.emp?values.emp:null,
         project: props.proj
      }
+     console.log(data)
      dispatch(addNewTask(data))
   }
 

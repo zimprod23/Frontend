@@ -46,13 +46,12 @@ function DropMenu(props){
              padding:"15px",
             margin:"15px",
             textAlign:"center",
-            backgroundColor:"#7efff5"
         }}>
              <Menu.Item>
-                     <Title level={5}>Owner setting</Title>
+                     <Title level={5}>{props.task.emp?'Change Employee':'Affect task'}</Title>
                 </Menu.Item>
                 <Menu.Item>
-                    <AssignedTaskOwner />
+                    <AssignedTaskOwner task={props.task}/>
                 </Menu.Item>
             </Menu>
         </div>
@@ -145,7 +144,7 @@ function TaskDetails(props) {
                      </Col>
                      <Col span={8}>
                          <div style={{display: `flex`,justifyContent:"flex-end",alignItems:"flex-end"}}>
-                             <DropMenu >
+                             <DropMenu task={tsk && tsk.task}>
                              <Avatar src={`https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png`} size={100} />
                              </DropMenu>
                         </div>

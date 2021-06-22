@@ -1,7 +1,9 @@
 import React, { useState,useContext, useEffect } from 'react';
 import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,DatePicker } from 'antd';
 import { EmpCtxt } from '../../Utils/NewEmpProvider'
+import { useSelector } from 'react-redux'
 const { Option } = Select;
+
 
 
 const formItemLayout = {
@@ -39,7 +41,8 @@ export default function RegistrationForm(props) {
   const [form] = Form.useForm();
   const { NewEmp } = useContext(EmpCtxt);
   const [formData, setformData] = NewEmp;
- 
+  const auth = useSelector(state => state.auth)
+
   function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -67,7 +70,7 @@ export default function RegistrationForm(props) {
       re_password:values.confirm,
       birthdate:formatDate(values.Birthday),
       username:values.username,
-      admin:1
+      admin:auth.user && auth.user.id
     })
     props.onSave(true)
   };

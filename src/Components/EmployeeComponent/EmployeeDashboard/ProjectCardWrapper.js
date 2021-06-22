@@ -1,7 +1,9 @@
-import React from 'react'
-import {Card,Typography,Button,Row,Col,Avatar,Progress} from 'antd'
+import React,{useEffect} from 'react'
+import {Card,Typography,Button,Row,Col,Avatar,Progress, message} from 'antd'
 import styled  from 'styled-components';
 import TaskDetail from '../../AdminComponent/Utils/TaskDetailModal';
+import axios from 'axios';
+
 
 const { Text,Title } = Typography
 const TodoTask = styled.div`
@@ -15,47 +17,34 @@ display : flex;
 justify-content: space-between;
 `;
 
-function InProgressTask(props) {
-    return (
-        <div>
-          <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col style={{
-                    padding : "5px"
-                }}>
-                <Title level={5} >{props.title}</Title>
-                <Text>frgetmophgrwpogoerpgoeg</Text>
-                </Col>
-                <br />
-                <Col>
-                <div style={{
-                    float:"right"
-                }}>
-                      <Progress type="circle" percent={30} width={80} />
-                </div>
-                </Col>
-                </Row>
-        </div>
-    )
-}
-
-
 function PendingTask(props){
+
+    const onStartClicked = () => {
+        //alert(props.task.id_st)
+        axios.put(`http://127.0.0.1:8000/task/${props.task.id_st}/start-task`).then(res => {
+                message.success("Task started with success")
+        }).catch(err => {
+                message.error("Could not start task")
+        })
+    }
+
     return(
         <div>
-            <Row justify="space-between" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col flex={16} style={{
+            <Row justify="space-between" /*style={{padding:"10px"}}*/ wrap gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <Col /*flex={16}*/ style={{
                     padding : "5px"
                 }}>
-                <Text>{props.title}</Text>
+                <Text>{props.task.title}</Text>
                 </Col>
                 <br />
-                <Col flex={8}>
+                <Col /*flex={8}*/>
                 <div style={{
-                    float:"right"
+                    float:"right",
+                    textAlign:"center"
                 }}>
-                        <Button type="primary"> Start </Button>
+                        <Button type="primary" style={{margin: "1px"}} onClick={onStartClicked}> Start </Button>
                          &nbsp;
-                        <TaskDetail />
+                        <TaskDetail style={{margin: "1px"}} desc={props.task} isCancelled={props.cn}/>
                 </div>
                 </Col>
                 </Row>
@@ -70,18 +59,23 @@ function CardWrapper(props) {
         //textAlign: 'center',
         margin:"00px"
       };
+      useEffect(() => {
+        console.log('---------------')
+        console.log(props.data)
+      }, [props.data])
+   
     return (
-        <div style={{maxWidth:"85vw"}}>
+        <div>
             <p>{props.children?props.children:<></>}</p>
              <Card title={props.title} style={{padding:"10px"}} >
                  {
-                     Array.from(Array(props.taskData).keys()).map((item,index) => {
+                     props.data && props.data.length > 0? props.data.map((item,index) => {
                          return(
                              <>
-                                     <Card.Grid style={gridStyle} key={item} >{props.stateIndex? <InProgressTask title={"Current Task"}/>:<PendingTask title={"Heyy"}/>}</Card.Grid>
+                                <Card.Grid style={gridStyle} key={index} ><PendingTask task={item} cn={item.State == 'Ca'?true:false}/></Card.Grid>
                              </>
                          )
-                     })
+                     }):<Title level={4}>No active task in this section ...</Title>
                  }
              </Card>
         </div>
@@ -89,47 +83,3 @@ function CardWrapper(props) {
 }
 
 export default CardWrapper
-
-
-
-
-
-
-
-
-
-
-
-/*
-import React from 'react'
-import { Card,Avatar } from 'antd'
-
-const { Meta } = Card
-
-function ProjectCardWrapper(props) {
-  
-  const gridStyle = {
-    width: '100%',
-    //textAlign: 'center',
-    margin:"00px"
-  };
-
-
-    return (
-         <>
-        <Card style={{ width: "85vw", marginTop: 16 }} loading={false}>
-          <Meta
-            avatar={
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            }
-            title="Project title"
-            // description= {<></>}
-          />
-            <Card.Grid style={gridStyle} >{props.children}</Card.Grid>
-        </Card>
-         </>
-    )
-}
-
-export default ProjectCardWrapper
-*/
