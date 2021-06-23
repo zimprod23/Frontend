@@ -7,8 +7,6 @@ const { Search } = Input
 function ApexChart(){
    const [series, setseries] = useState([{
     data: [44, 55, 41, 64]
-  }, {
-    data: [53, 32, 33, 52]
   }])
 
   const [options, setoptions] = useState({

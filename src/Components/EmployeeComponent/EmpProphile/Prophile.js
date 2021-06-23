@@ -131,10 +131,10 @@ function Prophile() {
                          <SectionContainer extended={true}>
                          <Divider>Infos</Divider>
                          <div style={{padding:"15px",width:"45vw",display:"block",textAlign:"center"}}>
-                           <Text>Change your resume</Text>
+                           {/* <Text>Change your resume</Text>
                            <br />
                          <UpdateCV onCvChange={(val) => setcv(val)}/>
-                         <br />
+                         <br /> */}
                          <Text>Download your resume</Text>
                          <br/>
                          <a href={emp.employee.CV} download target="_blank">

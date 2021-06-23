@@ -203,11 +203,11 @@ function ProjectDetail(props) {
                                 </Title>
                                 <br />
                                 <Title level={5}>
-                                &#9733; secteur :  { project.spProj && project.spProj.secteur }
+                                &#9733; field :  { project.spProj && project.spProj.secteur }
                                 </Title>
                                 <br />
                                 <Title level={5}>
-                                &#9733; start date : { project.spProj && project.spProj.start_date } || limit date : { project.spProj && project.spProj.date_limit }
+                                &#9733; start date : { project.spProj && project.spProj.start_date } || deadline : { project.spProj && project.spProj.date_limit }
                                 </Title>
                             </div>
                             <div style={{padding:"5vh",}}>

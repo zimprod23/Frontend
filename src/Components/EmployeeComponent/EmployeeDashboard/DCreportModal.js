@@ -13,6 +13,8 @@ function DCreportModal(props) {
         setVisible(props.isVisible)
     }, [props.isVisible])
  
+   
+
    const handleOk = () => {
     const data = {
       progress : props.taskState.status == 'Done'?100:25
@@ -30,6 +32,7 @@ function DCreportModal(props) {
          setTimeout(() => {
           setVisible(false);
           setloading(false)
+          props.reload(1)
           props.onCloseEvent(false)
          }, 3000);
         }).catch(err => {

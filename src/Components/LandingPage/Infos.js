@@ -58,13 +58,13 @@ function Infos(props) {
     return (
         <Section>
             <Container>
-                <ColumnLeft>
+                <ColumnLeft reverse={false}>
                     <h1>{props.info.heading}</h1>
                     <h1>{props.info.para1}</h1>
                     <h1>{props.info.para2}</h1>
                     <Button to={'/'}> {props.info.buttonLabels} </Button>
                 </ColumnLeft>
-                <ColumnRight reverse={props.info.reverse}>
+                <ColumnRight reverse={true}>
                      <img src={props.info.image} alt={'dsa'} />
                 </ColumnRight>
             </Container>

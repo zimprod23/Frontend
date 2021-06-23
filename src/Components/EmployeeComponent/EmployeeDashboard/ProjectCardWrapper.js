@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {Card,Typography,Button,Row,Col,Avatar,Progress, message} from 'antd'
 import styled  from 'styled-components';
 import TaskDetail from '../../AdminComponent/Utils/TaskDetailModal';
@@ -23,6 +23,7 @@ function PendingTask(props){
         //alert(props.task.id_st)
         axios.put(`http://127.0.0.1:8000/task/${props.task.id_st}/start-task`).then(res => {
                 message.success("Task started with success")
+                props.load(1)
         }).catch(err => {
                 message.error("Could not start task")
         })
@@ -59,11 +60,17 @@ function CardWrapper(props) {
         //textAlign: 'center',
         margin:"00px"
       };
+      const [load, setload] = useState(0)
       useEffect(() => {
         console.log('---------------')
         console.log(props.data)
       }, [props.data])
    
+      useEffect(() => {
+          if(load !== 0)
+             props.reload(1)
+      }, [load])
+
     return (
         <div>
             <p>{props.children?props.children:<></>}</p>
@@ -72,7 +79,7 @@ function CardWrapper(props) {
                      props.data && props.data.length > 0? props.data.map((item,index) => {
                          return(
                              <>
-                                <Card.Grid style={gridStyle} key={index} ><PendingTask task={item} cn={item.State == 'Ca'?true:false}/></Card.Grid>
+                                <Card.Grid style={gridStyle} key={index} ><PendingTask task={item} cn={item.State == 'Ca'?true:false} load={(val) => setload(load + val)}/></Card.Grid>
                              </>
                          )
                      }):<Title level={4}>No active task in this section ...</Title>

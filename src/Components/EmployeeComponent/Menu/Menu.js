@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { Menu,Row } from 'antd'
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { MailOutlined, LogoutOutlined, DashboardOutlined,ProfileOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import { logout } from '../../../actions/authAction'
@@ -24,13 +24,13 @@ function MenuHeader() {
        <Row justify="center">
        <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
        
-        <Menu.Item key="Prophile"  icon={<AppstoreOutlined />}>
+        <Menu.Item key="Prophile"  icon={<ProfileOutlined />}>
          <Link to={`/emp`}>Prophile</Link>
         </Menu.Item>
-        <Menu.Item key="Dashboard" icon={<MailOutlined />} >
+        <Menu.Item key="Dashboard" icon={<DashboardOutlined />} >
           <Link to={`/emp/dashboard`}>Dashboard</Link>
         </Menu.Item>
-        <Menu.Item key="Logout" icon={<MailOutlined />} onClick={handleLogout}>
+        <Menu.Item key="Logout" icon={<LogoutOutlined />} onClick={handleLogout}>
           Logout
         </Menu.Item>
       </Menu>

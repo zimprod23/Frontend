@@ -46,6 +46,7 @@ function EmpDahboard() {
     const [current, setcurrent] = useState(0)
     const [visible, setvisible] = useState(false)
     const [emptasksdata, setemptasksdata] = useState(null)
+    const [reload, setreload] = useState(0)
     const auth = useSelector(state => state.auth)
 
     const [taskOps, settaskOps] = useState({
@@ -92,7 +93,7 @@ function EmpDahboard() {
             message.error("Oooops something went wrong")
         })
         console.log(emptasksdata)
-    }, [auth])
+    }, [auth,reload])
 
     const onChange = (current,id) => {
         console.log('onChange:', current);
@@ -147,14 +148,14 @@ function EmpDahboard() {
                       <TasksContainer>
                           <Divider>To do</Divider>
                           {
-                              emptasksdata && emptasksdata.A &&  <ProjectCardWrapper title={"To do"} data={emptasksdata.A} stateIndex={false}/>
+                              emptasksdata && emptasksdata.A &&  <ProjectCardWrapper title={"To do"} data={emptasksdata.A} stateIndex={false} reload={(val) =>setreload(reload+val)}/>
                           }
                       </TasksContainer>
                   </Col>
                   <Col span={24}></Col>
               </Row>
               <div id="Modals">
-                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)}  taskState={taskOps} taskProg={progressLevel(current)}/>
+                   <DCreportModal isVisible={visible} onCloseEvent={(val) => setvisible(val)}  taskState={taskOps} taskProg={progressLevel(current)} reload={(val) =>setreload(reload+val)}/>
               </div>
         </div>
     )

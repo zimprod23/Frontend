@@ -1,3 +1,4 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
 .App {
   text-align: center;
 }
@@ -36,3 +37,26 @@
     transform: rotate(360deg);
   }
 }
+
+.Slider-Image{
+  /* background-color: aqua; */
+  position: absolute;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  object-fit: cover
+}
+
+.image-gallery-slide img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 100vh !important;
+  object-fit: cover !important;
+  overflow: hidden !important;
+  object-position: center center !important;  
+}
+
+/* .fullscreen .image-gallery-slide img {
+  max-height: 100vh;
+} */

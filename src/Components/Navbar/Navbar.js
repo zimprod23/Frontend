@@ -1,10 +1,11 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 import { MenuData } from '../../data/MenuData';
 import { Button } from '../Styles/Button';
 import Bars from "../../Images/bars.svg";
 import { FaBars }  from 'react-icons/fa'
+//import { useWindowPosition } from './ScrollNavPos'
 
 
 const Nav = styled.nav`
@@ -15,6 +16,9 @@ padding : 1rem 2rem;
 z-index : 100;
 position : fixed;
 width : 100%;
+transistion: 0.8s ease-in-out;
+background-color:${({scrolled}) => (scrolled ? '#eee' : '')};
+opacity : 0.8
 `;
 
 
@@ -79,8 +83,15 @@ color : #fff;
 `;
 
 function Navbar(props) {
+    const [scrolleve, setscrolleve] = useState(true)
+    const handleScroll = () => {
+        setscrolleve(true)
+    }
+    //console.log(useWindowPosition())  
+
+
     return (
-        <Nav>
+        <Nav scrolled={scrolleve} >
            <Logo to={'/'}>Projecy</Logo>
            <MenuBars onClick={props.toogle}/>
            <NavMenu>

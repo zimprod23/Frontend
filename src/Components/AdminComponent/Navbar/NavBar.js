@@ -25,7 +25,7 @@ function NavBar() {
         style={{ /*position:"fixed",*/ zIndex: 5, width: "100%" }}
       >
         <div className="menu__logo">
-          <Link to="/"> Projecy </Link>
+          <Link to="/admin"> Projecy </Link>
         </div>
         <div id="blocker"></div>
         <div className="menu__container">

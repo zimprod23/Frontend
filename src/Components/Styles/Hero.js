@@ -124,17 +124,17 @@ function Hero(props) {
     const length = props.Slides.length;
     const timeout = useRef(null)
 
-//     useEffect(() => {
-//         const nextSlide = () => {
-//            setcurrent(current === length -1 ? 0 : current + 1)
-//        }
-//        timeout.current = setTimeout(nextSlide,3000)
-//        return function(){
-//            if(timeout.current){
-//                clearTimeout(timeout.current)
-//            }
-//        }       
-//    }, [current,length])
+    useEffect(() => {
+        const nextSlide = () => {
+           setcurrent(current === length -1 ? 0 : current + 1)
+       }
+       timeout.current = setTimeout(nextSlide,3000)
+       return function(){
+           if(timeout.current){
+               clearTimeout(timeout.current)
+           }
+       }       
+   }, [current,length])
 
     const nextSlide = () => {
         if(timeout.current){
@@ -158,10 +158,12 @@ function Hero(props) {
             <HeroWrapper>
            {props.Slides.map((item,index) => (
                 <>
-                   <HeroSlide key={index}>
+                   <HeroSlide key={index} >
                       {index === current && ( 
-                          <HeroSlider>
-                          <HeroImage src={item.image} alt={item.alt}/>
+                          <HeroSlider style={{
+                            transitionDuration: '0.5s'
+                         }}>
+                          <HeroImage src={item.image} alt={item.alt} />
                           <HeroContent>
                           <h1>{item.title}</h1>
                           <Button to={'#'} primary={true} css={`max-width: 160px;display: flex;flex-direction:row;padding:10px !important;`}>
@@ -175,8 +177,8 @@ function Hero(props) {
                 </>
             ))}
             <SliderButton>
-                <PreviousArrow onClick={prevSlide}/>
-                <NextArrow onClick={nextSlide}/>
+                {/* <PreviousArrow onClick={prevSlide}/>
+                <NextArrow onClick={nextSlide}/> */}
             </SliderButton>
             </HeroWrapper>
         </HeroSection>
