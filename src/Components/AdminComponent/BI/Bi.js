@@ -1,10 +1,12 @@
 import { BookOutlined, FireOutlined } from '@ant-design/icons';
-import { Affix, Row, Tabs ,Divider} from 'antd';
-import React from 'react';
+import { Button, Row, Tabs ,Divider} from 'antd';
+import React,{useRef} from 'react';
 import styled from 'styled-components'
 import ProjTab from './EmployeeTab/PrjT';
 import SpProjData from './EmployeeTab/SpProjData';
 import EmpTab from './ProjectsTab/EmpT';
+import ReactToPrint from 'react-to-print';
+
 
 const { TabPane } = Tabs;
 
@@ -14,11 +16,22 @@ const MainContainer = styled.div`
 padding : 10px;
 margin: 10px;
 display: flex;
-flex-wrap: wrap;
-height: 98vh;     
+flex-wrap: wrap;   
 `;
 
 function TabCont(){
+  const componentRef = useRef();
+  const generalClickEvent = () => {
+    
+      // var content = window.document.getElementById("general");
+      // var pri = window.document.getElementById("general").contentWindow;
+      // pri.document.open();
+      // pri.document.write(content.innerHTML);
+      // pri.document.close();
+      // pri.focus();
+      // pri.print();
+  }
+
     return(
     <Tabs defaultActiveKey="1" size="large">
     <TabPane
@@ -30,13 +43,27 @@ function TabCont(){
       }
     >
       <div style={{padding:"10px",width:"100vw"}}>
-        <Row justify="space-around" style={{height:"85vh"}}>
-            <ProjTab />
-        </Row>
-        <Divider orientation="right">Search A project</Divider>
-         <div>
-           <SpProjData />
-         </div>
+        {/* <Row justify="space-around" style={{height:"85vh"}}> */}
+        <div id="general" 
+        ref={componentRef}
+        style={{
+       //   backgroundColor:"red",
+          // display:"flex",
+          // flexWrap:"wrap",
+          // padding:"10px",
+          minHeight:"150vh"   
+        }}>
+          <ProjTab />
+        </div>
+        <ReactToPrint
+        trigger={() => <Button type="primary" >Print General</Button>}
+        content={() => componentRef.current}
+      />
+        {/* </Row> */}
+          <Divider orientation="right">Search A project</Divider>
+          {/* <div>
+            <SpProjData />
+          </div> */}
       </div>
       {/* {newsStatus && RenderSpin()}
       {LoadMoreButton(handleClick)} */}
