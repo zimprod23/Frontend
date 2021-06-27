@@ -1,4 +1,4 @@
-import { BookOutlined, FireOutlined } from '@ant-design/icons';
+import { BookOutlined, ProjectOutlined,GroupOutlined } from '@ant-design/icons';
 import { Button, Row, Tabs ,Divider} from 'antd';
 import React,{useRef} from 'react';
 import styled from 'styled-components'
@@ -18,19 +18,15 @@ margin: 10px;
 display: flex;
 flex-wrap: wrap;   
 `;
+const ProjContainer = styled.div`
+flex : 1;
+flex-wrap: wrap;   
+flex-basis: 0;
+overflow-y: auto;
+`;
 
 function TabCont(){
   const componentRef = useRef();
-  const generalClickEvent = () => {
-    
-      // var content = window.document.getElementById("general");
-      // var pri = window.document.getElementById("general").contentWindow;
-      // pri.document.open();
-      // pri.document.write(content.innerHTML);
-      // pri.document.close();
-      // pri.focus();
-      // pri.print();
-  }
 
     return(
     <Tabs defaultActiveKey="1" size="large">
@@ -38,32 +34,30 @@ function TabCont(){
       key="1"
       tab={
         <span>
-          <FireOutlined /> Projects
+          <ProjectOutlined /> Projects
         </span>
       }
     >
-      <div style={{padding:"10px",width:"100vw"}}>
+      <div>
         {/* <Row justify="space-around" style={{height:"85vh"}}> */}
+        <ProjContainer>
         <div id="general" 
-        ref={componentRef}
-        style={{
-       //   backgroundColor:"red",
-          // display:"flex",
-          // flexWrap:"wrap",
-          // padding:"10px",
-          minHeight:"150vh"   
-        }}>
+        ref={componentRef}>
           <ProjTab />
         </div>
         <ReactToPrint
         trigger={() => <Button type="primary" >Print General</Button>}
         content={() => componentRef.current}
       />
+      </ProjContainer>
         {/* </Row> */}
+        <br />
+        <ProjContainer>
           <Divider orientation="right">Search A project</Divider>
-          {/* <div>
+          <div>
             <SpProjData />
-          </div> */}
+          </div>
+          </ProjContainer>
       </div>
       {/* {newsStatus && RenderSpin()}
       {LoadMoreButton(handleClick)} */}
@@ -72,33 +66,13 @@ function TabCont(){
       key="2"
       tab={
         <span>
-          <BookOutlined /> Employee
+          <GroupOutlined /> Employee
         </span>
       }
     >
-      {/* <div
-        style={{
-          padding: "15px",
-          margin: "10px auto",
-          textAlign: "right",
-          maxWidth: "700px",
-        }}
-      >
-        <Search
-          placeholder="input search text"
-          enterButton="Search"
-          size="large"
-          value={SearchValue}
-          onSearch={handleSearch}
-          onChange={handleSearchChange}
-        /> 
-      </div> */}
       <div>
         <Row gutter={[16, 16]}>{<EmpTab />}</Row>
       </div>
-
-      {/* {newsStatus && RenderSpin()}
-      {LoadMoreButton(handleClick2)} */}
     </TabPane>
   </Tabs>
 )
@@ -106,9 +80,9 @@ function TabCont(){
 
 function Bi() {
     return (
-        <MainContainer>
+        // <MainContainer>
             <TabCont />
-        </MainContainer>
+        // </MainContainer>
     )
 }
 

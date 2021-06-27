@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import styled from 'styled-components';
 import Chart from "react-apexcharts";
-import { Col, Row } from 'antd';
+import { Col, Row,Typography } from 'antd';
 import ActiveProj from './ProjectGeneral/ActiveProj';
 import ProjBySect from './ProjectGeneral/ProjBySect';
 import ProjByType from './ProjectGeneral/ProjectByType';
@@ -10,6 +10,7 @@ import ProjByAdmin from './ProjectGeneral/ProjByAdmin';
 import ProjectTime from './ProjectGeneral/ProjectTime';
 import InDangerProjs from './ProjectGeneral/InDangerProjs';
 
+const {Title} = Typography
 const EmpTb = styled.div`
 padding : 5px;
 margin: 5px;
@@ -22,29 +23,41 @@ function EmpTab() {
     
     return (
         <EmpTb>
+            <div style={{
+                //display:"flex",
+                flex: "1",
+                flexWrap:"wrap",
+                flexBasis:"0",
+                //minHeight:"200vh",
+                //minWidth:"auto",
+            }}>
+                <Title level={4}>
+                    General Infos
+                </Title>
             <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                  <Col>
-                 <div style={{padding:"10px"}}><ActiveProj /></div>
+                 <div ><ActiveProj /></div>
                  </Col>
                  <Col>
-                     <div style={{padding:"10px"}}><ProjBySect /></div>
+                     <div ><ProjBySect /></div>
                  </Col>
                  <Col>
-                     <div style={{padding:"10px"}}><ProjByType /></div>
+                     <div ><ProjByType /></div>
                  </Col>
                  <Col>
-                     <div style={{padding:"10px"}}>< ProjByDev/></div>
+                     <div >< ProjByDev/></div>
                  </Col>
                  <Col>
-                     <div style={{padding:"10px"}}>< ProjByAdmin/></div>
+                     <div >< ProjByAdmin/></div>
                  </Col>
                  <Col>
-                     <div style={{padding:"10px"}}>< ProjectTime/></div>
+                     <div >< ProjectTime/></div>
                  </Col>
                  {/* <Col>
                      <div style={{padding:"10px"}}>< InDangerProjs/></div>
                  </Col> */}
             </Row>
+            </div>            
         </EmpTb>
     )
 }

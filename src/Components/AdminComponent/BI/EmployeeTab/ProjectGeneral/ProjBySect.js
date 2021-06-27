@@ -50,7 +50,7 @@ useEffect(() => {
             {options1 && series1.length > 0 && <Chart
                 options={options1}
                 series={series1}
-                type="pie"
+                type="donut"
                 width="400"
             />}
         </>
