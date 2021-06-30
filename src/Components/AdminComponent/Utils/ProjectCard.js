@@ -13,7 +13,7 @@ function Description({info}){
         <div className="Des-Wrapper">
           <Space direction="vertical">
               <Progress type="circle" percent={parseInt(estimatedPoucentage)} width={80}/>
-              <Title  level={4}  >{info.date_limit ? info.date_limit:"not yet defined"}</Title>
+              <Title  level={4}  >{info.start_date ? info.start_date:"not yet defined"}</Title>
          </Space>
         </div>
         <div className="Phase-Wrapper">

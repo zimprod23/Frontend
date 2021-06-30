@@ -1,7 +1,6 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import styled from 'styled-components';
-import Chart from "react-apexcharts";
-import { Col, Row,Typography } from 'antd';
+import { Col, Row,Typography,Button } from 'antd';
 import ActiveProj from './ProjectGeneral/ActiveProj';
 import ProjBySect from './ProjectGeneral/ProjBySect';
 import ProjByType from './ProjectGeneral/ProjectByType';
@@ -9,6 +8,7 @@ import ProjByDev from './ProjectGeneral/ProjByDev';
 import ProjByAdmin from './ProjectGeneral/ProjByAdmin';
 import ProjectTime from './ProjectGeneral/ProjectTime';
 import InDangerProjs from './ProjectGeneral/InDangerProjs';
+import ReactToPrint from 'react-to-print';
 
 const {Title} = Typography
 const EmpTb = styled.div`
@@ -20,7 +20,7 @@ height: 98vh;
 `;
 
 function EmpTab() {
-    
+    const componentRef = useRef()
     return (
         <EmpTb>
             <div style={{
@@ -30,7 +30,9 @@ function EmpTab() {
                 flexBasis:"0",
                 //minHeight:"200vh",
                 //minWidth:"auto",
-            }}>
+            }}
+            ref={componentRef}
+            >
                 <Title level={4}>
                     General Infos
                 </Title>
@@ -53,11 +55,15 @@ function EmpTab() {
                  <Col>
                      <div >< ProjectTime/></div>
                  </Col>
-                 {/* <Col>
+                 <Col>
                      <div style={{padding:"10px"}}>< InDangerProjs/></div>
-                 </Col> */}
+                 </Col>
             </Row>
-            </div>            
+            </div>     
+            <ReactToPrint
+        trigger={() => <Button type="primary" >Print General</Button>}
+        content={() => componentRef.current}
+      />       
         </EmpTb>
     )
 }

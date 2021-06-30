@@ -5,15 +5,14 @@ import 'dayjs/locale/es'
 import dayjs from 'dayjs';
 
 
-function ProjectTime() {
+function ProXpWeek(props) {
 
     const [options, setoptions] = useState(null)
     const [series, setseries] = useState([])
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/project/BI/project-time').then(res => {
-          // console.log(new Date(res.data.categories[1]).slice(1,3))
-          // console.log(dayjs(res.data.categories[2]).format('DD MMM YYYY'))
+        if(props.username)
+        axios.get(`http://127.0.0.1:8000/profile/BI/${props.username}/profile-xp-by-weeks`).then(res => {
             setoptions({
                 chart: {
                     height: 350,
@@ -45,10 +44,10 @@ function ProjectTime() {
                   }
            },)
             setseries(
-              res.data.series
+              [res.data.series]
             )
         })
-     }, [])
+     }, [props.username])
 
     return (
         <div>
@@ -62,6 +61,6 @@ function ProjectTime() {
     )
 }
 
-export default ProjectTime
+export default ProXpWeek
 
 

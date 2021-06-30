@@ -49,7 +49,7 @@ useEffect(() => {
                 options={options1}
                 series={series1}
                 type="bar"
-                height="350"
+                height="400"
             />}
         </>
     );

@@ -6,6 +6,7 @@ import ProjTab from './EmployeeTab/PrjT';
 import SpProjData from './EmployeeTab/SpProjData';
 import EmpTab from './ProjectsTab/EmpT';
 import ReactToPrint from 'react-to-print';
+import SpEmpData from './ProjectsTab/SpEmpData';
 
 
 const { TabPane } = Tabs;
@@ -45,10 +46,10 @@ function TabCont(){
         ref={componentRef}>
           <ProjTab />
         </div>
-        <ReactToPrint
+        {/* <ReactToPrint
         trigger={() => <Button type="primary" >Print General</Button>}
         content={() => componentRef.current}
-      />
+      /> */}
       </ProjContainer>
         {/* </Row> */}
         <br />
@@ -71,7 +72,18 @@ function TabCont(){
       }
     >
       <div>
-        <Row gutter={[16, 16]}>{<EmpTab />}</Row>
+        {/* <Row gutter={[16, 16]}> */}
+          <ProjContainer>
+          <EmpTab />
+          </ProjContainer>
+        {/* </Row> */}
+        <br />
+        <ProjContainer>
+          <Divider orientation="right">Search An Employee</Divider>
+          <div>
+            <SpEmpData />
+          </div>
+          </ProjContainer>
       </div>
     </TabPane>
   </Tabs>

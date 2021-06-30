@@ -1,75 +1,65 @@
-import React, { useState } from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import styled from 'styled-components';
-import Chart from 'react-apexcharts'
-import { Col, Row } from 'antd';
+import { Col, Row,Typography,Button } from 'antd';
+import ReactToPrint from 'react-to-print';
+import AdminProfile from './EmpGeneral/AdminProfile';
+import ProfileTime from './EmpGeneral/ProfileTime';
+import ProfileSalarySum from './EmpGeneral/ProfileSalarySum';
+import ProfileAgeSum from './EmpGeneral/ProfileAgeSum';
+import ProfileXpSum from './EmpGeneral/ProfileXpSum';
 
-const PrjTab = styled.div`
+const {Title} = Typography
+const EmpTb = styled.div`
 padding : 5px;
 margin: 5px;
 display: flex;
 flex-wrap: wrap;
+height: 98vh;  
 `;
 
-function NbrEmp(){  
-    const [options, setoptions] = useState({
-        chart: {
-          id: "basic-bar"
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-        }
-      })
-    const [series, setseries] = useState([
-        {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
-        }
-      ])
-    return (
-        <>
-             <Chart
-                options={options}
-                series={series}
-                type="line"
-                width="500"
-            />
-        </>
-    );
-}
-
-function Histo(){
-    const [options, setoptions] = useState( {
-        chart: {
-          id: "basic-bar"
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-        }
-      })
-    const [series, setseries] = useState([
-        {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
-        }
-      ])
-    return (
-        <>
-          <Chart options={options} series={series} type="bar" width="500" />
-        </>
-    );
-}
 function EmpTab() {
+    const componentRef = useRef()
     return (
-        <PrjTab>
-           <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+        <EmpTb>
+            <div style={{
+                flex: "1",
+                flexWrap:"wrap",
+                flexBasis:"0",
+            }}
+            ref={componentRef}
+            >
+                <Title level={4}>
+                    General Infos
+                </Title>
+                <br />
+            <Row justify="center" gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
                  <Col>
-                 <div><NbrEmp /></div>
+                 <div ><AdminProfile /></div>
+                 </Col>
+               
+                 <Col>
+                     <div ><ProfileTime /></div>
+                 </Col>
+                   <Col>
+                     <div ><ProfileSalarySum /></div>
                  </Col>
                  <Col>
-                     <div><Histo /></div>
+                     <div >< ProfileAgeSum/></div>
                  </Col>
+                <Col>
+                     <div >< ProfileXpSum/></div>
+                 </Col>
+                 {/* <Col>
+                     <div >< ProjectTime/></div>
+                 </Col> */}
+
             </Row>
-        </PrjTab>
+            </div>     
+            <ReactToPrint
+        trigger={() => <Button type="primary" >Print General</Button>}
+        content={() => componentRef.current}
+      />       
+        </EmpTb>
     )
 }
 

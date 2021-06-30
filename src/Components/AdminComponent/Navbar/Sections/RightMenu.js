@@ -54,7 +54,7 @@ function RightMenu(props) {
         
         <Menu.Item  key="BI">
           <Link to={`/admin/bi`}>
-              BI
+              Dashboard
           </Link>
           </Menu.Item >
           <Menu.Item  key="Proj">

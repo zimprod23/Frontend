@@ -195,7 +195,7 @@ function ProjectDetail(props) {
                                 </div>
                                 <br />
                                 <Title level={5}>
-                                &#9733; budjet : { project.spProj && project.spProj.budget }
+                                &#9733; budget : { project.spProj && project.spProj.budget }
                                 </Title>
                                 <br />
                                 <Title level={5}>

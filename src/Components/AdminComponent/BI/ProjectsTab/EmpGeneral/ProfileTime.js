@@ -5,13 +5,13 @@ import 'dayjs/locale/es'
 import dayjs from 'dayjs';
 
 
-function ProjectTime() {
+function ProfileTime() {
 
     const [options, setoptions] = useState(null)
     const [series, setseries] = useState([])
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/project/BI/project-time').then(res => {
+        axios.get('http://127.0.0.1:8000/profile/BI/profile-time').then(res => {
           // console.log(new Date(res.data.categories[1]).slice(1,3))
           // console.log(dayjs(res.data.categories[2]).format('DD MMM YYYY'))
             setoptions({
@@ -45,7 +45,7 @@ function ProjectTime() {
                   }
            },)
             setseries(
-              res.data.series
+              [res.data.series]
             )
         })
      }, [])
@@ -55,13 +55,13 @@ function ProjectTime() {
             {options && series.length > 0 && <Chart
                 options={options}
                 series={series}
-                type="line"
-                width="400"
+                type="bar"
+                width="450"
             />}
         </div>
     )
 }
 
-export default ProjectTime
+export default ProfileTime
 
 
