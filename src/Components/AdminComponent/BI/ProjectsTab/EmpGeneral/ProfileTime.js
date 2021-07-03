@@ -29,7 +29,7 @@ function ProfileTime() {
                     curve: 'straight'
                   },
                   title: {
-                    text: 'Product Trends by Month',
+                    text: 'profile by time',
                     align: 'left'
                   },
                   grid: {
@@ -45,7 +45,7 @@ function ProfileTime() {
                   }
            },)
             setseries(
-              [res.data.series]
+              res.data.series
             )
         })
      }, [])

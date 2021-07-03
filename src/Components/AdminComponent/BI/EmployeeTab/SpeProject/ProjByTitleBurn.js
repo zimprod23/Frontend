@@ -22,12 +22,12 @@ useEffect(() => {
           dataLabels: {
             enabled: false
           },
+          title: {
+            text: 'Project By Title burndown',
+            align: 'left'
+          },
           stroke: {
             curve: 'straight'
-          },
-          title: {
-            text: 'Product Trends by Month',
-            align: 'left'
           },
           grid: {
             row: {

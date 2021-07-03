@@ -22,15 +22,15 @@ function ProjectTime() {
                       enabled: false
                     }
                   },
+                  title: {
+                    text: 'Project By Time',
+                    align: 'left'
+                  },
                   dataLabels: {
                     enabled: false
                   },
                   stroke: {
                     curve: 'straight'
-                  },
-                  title: {
-                    text: 'Product Trends by Month',
-                    align: 'left'
                   },
                   grid: {
                     row: {

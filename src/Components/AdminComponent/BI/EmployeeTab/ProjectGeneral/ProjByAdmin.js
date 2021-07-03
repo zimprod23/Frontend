@@ -20,6 +20,10 @@ useEffect(() => {
             type: 'bar',
             height: 350
           },
+          title: {
+            text: 'Project By Admin',
+            align: 'left'
+          },
         //   plotOptions: {
         //     bar: {
         //       horizontal: false,
@@ -38,7 +42,7 @@ useEffect(() => {
            xaxis : {categories : res.data.labels}
         })
        setseries1(
-         [res.data.series]
+         res.data.series
        )
    })
 }, [])

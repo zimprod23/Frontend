@@ -14,14 +14,14 @@ useEffect(() => {
             type: 'radar',
           },
           title: {
-            text: 'Basic Radar Chart'
+            text: 'Profile by (task & phase)'
           },
           xaxis: {
             categories: res.data.categories
           }
       },)
        setseries1(
-         [res.data.series]
+         res.data.series
        )
    })
 }, [props.username])

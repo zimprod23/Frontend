@@ -14,7 +14,7 @@ useEffect(() => {
             height: 350
           },
           title: {
-            text: 'Basic BoxPlot Chart',
+            text: 'Profile XP summary',
             align: 'left'
           },
           plotOptions: {

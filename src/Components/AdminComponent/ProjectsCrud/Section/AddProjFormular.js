@@ -68,8 +68,8 @@ function AddProjectFormular() {
         secteur:values.secteur,
         Device:values.device,
         budget:values.budget,
-        start_date:formatDate(values.date_start),
-        date_limit:formatDate(values.date_limite),
+        start_date:values.date_start?formatDate(values.date_start):null,
+        date_limit:values.date_limite?formatDate(values.date_limite):null,
         admin:auth.user && auth.user.id
      })
      console.log(VerifyEnteries(projdata))
@@ -189,7 +189,7 @@ function AddProjectFormular() {
       <Form.Item label="Start Date" name="date_start" 
          rules={[
           {
-            required: true,
+            required: false,
             message: 'Please input The project start date!',
           },
         ]}
@@ -200,7 +200,7 @@ function AddProjectFormular() {
         <Form.Item label="Date Limite" name="date_limite" 
          rules={[
           {
-            required: true,
+            required: false,
             message: 'Please input The project limite date!',
           },
         ]}

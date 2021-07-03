@@ -78,7 +78,7 @@ function RightSideFormular(props) {
                               <Form name="OtherData">
                               <Form.Item
                                     name="Domaine"
-                                    label="Domaine"
+                                    label="Field"
                                     tooltip="Your Dev Field?"
                                         rules={[
                                         {
@@ -88,9 +88,14 @@ function RightSideFormular(props) {
                                         ]}
                                         >
                                         <Select value={domain} onChange={onDomainChange}>
-                                            <Select.Option value="demo">Demo</Select.Option>
-                                            <Select.Option value="demo1">Demo</Select.Option>
-                                            <Select.Option value="demo2">Demo</Select.Option>
+                                            <Select.Option value="Frontend Dev">Frontend Dev</Select.Option>
+                                            <Select.Option value="Backend Dev">Backend Dev</Select.Option>
+                                            <Select.Option value="Tester">Tester</Select.Option>
+                                            <Select.Option value="Database Administrator">Database Administrator</Select.Option>
+                                            <Select.Option value="Systems Administrator">Systems Administrator</Select.Option>
+                                            <Select.Option value="Security Specialist">Security Specialist</Select.Option>
+                                            <Select.Option value="Project Manager">Project Manager</Select.Option>
+                                            <Select.Option value="Application Developer">Application Developer</Select.Option>
                                         </Select>
                                 </Form.Item>
                                 <Form.Item

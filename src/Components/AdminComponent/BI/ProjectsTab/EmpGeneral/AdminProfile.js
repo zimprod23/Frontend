@@ -12,10 +12,14 @@ useEffect(() => {
         chart: {
             id: "Active-proj"
           },
+          title: {
+            text: 'Profile by admin',
+            align: 'left'
+          },
            xaxis : {categories : res.data.categories}
         })
        setseries1(
-         [ res.data.series]
+         res.data.series
        )
    })
 }, [])

@@ -18,6 +18,10 @@ useEffect(() => {
             stacked: true,
             stackType: '100%'
           },
+          title: {
+            text: 'Project By title (task/phase/state)',
+            align: 'left'
+          },
           responsive: [{
             breakpoint: 480,
             options: {

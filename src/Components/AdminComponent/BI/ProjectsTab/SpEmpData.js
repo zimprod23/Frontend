@@ -94,6 +94,7 @@ function SpEmpData() {
     axios.get(`http://127.0.0.1:8000/profile/${searchVerv}`).then(res => {
         
             if(res.data){
+              //alert("hdiehwfiew")
                 setsearchIndex({
                   loading : false,
                   isFetched : true
@@ -101,6 +102,7 @@ function SpEmpData() {
                 setFinalSv(res.data)
                 console.log(res.data)
             }else{
+             // alert("fowefioe")
               setsearchIndex({
                 loading : false,
                 isFetched : false

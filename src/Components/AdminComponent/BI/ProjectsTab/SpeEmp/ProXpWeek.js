@@ -28,7 +28,7 @@ function ProXpWeek(props) {
                     curve: 'straight'
                   },
                   title: {
-                    text: 'Product Trends by Month',
+                    text: 'Profile XP by weeks',
                     align: 'left'
                   },
                   grid: {
@@ -44,7 +44,7 @@ function ProXpWeek(props) {
                   }
            },)
             setseries(
-              [res.data.series]
+              res.data.series
             )
         })
      }, [props.username])

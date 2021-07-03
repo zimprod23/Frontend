@@ -22,6 +22,10 @@ useEffect(() => {
               horizontal: true,
             }
           },
+          title: {
+            text: 'Best Employees',
+            align: 'left'
+          },
           dataLabels: {
             enabled: false
           },

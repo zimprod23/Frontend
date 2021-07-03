@@ -13,6 +13,9 @@ useEffect(() => {
           width: 350,
           type: 'pie',
         },
+        title: {
+          text: 'Profile by (task & type)'
+        },
         labels: res.data.categories,
         responsive: [{
           breakpoint: 480,
@@ -24,7 +27,7 @@ useEffect(() => {
         }]
       },)
        setseries1(
-         res.data.series.data
+         res.data.series[0].data
        )
    })
 }, [props.username])

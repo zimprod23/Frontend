@@ -3,21 +3,8 @@ import Chart from "react-apexcharts";
 import axios from 'axios';
 
 function ProjByDev() {
-    const [options, setoptions] = useState({
-        chart: {
-          id: "Active-proj"
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-        }
-      })
-    const [series, setseries] = useState([
-        {
-          name: "Active Projects",
-          data: [30, 40, 45, 50, 49, 60, 70, 91]
-        }
-      ])
-      const [options1, setoptions1] = useState(null)
+
+    const [options1, setoptions1] = useState(null)
     const [series1, setseries1] = useState([])
 useEffect(() => {
    axios.get('http://127.0.0.1:8000/project/BI/project-by-device').then(res => {
@@ -25,6 +12,10 @@ useEffect(() => {
         chart: {
           width: 380,
           type: 'pie',
+        },
+        title: {
+          text: 'Project By device',
+          align: 'left'
         },
         labels: res.data.labels,
         responsive: [{
@@ -40,7 +31,7 @@ useEffect(() => {
         }]
       },)
        setseries1(
-         res.data.series.data
+         res.data.series[0].data
        )
    })
 }, [])
