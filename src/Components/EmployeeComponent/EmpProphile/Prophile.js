@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import UpdateCV from '../../AdminComponent/Utils/Upload'
 import { useSelector,useDispatch } from 'react-redux';
 import { load_emp_by_username } from '../../../actions/empAction'
+import BadgesWrapper from '../../AdminComponent/Utils/BadgesWrapper';
 
 
 
@@ -118,13 +119,11 @@ function Prophile() {
                     <Col span={24}>
                          <SectionContainer>
                          <Divider>Your Badges</Divider>
-                              <Card title="Badges" style={{padding:"10px"}}>
-                              <Card.Grid style={gridStyle}>Content</Card.Grid>
-                                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                                <Card.Grid style={gridStyle}>Content</Card.Grid>
-                              </Card>
+                              <div style={{
+                                 width:"55vw"
+                              }}>
+                              <BadgesWrapper emp={emp.employee}/>
+                              </div>
                          </SectionContainer>
                     </Col>
                     <Col span={24}>

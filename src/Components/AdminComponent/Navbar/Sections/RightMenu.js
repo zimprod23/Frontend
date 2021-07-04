@@ -59,12 +59,12 @@ function RightMenu(props) {
           </Menu.Item >
           <Menu.Item  key="Proj">
             <Link to={'/admin/projects'}>
-                Project
+                Projects
             </Link>
           </Menu.Item>
           <Menu.Item  key="Emp">
             <Link to={'/admin/employees'}> 
-                  Employes
+                  Employees
             </Link>
           </Menu.Item>
         

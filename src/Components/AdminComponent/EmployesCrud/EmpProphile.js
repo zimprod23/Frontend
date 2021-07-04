@@ -136,7 +136,7 @@ function EmpProphile(props) {
     }, [emp])
 
     useEffect(() => {
-        console.log(empTasksPhases)
+       // console.log(empTasksPhases)
     }, [empTasksPhases])
 
  if(emp.employee){
@@ -186,7 +186,7 @@ function EmpProphile(props) {
                                         </a>
                                        </div>
                                        <div >
-                                         <BadgesWrapper />
+                                         <BadgesWrapper emp={emp.employee}/>
                                        </div>  
                                    </BlockSection>              
                                </LeftSideContainer>
