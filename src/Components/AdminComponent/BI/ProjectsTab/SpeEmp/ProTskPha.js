@@ -14,7 +14,7 @@ useEffect(() => {
             type: 'radar',
           },
           title: {
-            text: 'Profile by (task & phase)'
+            text: 'Points gained by phase'
           },
           xaxis: {
             categories: res.data.categories

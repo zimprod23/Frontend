@@ -14,7 +14,7 @@ useEffect(() => {
             type: 'radar',
           },
           title: {
-            text: 'Profile by project device'
+            text: 'Points gained by device'
           },
           xaxis: {
             categories: res.data.categories

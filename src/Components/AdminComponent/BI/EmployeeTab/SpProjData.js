@@ -41,7 +41,8 @@ function SpProjData() {
       ...searchIndex,
       loading : true
     })
-    axios.get(`http://127.0.0.1:8000/project/?archive=True&search=${searchVerv}`).then(res => {
+    //`http://127.0.0.1:8000/project/lol/?search=${searchVerv}`
+    axios.get(`http://127.0.0.1:8000/project/lol/?search=${searchVerv}`).then(res => {
             if(res.data.length > 0){
                 setsearchIndex({
                   loading : false,

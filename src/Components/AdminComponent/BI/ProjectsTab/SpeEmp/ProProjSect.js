@@ -14,7 +14,7 @@ useEffect(() => {
             type: 'radar',
           },
           title: {
-            text: 'Profile by projects sector'
+            text: 'Points gained by sector'
           },
           xaxis: {
             categories: res.data.categories

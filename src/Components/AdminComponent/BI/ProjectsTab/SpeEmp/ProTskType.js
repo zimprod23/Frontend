@@ -14,7 +14,7 @@ useEffect(() => {
           type: 'pie',
         },
         title: {
-          text: 'Profile by (task & type)'
+          text: 'Profile by (tasks type)'
         },
         labels: res.data.categories,
         responsive: [{

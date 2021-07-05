@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 let x = [1,2,3]
 
 function Projects(props) {
+  const auth = useSelector(state => state.auth)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTopHeadlineProjects());
@@ -33,7 +34,7 @@ function Projects(props) {
                     return (
                       <Col>
                         {console.log(item)}
-                        <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading}/>
+                       {auth.user && <ProjectCard key={index} projectInfos={item} loadingState={proj.isLoading} isAccessible={item.admin.id != auth.user.id}/>}
                       </Col>
                     )
                 }):<RenderSkeleton />}

@@ -52,9 +52,9 @@ function EmpTab() {
                  <Col>
                      <div >< ProjByAdmin/></div>
                  </Col>
-                 {/* <Col>
+                 <Col>
                      <div >< ProjectTime/></div>
-                 </Col> */}
+                 </Col>
                  <Col>
                      <div style={{padding:"10px"}}>< InDangerProjs/></div>
                  </Col>

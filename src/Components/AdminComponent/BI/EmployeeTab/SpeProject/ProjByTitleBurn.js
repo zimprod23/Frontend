@@ -23,7 +23,7 @@ useEffect(() => {
             enabled: false
           },
           title: {
-            text: 'Project By Title burndown',
+            text: 'Project By Task/Story burndown',
             align: 'left'
           },
           stroke: {

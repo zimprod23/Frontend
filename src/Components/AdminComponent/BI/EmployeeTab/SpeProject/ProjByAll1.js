@@ -19,7 +19,7 @@ useEffect(() => {
             stackType: '100%'
           },
           title: {
-            text: 'Project By title (task/phase/state)',
+            text: 'Project By title (state)',
             align: 'left'
           },
           responsive: [{
